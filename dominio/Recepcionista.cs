@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace negocio
+namespace dominio
 {
-    public class Class1
+    internal class Recepcionista:Persona
     {
+        public string IdRecepcionista {  get; set; }
     }
 }

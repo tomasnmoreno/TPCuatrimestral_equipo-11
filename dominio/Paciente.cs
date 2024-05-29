@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    public class Paciente
+    public class Paciente:Persona
     {
+        public string IdPaciente { get; set; }
+        public List <string> HistorialTurnos { get; }
     }
 }
