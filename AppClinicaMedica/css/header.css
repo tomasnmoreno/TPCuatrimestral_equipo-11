@@ -1,7 +1,7 @@
 ﻿@import url(styles.css);
 
 .header__info{
-    background-color: aqua;
+    background-color: seagreen;
     text-align: end;
     overflow: hidden;
 }
@@ -9,17 +9,18 @@
 .header__info p{
     color: white;
     font-weight: 700;
-    padding: 5px 25px 5px 0;
+    padding: 10px 25px 5px 0;
     white-space: nowrap;
     animation: moveText 20s linear infinite;
+    margin: 0;
 }
 
 .container-navbar {
     background-color: white;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     width: 100%;
-    overflow: hidden;
+    box-shadow: 0px 2px 10px 0px green;
 }
 
 .navbar {
@@ -46,9 +47,10 @@
     color: dodgerblue;
 }
 
-.navbar__nav{
+.navbar__nav {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .navbar__nav>*{
@@ -59,6 +61,7 @@
 .nav__list {
     display: flex;
     list-style: none;
+    margin: 0;
 }
 
 .nav__link{
@@ -66,11 +69,6 @@
     font-size: 1.1rem;
     font-weight: 500;
 }
-
-/*.btn {
-    margin: 10px;
-    padding: 10px 20px;
-}*/
 
 .nav__link a {
     color: dodgerblue;
@@ -105,6 +103,10 @@
     display: none;
 }
 
+.nav__list-mobile {
+    list-style: none;
+}
+
 @keyframes moveText{
     0%{
         transform: translateX(100%);
@@ -115,8 +117,8 @@
 }
 
 
-@media only screen and (max-width: 868.18px) {
-    /*body{
+@media only screen and (max-width: 1170px) {
+/*    body{
         background-color: red;
     }*/
 
@@ -136,7 +138,7 @@
         right: 0;
         background-color: white;
         width: 100%;
-        /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
+        box-shadow: 0  2px 10px green;
         z-index: 1;
     }
 
@@ -147,14 +149,15 @@
         margin-top: 5px;
     }
 
-    .nav__list-mobile{
+    .nav__list-mobile {
         list-style: none;
         padding: 20px;
         margin-bottom: 15px;
     }
 
-    .nav__list-mobile a{
+    .nav__list-mobile a {
         position: relative;
+        /*box-shadow: 0 2px 10px green;*/
     }
 
     .nav__link-mobile a::after {
@@ -169,6 +172,10 @@
         transition: opacity 0.3s ease-in-out;
     }
 
+    .nav__link-mobile:hover a::after {
+        opacity: 1;
+    }
+
     .navbar__toggle-btn{
         display: block;
         margin: 0;
@@ -178,3 +185,9 @@
         margin:0 10px;
     }
 }
+
+@media only screen and (max-width: 600px){
+    .button-ingresar{
+        margin: 0;
+    }
+} 

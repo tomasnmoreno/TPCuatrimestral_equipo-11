@@ -1,10 +1,11 @@
-﻿//document.addEventListener("DOMContentLoaded", () => {
+﻿console.log('hola jeje');
+//document.addEventListener("DOMContentLoaded", () => {
 
 //    //selec de elementosdel DOM//
 //    const toggleButton = document.querySelector(".navbar__toggle-btn");
 //    const mobileMenu = document.querySelector(".navbar__mobile-menu");
 
-//    //console.log(mobileMenu)
+//    console.log(mobileMenu)
 
 //    const toggleMenu = () => {
 //        mobileMenu.style.display =

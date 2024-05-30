@@ -14,6 +14,23 @@ a{
 }
 
 .container{
-    max-width:1440pX;
+    max-width:2500pX;
     padding: 0 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+.button-primary {
+    color: black;
+    background-color: forestgreen;
+}
+
+.button-primary:hover{
+    background-color: lightgreen;
+    transition: background-color 0.3s ease-in-out;
 }
