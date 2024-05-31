@@ -20,7 +20,7 @@ namespace negocio
         
         public AccesoDatos()
         {
-            conn = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_P3_DB; integrated security=true");
+            conn = new SqlConnection("server=.\\DEVELOP; database=TP_CUATRIMESTRAL; integrated security=true");
             cmd = new SqlCommand();
         }
 
@@ -40,12 +40,11 @@ namespace negocio
                 reader = cmd.ExecuteReader();
             }
             catch (Exception ex)
-            {
+            {   
                 throw ex;
             }
             
         }
-
         public void escribir()
         {
             cmd.Connection = conn;

@@ -34,3 +34,12 @@ a{
     background-color: lightgreen;
     transition: background-color 0.3s ease-in-out;
 }
+
+.titulo{
+    margin: 30px;
+}
+
+.especialidades{
+    margin-top: 30px;
+    background-color: red;
+}

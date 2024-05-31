@@ -21,7 +21,7 @@
         <header class="header">
             <div>
                 <section class="header__info">
-                    <p>En esta pagina web usted podra administrar sus agendas medicas. Registrese para comenzar...</p>
+                    <p>En esta página web usted podra administrar sus agendas médicas. Registrese para comenzar...</p>
                 </section>
                 <section class="container-navbar">
                     <nav class="navbar container">
@@ -36,7 +36,7 @@
                                     <a  href="Turnos.aspx">Turnos</a>
                                 </li>
                                 <li class="nav__link">
-                                    <a href="Medicos.aspx">Medicos</a>
+                                    <a href="Medicos.aspx">Médicos</a>
                                 </li>
                                 <li class="nav__link">
                                     <a href="Especialidades.aspx">Especialidades</a>
