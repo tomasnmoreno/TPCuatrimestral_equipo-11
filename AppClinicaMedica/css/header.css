@@ -84,7 +84,7 @@
     left: 0;
     background-color: dodgerblue;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease;
 }
 
 .nav__link:hover a::after{
@@ -117,7 +117,7 @@
 }
 
 
-@media only screen and (max-width: 1170px) {
+@media only screen and (max-width: 960px) {
 /*    body{
         background-color: red;
     }*/

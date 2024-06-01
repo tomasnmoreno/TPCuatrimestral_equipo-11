@@ -16,5 +16,7 @@ namespace dominio
         public string Domicilio { get; set; }
         public string CodigoPostal { get; set; }
         public string Telefono { get; set; }
+
+        public bool Estado { get; set; }
     }
 }

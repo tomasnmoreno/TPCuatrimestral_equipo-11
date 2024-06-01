@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    internal class Recepcionista:Persona
+    public class Recepcionista:Persona
     {
-        public string IdRecepcionista {  get; set; }
+        public int IdRecepcionista {  get; set; }
     }
 }

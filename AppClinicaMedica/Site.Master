@@ -13,7 +13,7 @@
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/header.css" rel="stylesheet" />
     <!-- flavicon -->
-    <link href="img/" rel="ixon" />
+    <%--<link href="img/" rel="ixon" />--%>
 </head>
 <body>
     <%--<form id="form1" runat="server">--%>
@@ -33,7 +33,7 @@
                         <div class="navbar__nav">
                             <ul class="nav__list">
                                 <li class="nav__link">
-                                    <a  href="Turnos.aspx">Turnos</a>
+                                    <a href="Turnos.aspx">Turnos</a>
                                 </li>
                                 <li class="nav__link">
                                     <a href="Medicos.aspx">Médicos</a>
@@ -43,6 +43,9 @@
                                 </li>
                                 <li class="nav__link">
                                     <a href="Pacientes.aspx">Pacientes</a>
+                                </li>
+                                <li class="nav__link">
+                                    <a href="Recepcionistas.aspx">Recepcionistas</a>
                                 </li>
                             </ul>
 
@@ -74,15 +77,15 @@
                     </nav>
                 </section>
 
-                <div>
-                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                    </asp:ContentPlaceHolder>
-                </div>
 
 
             </div>
         </header>
 
+        <div class="container">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
     <%--</form>--%>
 
     <%-- mi js --%>

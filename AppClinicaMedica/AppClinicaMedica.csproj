@@ -73,13 +73,16 @@
     <Content Include="Global.asax" />
     <Content Include="Home.aspx" />
     <Content Include="img\31560524_14.jpg" />
+    <Content Include="img\backimg.png" />
     <Content Include="img\investigacion.png" />
     <Content Include="img\logo.png" />
     <Content Include="img\menu-icon.svg" />
+    <Content Include="img\tilde.svg" />
     <Content Include="js\app.js" />
     <Content Include="js\app2.js" />
     <Content Include="Medicos.aspx" />
     <Content Include="Pacientes.aspx" />
+    <Content Include="Recepcionistas.aspx" />
     <Content Include="Turnos.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -116,6 +119,13 @@
       <DependentUpon>Pacientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recepcionistas.aspx.cs">
+      <DependentUpon>Recepcionistas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Recepcionistas.aspx.designer.cs">
+      <DependentUpon>Recepcionistas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

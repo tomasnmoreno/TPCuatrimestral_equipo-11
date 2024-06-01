@@ -17,12 +17,13 @@ namespace negocio
 
             try
             {
-                datos.setQuery("SELECT DESCRIPCION FROM ESPECIALIDADES ORDER BY DESCRIPCION ASC");
+                datos.setQuery("SELECT ID, DESCRIPCION FROM ESPECIALIDADES ORDER BY DESCRIPCION ASC");
                 datos.leer();
 
                 while(datos.Reader.Read())
                 {
                     Especialidad aux = new Especialidad();
+                    aux.IdEspecialidad = (int)datos.Reader["ID"];
                     aux.Nombre = (string)datos.Reader["DESCRIPCION"];
 
                     listaEspecialidades.Add(aux);
