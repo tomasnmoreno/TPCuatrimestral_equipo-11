@@ -77,6 +77,7 @@
     <Content Include="img\investigacion.png" />
     <Content Include="img\logo.png" />
     <Content Include="img\menu-icon.svg" />
+    <Content Include="img\pixelcut-export %281%29.jpeg" />
     <Content Include="img\tilde.svg" />
     <Content Include="js\app.js" />
     <Content Include="js\app2.js" />
@@ -180,7 +181,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62580</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44361/</IISUrl>
+          <IISUrl>http://localhost:44362/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

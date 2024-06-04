@@ -10,13 +10,13 @@
                 <h1 class="titPpal">Inicio</h1>
             </div>
             <hr />
-                <div> 
-                    <ul class="d-none d-lg-block">
-                        <li class="lista1">Solicitá turnos para vos y tus familiares al 011-2094-0997</li>
-                        <li class="lista1">Se te enviará la infomación del turno a tu MAIL</li>
-                        <li class="lista1">Desde 1964, a la vanguardia de la medicina moderna. </li>
-                    </ul>
-                </div>
+            <div>
+                <ul class="d-none d-lg-block ">
+                    <li class="lista1" style="color: black;">Solicitá turnos para vos y tus familiares al 011-2094-0997</li>
+                    <li class="lista1" style="color: black;">Se te enviará la infomación del turno a tu MAIL</li>
+                    <li class="lista1" style="color: black;">Desde 1964, a la vanguardia de la medicina moderna. </li>
+                </ul>  
+            </div>
         </div>
     </section>
 </asp:Content>
