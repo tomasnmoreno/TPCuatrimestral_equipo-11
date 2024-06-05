@@ -4,7 +4,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1 class="titPpal">Recepcionistas</h1>
-    <form action="/" method="post" runat="server">
         <div class="row">
             <div class="col table-responsive">
             <p>Aca va el DataGrid. Este es un test mostrando un usuario simple de la BD</p>
@@ -12,5 +11,4 @@
                 </asp:GridView>
             </div>
         </div>
-    </form>
 </asp:Content>

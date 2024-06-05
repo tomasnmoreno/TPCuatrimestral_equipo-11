@@ -87,8 +87,7 @@
             </asp:ContentPlaceHolder>
         </div>
 
-        <%-- mi js --%>
-        <script src="js/app2.js"></script>
+
 
         <footer id="footer_c" class="text-center p-3" style="background-color: white; box-shadow: 0px 2px 10px 0px green;">
             <div class="container">
@@ -147,6 +146,8 @@
             </div>
         </footer>
 
+        <%-- mi js --%>
+        <script src="js/app2.js"></script>
 
     </form>
 </body>

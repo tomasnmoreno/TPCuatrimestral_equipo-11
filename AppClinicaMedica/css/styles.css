@@ -10,7 +10,7 @@
 body {
     background-color: lightgrey;
     font-family: 'Poppins', sans-serif;
-    overflow: hidden;
+    overflow: scroll;
     background-image: url('../img/pixelcut-export (1).jpeg');
     /*background-repeat: no-repeat;*/
     /*clip-path: polygon(0 0%, 100% 0%, 100% 81%, 0% 100%);*/
@@ -69,7 +69,8 @@ a{
     margin-bottom: 20px;
     font-style: oblique;
     /*color: black;*/
-    color: rgb(255, 255, 255);
+    /*color: rgb(255, 255, 255);*/
+    color: black;
 }
 
 .lista1 {
