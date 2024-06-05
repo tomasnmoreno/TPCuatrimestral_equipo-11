@@ -9,7 +9,8 @@ namespace dominio
     public class Especialidad
     {
         public int IdEspecialidad {  get; set; }
-        public int IdMedico { get; set; }
         public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public string Imagen { get; set; }
     }
 }

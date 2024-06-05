@@ -14,12 +14,14 @@ namespace AppClinicaMedica
         public List<Especialidad> listaEspecialidades;
         protected void Page_Load(object sender, EventArgs e)
         {
-            EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
-            listaEspecialidades = especialidadNegocio.listar();
+            if (!IsPostBack)
+            {
+                EspecialidadNegocio EspNegocio = new EspecialidadNegocio();
+                listaEspecialidades = EspNegocio.listar();
 
-            ddlEspecialidades.DataSource = listaEspecialidades;
-            ddlEspecialidades.DataTextField = "Nombre";
-            ddlEspecialidades.DataBind();
+                repetidor.DataSource = listaEspecialidades;
+                repetidor.DataBind();
+            }
         }
     }
 }
