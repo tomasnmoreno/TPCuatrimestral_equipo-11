@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" style="padding 20px">
     <style>
-        .my-boton {
+/*        .my-boton {
             background: linear-gradient(to bottom, #007bff, #0096ff);
             border: none;
             color: white;
@@ -28,7 +28,7 @@
 
         .mi-card {
             border-radius: 12px;
-        }
+        }*/
     </style>
     <h1 class="titPpal">Especialidades</h1>
     <div class="row" style="margin-left: 20px;">

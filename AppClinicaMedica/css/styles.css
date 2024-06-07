@@ -103,3 +103,39 @@ a{
     color: rgb(255, 255, 255);
     font-size: 2rem;
 }
+
+.my-boton {
+    background: linear-gradient(to bottom, #007bff, #0096ff);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.my-boton {
+    color: dodgerblue;
+}
+
+    .my-boton:hover {
+        color: white;
+    }
+
+.mi-card {
+    border-radius: 12px;
+}
+
+/*LOGIN*/
+/*.rowLogIn{
+    justify-content: center;
+    align-items: center;
+}*/
+
+.containerLogIn {
+    text-align: center;
+}

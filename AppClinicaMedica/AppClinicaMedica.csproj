@@ -81,6 +81,7 @@
     <Content Include="img\tilde.svg" />
     <Content Include="js\app.js" />
     <Content Include="js\app2.js" />
+    <Content Include="LogIn.aspx" />
     <Content Include="Medicos.aspx" />
     <Content Include="Pacientes.aspx" />
     <Content Include="Recepcionistas.aspx" />
@@ -104,6 +105,13 @@
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LogIn.aspx.cs">
+      <DependentUpon>LogIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LogIn.aspx.designer.cs">
+      <DependentUpon>LogIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="Medicos.aspx.cs">
       <DependentUpon>Medicos.aspx</DependentUpon>
