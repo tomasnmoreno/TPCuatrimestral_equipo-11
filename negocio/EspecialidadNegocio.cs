@@ -17,7 +17,7 @@ namespace negocio
 
             try
             {
-                datos.setQuery("SELECT ID, NOMBRE, DESCRIPCION, IMAGEN FROM ESPECIALIDADES ORDER BY DESCRIPCION ASC");
+                datos.setQuery("SELECT ID, NOMBRE, DESCRIPCION, IMAGEN FROM ESPECIALIDADES WHERE ESTADO = 1 ORDER BY NOMBRE ASC");
                 datos.leer();
 
                 while(datos.Reader.Read())
@@ -42,6 +42,29 @@ namespace negocio
                 datos.cerrarConexion(); 
             }
 
+        }
+
+        public void agregarEspecialidad(Especialidad especialidad)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                if(especialidad.Nombre != "")
+                {
+                    datos.setQuery("INSERT INTO ESPECIALIDADES (NOMBRE, DESCRIPCION, IMAGEN) VALUES ('" + especialidad.Nombre + "', '" + especialidad.Descripcion + "', '" + especialidad.Imagen + "')");
+                    datos.ejecutarAccion();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+           
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }

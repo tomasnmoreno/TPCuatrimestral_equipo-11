@@ -31,6 +31,8 @@
         }*/
     </style>
     <h1 class="titPpal">Especialidades</h1>
+    <a href="NuevaEspecialidad.aspx" class="btn btn-light" style="margin-left: 70px">Agregar Especialidad</a>
+
     <div class="row" style="margin-left: 20px;">
         <asp:Repeater runat="server" ID="repetidor">
             <ItemTemplate>
@@ -40,8 +42,10 @@
                             <img src="<%#Eval("IMAGEN") %>" class="card-img-top" style="object-fit: cover; object-position: center; width: 100%; height: 200px;" alt="...">
                             <h2 class="card-title"><%#Eval("NOMBRE") %></h2>
                             <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: 200;"><%#Eval("DESCRIPCION") %></p>
+                            <asp:Button Text="Modificar" cssclass="btn btn-success" runat="server" />
+                            <asp:Button Text="Baja"  runat="server" />
                         </div>
-                        <a href="Turnos.aspx" class="btn btn-secondary mt-auto my-boton">Mas informacion</a>
+                        <a href="Turnos.aspx" class="btn btn-primary">Más información</a>
                     </div>
                 </div>
             </ItemTemplate>

@@ -139,3 +139,38 @@ a{
 .containerLogIn {
     text-align: center;
 }
+
+.nuevaEspecialidad {
+    margin-left: 20px; 
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.lblNuevaEspecialidad {
+    text-align: center;
+    padding: 10px;
+    color: black;
+}
+
+.txtNuevaEspecialidad{
+    padding: 5px;
+    width: 300px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.txtDescripcionNuevaEspecialidad {
+    width: 800px;
+    height: 300px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.agregarEspecialidad{
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 80px;
+
+}

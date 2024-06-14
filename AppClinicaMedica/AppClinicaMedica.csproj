@@ -83,6 +83,7 @@
     <Content Include="js\app2.js" />
     <Content Include="LogIn.aspx" />
     <Content Include="Medicos.aspx" />
+    <Content Include="NuevaEspecialidad.aspx" />
     <Content Include="Pacientes.aspx" />
     <Content Include="Recepcionistas.aspx" />
     <Content Include="Turnos.aspx" />
@@ -119,6 +120,13 @@
     </Compile>
     <Compile Include="Medicos.aspx.designer.cs">
       <DependentUpon>Medicos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NuevaEspecialidad.aspx.cs">
+      <DependentUpon>NuevaEspecialidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NuevaEspecialidad.aspx.designer.cs">
+      <DependentUpon>NuevaEspecialidad.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pacientes.aspx.cs">
       <DependentUpon>Pacientes.aspx</DependentUpon>
