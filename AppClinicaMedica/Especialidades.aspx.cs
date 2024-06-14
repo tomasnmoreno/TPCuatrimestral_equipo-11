@@ -23,5 +23,23 @@ namespace AppClinicaMedica
                 repetidor.DataBind();
             }
         }
+
+        protected void btnBajaEspecialidad_Click(object sender, EventArgs e)
+        {
+            EspecialidadNegocio negocio = new EspecialidadNegocio();
+
+            try
+            {
+                int id = int.Parse(((Button)sender).CommandArgument);   
+                negocio.bajaEspecialidad(id);
+                Response.Redirect(Request.RawUrl);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
 }

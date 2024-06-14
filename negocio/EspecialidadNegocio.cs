@@ -66,5 +66,21 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void bajaEspecialidad(int id)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setQuery("UPDATE ESPECIALIDADES SET ESTADO = 0 WHERE ID = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

@@ -30,14 +30,9 @@ namespace AppClinicaMedica
                     especialidad.Imagen = txtImagenNuevaEspecialidad.Text;
                 }
 
-                if(especialidad.Nombre == "")
-                {
-
-                }
-                else
+                if(especialidad.Nombre != "")
                 {
                     negocio.agregarEspecialidad(especialidad); 
-                    
                 }
             }
             catch (Exception ex)
