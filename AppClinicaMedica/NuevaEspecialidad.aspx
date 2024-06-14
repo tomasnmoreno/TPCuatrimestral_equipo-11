@@ -8,12 +8,13 @@
             <asp:Label Text="Especialidad" ID="lblEspecialidad" cssclass="lblNuevaEspecialidad" runat="server" />
             <asp:TextBox ID="txtEspecialidad" CssClass="txtNuevaEspecialidad" runat="server" />
             <asp:Label Text="Descripción" ID="lblDescripcionEspecialidad" CssClass="lblNuevaEspecialidad" runat="server" />
-            <asp:TextBox ID="txtDescripcionEspecialidad" CssClass="txtDescripcionNuevaEspecialidad" runat="server" />
+            <asp:TextBox ID="txtDescripcionEspecialidad" TextMode="MultiLine" CssClass="txtDescripcionNuevaEspecialidad" runat="server" />
             <asp:Label Text="Imagen" id="lblImagenEspecialidad" CssClass="lblNuevaEspecialidad" runat="server" />
             <asp:TextBox ID="txtImagenNuevaEspecialidad" runat="server" />
         </div>
         <div class="container agregarEspecialidad">
             <asp:Button Text="Agregar" cssclass="btn btn-primary" ID="btnAgregarEspecialidad" onclick="btnAgregarEspecialidad_Click" runat="server" />
+            <a href="Especialidades.aspx" class="btn btn-danger" style="margin-left: 10px;">Cancelar</a>
         </div>
     </div>
 </asp:Content>

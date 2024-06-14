@@ -73,6 +73,11 @@ namespace negocio
             cmd.Parameters.AddWithValue(nombre, valor);
         }
 
+        public void setearProcedure(string sp)
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = sp;
+        }
         public void ejecutarAccion()
         {
             cmd.Connection = conn;

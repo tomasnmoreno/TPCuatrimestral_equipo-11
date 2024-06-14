@@ -52,7 +52,11 @@ namespace negocio
             {
                 if(especialidad.Nombre != "")
                 {
-                    datos.setQuery("INSERT INTO ESPECIALIDADES (NOMBRE, DESCRIPCION, IMAGEN) VALUES ('" + especialidad.Nombre + "', '" + especialidad.Descripcion + "', '" + especialidad.Imagen + "')");
+                    datos.setearProcedure("SP_Nueva_Especialidad");
+                    datos.setearParametro("NOMBRE", especialidad.Nombre);
+                    datos.setearParametro("DESCRIPCION", especialidad.Descripcion);
+                    datos.setearParametro("IMAGEN", especialidad.Imagen);
+                    //datos.setQuery("INSERT INTO ESPECIALIDADES (NOMBRE, DESCRIPCION, IMAGEN) VALUES ('" + especialidad.Nombre + "', '" + especialidad.Descripcion + "', '" + especialidad.Imagen + "')");
                     datos.ejecutarAccion();
                 }
             }

@@ -163,6 +163,7 @@ a{
 .txtDescripcionNuevaEspecialidad {
     width: 800px;
     height: 300px;
+    padding: 10px;
     font-size: 20px;
     margin-bottom: 20px;
     border-radius: 10px;
@@ -172,5 +173,4 @@ a{
     text-align: center;
     justify-content: center;
     margin-bottom: 80px;
-
 }
