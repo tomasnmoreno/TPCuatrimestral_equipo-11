@@ -42,7 +42,7 @@
                             <img src="<%#Eval("IMAGEN") %>" class="card-img-top" style="object-fit: cover; object-position: center; width: 100%; height: 200px;" alt="...">
                             <h2 class="card-title"><%#Eval("NOMBRE") %></h2>
                             <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: 200;"><%#Eval("DESCRIPCION") %></p>
-                            <asp:Button Text="Modificar" cssclass="btn btn-success" runat="server" CommandArgument='<%#Eval("IdEspecialidad") %>' CommandName="IdEspecialidad"/>
+                            <a href="NuevaEspecialidad.aspx?id=<%#Eval("IdEspecialidad") %>" class="btn btn-success">Modificar</a>
                             <asp:Button Text="Baja" ID="btnBajaEspecialidad" onclick="btnBajaEspecialidad_Click" cssclass="btn btn-danger" runat="server" CommandArgument='<%#Eval("IdEspecialidad") %>' CommandName="IdEspecialidad" />                          
                         </div>
                         <a href="Turnos.aspx" class="btn btn-primary">Más información</a>

@@ -71,6 +71,29 @@ namespace negocio
             }
         }
 
+        public void modificarEspecialidad(Especialidad nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedure("SP_Modificar_Especialidad");
+                datos.setearParametro("Nombre", nuevo.Nombre);
+                datos.setearParametro("Descripcion", nuevo.Descripcion);
+                datos.setearParametro("Imagen", nuevo.Imagen);
+                datos.setearParametro("Id", nuevo.IdEspecialidad);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
         public void bajaEspecialidad(int id)
         {
             try

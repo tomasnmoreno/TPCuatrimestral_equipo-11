@@ -15,26 +15,46 @@ namespace AppClinicaMedica
         private Especialidad especialidad = null;
         protected void Page_Load(object sender, EventArgs e)
         {
+            string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+            if (id != "" && !IsPostBack)
+            {
+                EspecialidadNegocio negocio = new EspecialidadNegocio();
+                List<Especialidad> listaEspecialidades;
+                listaEspecialidades = negocio.listar();
 
+                foreach (Especialidad especialidad in listaEspecialidades)
+                {
+                    if (int.Parse(id) == especialidad.IdEspecialidad)
+                    {
+                        txtEspecialidad.Text = especialidad.Nombre;
+                        txtDescripcionEspecialidad.Text = especialidad.Descripcion;
+                        txtImagenNuevaEspecialidad.Text = especialidad.Imagen;
+                    }
+                }
+            }
         }
 
         protected void btnAgregarEspecialidad_Click(object sender, EventArgs e)
         {
-            EspecialidadNegocio negocio = new EspecialidadNegocio();    
             try
             {
-                if(especialidad == null)
-                {
-                    especialidad = new Especialidad();  
-                    especialidad.Nombre = txtEspecialidad.Text;
-                    especialidad.Descripcion = txtDescripcionEspecialidad.Text;
-                    especialidad.Imagen = txtImagenNuevaEspecialidad.Text;
-                }
+                EspecialidadNegocio negocio = new EspecialidadNegocio();
+                Especialidad especialidad = new Especialidad();
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
 
-                if(especialidad.Nombre != "")
+                especialidad.Nombre = txtEspecialidad.Text;
+                especialidad.Descripcion = txtDescripcionEspecialidad.Text;
+                especialidad.Imagen = txtImagenNuevaEspecialidad.Text;
+
+                if (id != "")
                 {
-                    negocio.agregarEspecialidad(especialidad); 
+                    especialidad.IdEspecialidad = int.Parse(id);
+                    negocio.modificarEspecialidad(especialidad);
                 }
+                else
+                    negocio.agregarEspecialidad(especialidad);
+
+                Response.Redirect("Especialidades.aspx");
             }
             catch (Exception ex)
             {
