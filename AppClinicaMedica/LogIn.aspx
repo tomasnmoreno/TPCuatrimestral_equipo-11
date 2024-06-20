@@ -30,7 +30,7 @@
                         <asp:Button CssClass="button button-primary button-ingresar paddingLogIn" ID="btnIngresar" Text="Ingresar" runat="server" />
                     </div>
                     <div class="registrarseLogIn">
-                        <a class="fuenteLogIn" href="Registrarse.aspx">Si usted es Paciente: regístrese dando click aquí</a>
+                        <a class="fuenteLogIn" href="NuevoPaciente.aspx">Si usted es Paciente: regístrese dando click aquí</a>
                     </div>
                 </div>
             </div>
