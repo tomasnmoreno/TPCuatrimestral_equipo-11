@@ -11,6 +11,7 @@ Create Table Especialidades(
 	Estado Bit Not Null Default 1
 )
 
+Go
 Insert Into Especialidades (Nombre, Descripcion, Imagen)
 Values
 	('Odontología','Rama de la medicina que se ocupa del diagnóstico, prevención y tratamiento de las enfermedades y condiciones del sistema oral y maxilofacial. Esto incluye los dientes, las encías, el tejido periodontal, el maxilar, la mandíbula, la articulación temporomandibular y otras áreas relacionadas','https://staticnew-prod.topdoctors.mx/article/18650/image/large/odontologia-digital-la-optimizacion-de-los-procesos-tradicionales-1698035005.jpeg'),
@@ -25,7 +26,7 @@ Values
 	('Endocrinología','Rama de la medicina se ocupa del diagnóstico y tratamiento de enfermedades que afectan a las glándulas endocrinas, que son las que producen hormonas. Los endocrinólogos tratan afecciones como diabetes, enfermedades de la tiroides, trastornos metabólicos y problemas de crecimiento.','https://staticnew-prod.topdoctors.mx/files/Image/large/ebf822a89fa6b93e6d4dc92f9a6bfa60.jpg'),
 	('Hematología','Especialidad médica que se ocupa del estudio, diagnóstico y tratamiento de enfermedades de la sangre y los órganos que la producen, como la médula ósea y el bazo. Los hematólogos tratan afecciones como anemia, coagulación sanguínea y trastornos de la médula ósea.','https://policlinicametropolitana.org/wp-content/uploads/2022/02/coronavirus-vaccine-lab-with-samples.jpg'),
 	('Oftalmología','Rama de la medicina se ocupa del diagnóstico y tratamiento de enfermedades del ojo. Los oftalmólogos tratan afecciones como cataratas, glaucoma, degeneración macular y problemas de visión.','https://aio-oftalmologia.com/wp-content/uploads/De-que-se-ocupa-un-oftalmologo.jpg')
-
+Go
 Create or Alter Procedure SP_Nueva_Especialidad
 	@nombre varchar(50),
 	@descripcion varchar(1000),
@@ -33,7 +34,7 @@ Create or Alter Procedure SP_Nueva_Especialidad
 	as
 	Insert Into Especialidades (Nombre, Descripcion, Imagen)
 	Values(@nombre, @descripcion, @imagen)
-
+Go
 Create or Alter Procedure SP_Modificar_Especialidad
 	@nombre varchar(50),
 	@descripcion varchar(1000),
@@ -76,14 +77,16 @@ create table Usuarios(
 	Pass varchar(100) not null,
 	Email varchar(150) not null,
 	Tipo tinyint not null,
+	FechaAlta datetime not null default getdate(),
 	Estado bit not null default 1
 )
+ 
 
 --insert into Usuarios(NombreUsuario, Pass, Email, Tipo, Estado)
 --	values('tmoreno', '1234', 'tomasmoreno@gmail.com.ar', 1, 1)
 
 go
-CREATE TABLE MEDICOS(
+CREATE TABLE MEDICOS( --tipo 3--
 	IDUsuario int not null primary key foreign key references Usuarios(ID),
 	Matricula int not null,
 	Nombre varchar(100) not null,
@@ -104,20 +107,91 @@ CREATE TABLE ESPECIALIDADESXMEDICOS(
 )
 
 go
-CREATE TABLE PACIENTES(
+CREATE TABLE PACIENTES( --tipo 4--
 	IDUsuario int not null primary key foreign key references Usuarios(ID),
 	Nombre varchar(100) not null,
 	Apellido varchar(100) not null,
 	Nacimiento date not null,
 	Dni bigint not null unique,
 	Mail varchar(150),
-	Celular tinyint not null,
+	Celular bigint not null,
 	Domicilio varchar(100) not null,
-	CodPostal tinyint not null
+	CodPostal int not null
 )
 
 Go
-CREATE TABLE RECEPCIONISTAS(
+create or alter procedure SP_Nuevo_Paciente
+	--Para Paciente
+	@Nombre varchar(100),
+	@Apellido varchar(100),
+	@Nacimiento datetime,
+	@Dni bigint,
+	@Email varchar(150),
+	@Celular bigint,
+	@Domicilio varchar(100),
+	@CodPostal int,
+	--Para Usuario
+	@NombreUsuario varchar(100),
+	@Pass varchar(100)
+ as begin
+	begin try
+	begin transaction
+
+		if @Dni not in (select Dni from PACIENTES where Dni = @Dni) begin
+			INSERT INTO Usuarios(NombreUsuario, Pass, Email, Tipo, Estado)
+			values	(@NombreUsuario, @Pass, @Email, 4, 1)
+
+			declare @iDusuario int 
+			select @iDusuario = ID from Usuarios where NombreUsuario = @NombreUsuario
+			INSERT INTO PACIENTES (IDUsuario, Nombre, Apellido, Nacimiento, Dni, Mail, Celular, Domicilio, CodPostal)
+			values (@iDusuario, @Nombre, @apellido, @Nacimiento, @Dni, @Email, @Celular, @Domicilio, @CodPostal)
+		end 
+		else begin
+			raiserror('El DNI ya existe o hubo un error en la registracion', 16, 1)
+		end
+	commit transaction
+	end try
+	begin catch
+		raiserror('El DNI ya existe o hubo un error en la registracion', 16, 1)
+		rollback transaction
+	end catch
+end
+exec SP_Nuevo_Paciente 'Tomas', 'Moreno', '1999-04-24', 41893710, 'tomasmoreno@gmail.com', 1111111111, 'Agustin de Elia 1155', 1704, 'tmoreno', '1234'
+
+
+
+go
+create or alter procedure SP_Modificar_Paciente
+	--Para Paciente
+	@Nombre varchar(100),
+	@Apellido varchar(100),
+	@Nacimiento datetime,
+	--@Dni bigint,
+	@Email varchar(150),
+	@Celular bigint,
+	@Domicilio varchar(100),
+	@CodPostal int,
+	--Para Usuario
+	@ID int,
+	@NombreUsuario varchar(100),
+	@Pass varchar(100)
+as begin
+	begin try
+	begin transaction
+		update Usuarios set NombreUsuario = @NombreUsuario, Pass = @Pass, Email = @Email where ID = @ID
+		update Pacientes set Nombre = @Nombre, Apellido = @Apellido, Nacimiento = @Nacimiento, Mail = @Email, Celular = @Celular, Domicilio = @Domicilio, CodPostal = @CodPostal where IDUsuario = @ID
+	commit transaction
+	end try
+	begin catch
+		raiserror('Hubo un problema en la modificacion, verifique si los datos estan correctos',16,2)
+		rollback transaction
+	end catch
+end
+exec SP_Modificar_Paciente 'Tomas', 'Moreno', '1995-04-24', 'tomasmoreno@gmail.com', 1111111112, 'Agustin de Elia 1155', 1704, 1, 'tmoreno', '1234'
+
+
+Go
+CREATE TABLE RECEPCIONISTAS( --tipo 2--
 	IDUsuario int not null primary key foreign key references Usuarios(ID),
 	Nombre varchar(100) not null,
 	Apellido varchar(100) not null,

@@ -23,10 +23,11 @@ namespace negocio
                 while(datos.Reader.Read())
                 {
                     Especialidad aux = new Especialidad();
-                    aux.IdEspecialidad = (int)datos.Reader["ID"];
-                    aux.Nombre = (string)datos.Reader["NOMBRE"];
+                    aux.IdEspecialidad = (int)datos.Reader["Id"];
+                    aux.Nombre = (string)datos.Reader["Nombre"];
                     aux.Descripcion = (string)datos.Reader["Descripcion"];
                     aux.Imagen = (string)datos.Reader["Imagen"];
+
 
                     listaEspecialidades.Add(aux);
                 }
@@ -59,6 +60,7 @@ namespace negocio
                     //datos.setQuery("INSERT INTO ESPECIALIDADES (NOMBRE, DESCRIPCION, IMAGEN) VALUES ('" + especialidad.Nombre + "', '" + especialidad.Descripcion + "', '" + especialidad.Imagen + "')");
                     datos.ejecutarAccion();
                 }
+                
             }
             catch (Exception ex)
             {

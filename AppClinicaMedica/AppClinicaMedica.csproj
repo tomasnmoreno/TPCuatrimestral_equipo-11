@@ -84,8 +84,10 @@
     <Content Include="LogIn.aspx" />
     <Content Include="Medicos.aspx" />
     <Content Include="NuevaEspecialidad.aspx" />
+    <Content Include="NuevoPaciente.aspx" />
     <Content Include="Pacientes.aspx" />
     <Content Include="Recepcionistas.aspx" />
+    <Content Include="Registrarse.aspx" />
     <Content Include="Turnos.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -128,6 +130,13 @@
     <Compile Include="NuevaEspecialidad.aspx.designer.cs">
       <DependentUpon>NuevaEspecialidad.aspx</DependentUpon>
     </Compile>
+    <Compile Include="NuevoPaciente.aspx.cs">
+      <DependentUpon>NuevoPaciente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NuevoPaciente.aspx.designer.cs">
+      <DependentUpon>NuevoPaciente.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pacientes.aspx.cs">
       <DependentUpon>Pacientes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -142,6 +151,13 @@
     </Compile>
     <Compile Include="Recepcionistas.aspx.designer.cs">
       <DependentUpon>Recepcionistas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Registrarse.aspx.cs">
+      <DependentUpon>Registrarse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registrarse.aspx.designer.cs">
+      <DependentUpon>Registrarse.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

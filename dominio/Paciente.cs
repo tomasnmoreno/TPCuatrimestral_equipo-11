@@ -8,7 +8,9 @@ namespace dominio
 {
     public class Paciente:Persona
     {
-        public string IdPaciente { get; set; }
-        public List <string> HistorialTurnos { get; }
+        public int IDPaciente { get; set; }
+        public string NombreUsuario { get; set; }
+        public string Pass { get; set; }
+        public List <string> HistorialTurnos { get; set; }
     }
 }

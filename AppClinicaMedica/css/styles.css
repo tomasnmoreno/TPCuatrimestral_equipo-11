@@ -8,22 +8,32 @@
 }
 
 body {
+    position: relative;
+   /* min-height: 100vh;*/
     background-color: lightgrey;
     font-family: 'Poppins', sans-serif;
     overflow: scroll;
     background-image: url('../img/pixelcut-export (1).jpeg');
-    /*background-repeat: no-repeat;*/
+    background-repeat: no-repeat;
+    background-color: mediumturquoise;
+    justify-content: center;
+    /*border: 10px solid red;*/ /*para hacer pruebas*/
     /*clip-path: polygon(0 0%, 100% 0%, 100% 81%, 0% 100%);*/
+}
+
+.footer { /*footer*/
+    position: absolute;
+    bottom: 0;
 }
 
 a{
     text-decoration: none;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .table{
     max-width: 100%;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .container{
@@ -173,4 +183,24 @@ a{
     text-align: center;
     justify-content: center;
     margin-bottom: 80px;
+}
+
+.registrarseLogIn {
+    /*font-size: 30px;*/
+    margin-top: 40px;
+}
+
+.fuenteLogIn{
+    color: aliceblue;
+    background-color: mediumblue;
+    border-radius: 12px;
+}
+
+.fuenteLogIn:hover {
+    background-color: cornflowerblue;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.nuevoPaciente{
+    color: black;
 }

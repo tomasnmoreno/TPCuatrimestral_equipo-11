@@ -1,4 +1,5 @@
-﻿using System;
+﻿using negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,20 @@ namespace AppClinicaMedica
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+            PacienteNegocio negocio = new PacienteNegocio();
+            dgvPacientes.DataSource = negocio.listar();
+            dgvPacientes.DataBind();
 
+            Session.Add("listaPacientes", negocio.listar());            
+            }
+        }
+
+        protected void dgvPacientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var id = dgvPacientes.SelectedDataKey.Value.ToString();
+            Response.Redirect("NuevoPaciente.aspx?IDUsuario=" + id);
         }
     }
 }
