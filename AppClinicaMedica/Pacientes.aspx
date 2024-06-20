@@ -10,7 +10,7 @@
     </style>
 
     <h1 class="titPpal">Pacientes</h1>
-    <a href="NuevoPaciente.aspx" class="btn btn-light" style="margin-left: 50px; margin-bottom: 10px">Agregar Paciente</a>
+    <a href="NuevoPaciente.aspx" class="btn my-boton" style="margin-left: 50px; margin-bottom: 10px">Agregar Paciente</a>
 
     <asp:GridView runat="server" ID="dgvPacientes" DataKeyNames="IDPaciente" OnSelectedIndexChanged="dgvPacientes_SelectedIndexChanged" CssClass="table table-bordered" Style="margin-left: 50px" AutoGenerateColumns="false">
         <Columns>

@@ -93,10 +93,9 @@ CREATE TABLE MEDICOS( --tipo 3--
 	Apellido varchar(100) not null,
 	Nacimiento date not null,
 	Dni bigint not null unique,
-	Celular tinyint not null,
+	Celular bigint not null,
 	Domicilio varchar(100) not null,
-	CodPostal tinyint not null,
-	TurnoTrabajo tinyint not null check(TurnoTrabajo>0)
+	CodPostal int not null
 )
 
 go
@@ -104,6 +103,19 @@ CREATE TABLE ESPECIALIDADESXMEDICOS(
 	IDEspecialidad int foreign key references ESPECIALIDADES(ID), 
 	IDMedico int not null foreign key references Medicos(IDUsuario)
 	Primary Key(IDEspecialidad, IDMedico)
+)
+
+CREATE TABLE HorarioTrabajo (
+	IDHorario int not null primary key identity(1,1),
+	HoraInicio time not null,
+	HoraFin time not null
+)
+GO
+
+CREATE TABLE HorarioxMedico(
+	IDHorario int foreign key references HorarioTrabajo(IDHorario),
+	IDMedico int foreign key references Medicos(IDusuario),
+	primary key (IDHorario, IDMedico)
 )
 
 go
@@ -202,3 +214,5 @@ CREATE TABLE RECEPCIONISTAS( --tipo 2--
 	CodPostal tinyint not null
 )
 
+SELECT Idusuario, Matricula, Nombre, Apellido, U.Email , Nacimiento, Dni, Celular, Domicilio, CodPostal
+FROM MEDICOS, Usuarios U where MEDICOS.IDUsuario=U.ID AND U.Estado = 1

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    public class Medico:Persona
+    public class HorarioxMedico
     {
-        public string IdMedico { get; set; }
-        public int Matricula { get; set; }
-
+        public int IDMedico { get; set; }
+        public int IDHorario { get; set; }
     }
 }

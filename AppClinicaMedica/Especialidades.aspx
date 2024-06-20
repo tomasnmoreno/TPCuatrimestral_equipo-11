@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" style="padding 20px">
     <style>
-/*        .my-boton {
+        /*        .my-boton {
             background: linear-gradient(to bottom, #007bff, #0096ff);
             border: none;
             color: white;
@@ -31,7 +31,8 @@
         }*/
     </style>
     <h1 class="titPpal">Especialidades</h1>
-    <a href="NuevaEspecialidad.aspx" class="btn btn-light" style="margin-left: 70px">Agregar Especialidad</a>
+    <a href="NuevaEspecialidad.aspx" class="btn my-boton 
+        " style="margin-left: 70px">Agregar Especialidad</a>
 
     <div class="row" style="margin-left: 20px;">
         <asp:Repeater runat="server" ID="repetidor">
@@ -42,10 +43,12 @@
                             <img src="<%#Eval("IMAGEN") %>" class="card-img-top" style="object-fit: cover; object-position: center; width: 100%; height: 200px;" alt="...">
                             <h2 class="card-title"><%#Eval("NOMBRE") %></h2>
                             <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: 200;"><%#Eval("DESCRIPCION") %></p>
-                            <a href="NuevaEspecialidad.aspx?id=<%#Eval("IdEspecialidad") %>" class="btn btn-success">Modificar</a>
-                            <asp:Button Text="Baja" ID="btnBajaEspecialidad" onclick="btnBajaEspecialidad_Click" cssclass="btn btn-danger" runat="server" CommandArgument='<%#Eval("IdEspecialidad") %>' CommandName="IdEspecialidad" />                          
                         </div>
-                        <a href="Turnos.aspx" class="btn btn-primary">Más información</a>
+                        <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                            <asp:Button Text="Modificar" CssClass="btn btn-success" runat="server" CommandArgument='<%#Eval("IdEspecialidad") %>' CommandName="IdEspecialidad" />
+                            <asp:Button Text="Baja" ID="btnBajaEspecialidad" OnClick="btnBajaEspecialidad_Click" CssClass="btn btn-danger" runat="server" CommandArgument='<%#Eval("IdEspecialidad") %>' CommandName="IdEspecialidad" />
+                        </div>
+                        <a href="Turnos.aspx" class="btn my-boton">Más información</a>
                     </div>
                 </div>
             </ItemTemplate>

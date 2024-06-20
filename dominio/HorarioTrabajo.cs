@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    internal class HorarioTrabajo
+    public class HorarioTrabajo
     {
-        public int IdHorario {  get; set; }
-        public int IdMedico { get; set;}
+        public int IDHorario {  get; set; }
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
     }
