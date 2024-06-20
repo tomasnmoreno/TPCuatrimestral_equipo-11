@@ -16,7 +16,7 @@ namespace negocio
 
             try
             {
-                datos.setQuery("select ID, NombreUsuario, Pass, Email, Tipo, Estado from Usuarios");
+                datos.setQuery("select ID, NombreUsuario, Pass, Email, Tipo, Estado from Usuarios where Tipo = 2");
                 datos.leer();
 
                 while (datos.Reader.Read())
