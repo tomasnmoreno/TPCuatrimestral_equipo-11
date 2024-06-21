@@ -3,33 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" style="padding 20px">
-    <style>
-        /*        .my-boton {
-            background: linear-gradient(to bottom, #007bff, #0096ff);
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            transition-duration: 0.4s;
-            cursor: pointer;
-            border-radius: 12px;
-        }
-
-        .my-boton { 
-            color: dodgerblue;
-        }
-
-            .my-boton:hover {
-                color: white;
-            }
-
-        .mi-card {
-            border-radius: 12px;
-        }*/
-    </style>
     <h1 class="titPpal">Especialidades</h1>
     <a href="NuevaEspecialidad.aspx" class="btn my-boton 
         " style="margin-left: 70px">Agregar Especialidad</a>

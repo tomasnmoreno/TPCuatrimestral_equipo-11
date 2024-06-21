@@ -71,6 +71,7 @@ Create or Alter Procedure SP_Modificar_Especialidad
 --)
 
 go
+
 create table Usuarios(
 	ID int not null primary key identity(1, 1),
 	NombreUsuario varchar(100) not null unique,
@@ -81,11 +82,8 @@ create table Usuarios(
 	Estado bit not null default 1
 )
  
+go 
 
---insert into Usuarios(NombreUsuario, Pass, Email, Tipo, Estado)
---	values('tmoreno', '1234', 'tomasmoreno@gmail.com.ar', 1, 1)
-
-go
 CREATE TABLE MEDICOS( --tipo 3--
 	IDUsuario int not null primary key foreign key references Usuarios(ID),
 	Matricula int not null,
@@ -99,11 +97,27 @@ CREATE TABLE MEDICOS( --tipo 3--
 )
 
 go
-CREATE TABLE ESPECIALIDADESXMEDICOS(
+CREATE TABLE EspecialidadesXMedicos(
 	IDEspecialidad int foreign key references ESPECIALIDADES(ID), 
 	IDMedico int not null foreign key references Medicos(IDUsuario)
 	Primary Key(IDEspecialidad, IDMedico)
 )
+
+go 
+
+ Alter Procedure SP_Nueva_EspecialidadesXMedicos
+	
+	@IDEspecialidad int,
+	@IDMedico int
+	
+	AS
+	begin
+	
+	INSERT INTO EspecialidadesXMedicos(IDEspecialidad, IDMedico)
+	
+	VALUES (@IDEspecialidad,@IDMedico)
+
+	end;
 
 CREATE TABLE HorarioTrabajo (
 	IDHorario int not null primary key identity(1,1),
@@ -214,5 +228,3 @@ CREATE TABLE RECEPCIONISTAS( --tipo 2--
 	CodPostal tinyint not null
 )
 
-SELECT Idusuario, Matricula, Nombre, Apellido, U.Email , Nacimiento, Dni, Celular, Domicilio, CodPostal
-FROM MEDICOS, Usuarios U where MEDICOS.IDUsuario=U.ID AND U.Estado = 1

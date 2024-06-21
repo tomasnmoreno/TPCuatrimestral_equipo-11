@@ -16,7 +16,7 @@ namespace negocio
 
             try
             {
-                datos.setQuery("SELECT IDHorario, HoraInicio, HoraFin FROM Horarios");
+                datos.setQuery("SELECT IDHorario, HoraInicio, HoraFin FROM HorarioTrabajo");
                 datos.leer();
 
                 while (datos.Reader.Read())

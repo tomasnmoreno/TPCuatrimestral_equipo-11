@@ -7,7 +7,7 @@ using dominio;
 
 namespace negocio
 {
-    internal class EspexMedNegocio
+    public class EspexMedNegocio
     {
         public List<EspecialidadesxMedico> listar()
         {
@@ -45,6 +45,49 @@ namespace negocio
 
 
 
+        }
+
+        public void agregarEspecialidad_x_Medico(EspecialidadesxMedico nueva)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedure("SP_Nueva_EspecialidadesXMedicos");
+                datos.setearParametro("IDMedico", nueva.IDMedico);
+                datos.setearParametro("IDEspecialidad", nueva.IDEspecialidad);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+        public void eliminarEspecialidad_x_Medico(EspecialidadesxMedico ExM)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setQuery("DELETE FROM EspecialidadesXMedicos WHERE IDEspecialidad = @IDEspecialidad AND IDMedico = @IDMedico;");
+                datos.setearParametro("@IdEspecialidad", ExM.IDEspecialidad);
+                datos.setearParametro("@IdMedico", ExM.IDMedico);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }
