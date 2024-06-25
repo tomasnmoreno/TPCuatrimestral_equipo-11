@@ -97,6 +97,32 @@ CREATE TABLE MEDICOS( --tipo 3--
 )
 
 go
+
+create or alter procedure SP_Modificar_Medico
+	--Para Medico
+	@ID int,
+	@Dni int,
+	@Nombre varchar(100),
+	@Apellido varchar(100),
+	@Matricula int,
+	@Email varchar(150),
+	@Celular bigint,
+	@Domicilio varchar(100),
+	@CodPostal int
+
+as begin
+	begin try
+	begin transaction
+		update Usuarios set Email = @Email where ID = @ID
+		update MEDICOS set @Matricula = Matricula, Dni = @Dni, Nombre = @Nombre, Apellido = @Apellido, Celular = @Celular, Domicilio = @Domicilio, CodPostal = @CodPostal where IDUsuario = @ID
+	commit transaction
+	end try
+	begin catch
+		raiserror('Hubo un problema en la modificacion, verifique si los datos estan correctos',16,2)
+		rollback transaction
+	end catch
+	end	
+
 CREATE TABLE EspecialidadesXMedicos(
 	IDEspecialidad int foreign key references ESPECIALIDADES(ID), 
 	IDMedico int not null foreign key references Medicos(IDUsuario)
@@ -105,7 +131,7 @@ CREATE TABLE EspecialidadesXMedicos(
 
 go 
 
- Alter Procedure SP_Nueva_EspecialidadesXMedicos
+ CREATE OR Alter Procedure SP_Nueva_EspecialidadesXMedicos
 	
 	@IDEspecialidad int,
 	@IDMedico int
@@ -133,6 +159,21 @@ CREATE TABLE HorarioxMedico(
 )
 
 go
+
+CREATE OR Alter Procedure SP_Nueva_HorarioxMedico
+	
+	@IDHorario int,
+	@IDMedico int
+	
+	AS
+	begin
+	
+	INSERT INTO HorarioxMedico(IDHorario, IDMedico)
+	
+	VALUES (@IDHorario,@IDMedico)
+
+	end;
+
 CREATE TABLE PACIENTES( --tipo 4--
 	IDUsuario int not null primary key foreign key references Usuarios(ID),
 	Nombre varchar(100) not null,

@@ -50,6 +50,35 @@ namespace negocio
 
         }
 
+        public void modificarMedico(Medico medico)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedure("SP_Modificar_Medico");
+                datos.setearParametro("Nombre", medico.Nombre);
+                datos.setearParametro("Apellido", medico.Apellido);
+                datos.setearParametro("Matricula", medico.Matricula);
+                datos.setearParametro("Email", medico.Email);
+                datos.setearParametro("Celular", medico.Celular);
+                datos.setearParametro("Domicilio", medico.Domicilio);
+                datos.setearParametro("CodPostal", medico.CodPostal);
+                datos.setearParametro("Dni", medico.Dni);
+                datos.setearParametro("ID", medico.IdMedico);
+                datos.ejecutarAccion();
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public void bajaMedico(int id)
         {
             try

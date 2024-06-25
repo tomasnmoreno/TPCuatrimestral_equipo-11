@@ -42,5 +42,46 @@ namespace negocio
             }
 
         }
+
+        public void agregarHorarioxMedico(HorarioxMedico nueva)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedure("SP_Nueva_HorarioxMedico");
+                datos.setearParametro("IDMedico", nueva.IDMedico);
+                datos.setearParametro("IDHorario", nueva.IDHorario); 
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { datos.cerrarConexion(); }
+        }
+
+
+        public void eliminarHorarioxMedico(HorarioxMedico HxM)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setQuery("DELETE FROM HorarioxMedico WHERE IDHorario = @IDHorario AND IDMedico = @IDMedico;");
+                datos.setearParametro("@IDHorario", HxM.IDHorario);
+                datos.setearParametro("@IDMedico", HxM.IDMedico);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

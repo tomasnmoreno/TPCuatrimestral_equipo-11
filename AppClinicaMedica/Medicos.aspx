@@ -55,15 +55,19 @@
                 <asp:Label ID="lblHorarios" Text="Horarios" runat="server" Font-Size="Large" Style="color: black;" />
                 <div class="mb-1">
                     <asp:DropDownList ID="DropDownListHxM" class="form-control" runat="server"></asp:DropDownList>
-                    <asp:Button ID="agregarHxM" class="btn" runat="server" Text="Agregar" />
-                    <asp:Button ID="eliminarHxM" class="btn" runat="server" Text="Eliminar"  />
+                    <asp:Button ID="agregarHxM" class="btn" OnClick="btnAgregarHorarioaMedico" runat="server" Text="Agregar" />
+                    <asp:Button ID="eliminarHxM" class="btn" OnClick="btnEliminarHorarioaMedico" runat="server" Text="Eliminar" />
                 </div>
                 <div>
                     <asp:ListBox ID="listBoxHxM" CssClass="form-control h-100" runat="server"></asp:ListBox>
                 </div>
+                <div class="row">
 
-                <div>
-                    <a href="NuevoMedico.aspx" class="btn btn-primary" style="margin-left: 70px">Agregar Medico</a>
+                    <div>
+                        <a href="NuevoMedico.aspx" class="btn btn-primary prueba">Agregar</a>
+                        <asp:Button Text="Modificar" CssClass="btn btn-warning prueba" OnClick="btnModificar_Click" runat="server" />
+
+                    </div>
                 </div>
 
             </div>

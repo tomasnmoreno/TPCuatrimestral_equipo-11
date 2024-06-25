@@ -103,6 +103,77 @@ namespace AppClinicaMedica
             }
         }
 
+        protected void cargarDropDownListHxM(int idMedico)
+        {
+            try
+            {
+                List<HorarioxMedico> horariosDelMedico = horariosxMed.listar().Where(hm => hm.IDMedico == idMedico).ToList();
+                List<HorarioTrabajo> todosLosHorarios = horarioNegocio.listar();
+
+                List<HorarioTrabajo> horariosNoAsignados = todosLosHorarios.Where(horario =>
+                    !horariosDelMedico.Any(horaXMed => horaXMed.IDHorario == horario.IDHorario)
+                ).ToList();
+
+                DropDownListHxM.DataSource = horariosNoAsignados;
+                DropDownListHxM.DataTextField = "HoraInicio";
+                DropDownListHxM.DataValueField = "IDHorario";
+
+                DropDownListHxM.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al cargar los horarios no asignados: " + ex.Message);
+            }
+        }
+
+        protected void btnAgregarHorarioaMedico(object sender, EventArgs e)
+        {
+            if (DropDownListHxM.SelectedIndex != -1)
+            {
+                HorarioxMedico nuevoHorarioMedico = new HorarioxMedico();
+
+                string idHorarioSeleccionado = DropDownListHxM.SelectedValue;
+
+                int idHorario = Convert.ToInt32(idHorarioSeleccionado);
+                int idMedico = Convert.ToInt32(txtId.Text);
+
+                nuevoHorarioMedico.IDHorario = idHorario;
+                nuevoHorarioMedico.IDMedico = idMedico;
+
+                horariosxMed.agregarHorarioxMedico(nuevoHorarioMedico);
+
+                cargarListBox(idMedico);
+                cargarDropDownList(idMedico);
+                cargarDropDownListHxM(idMedico);
+                cargarListBoxHxM(idMedico);
+
+            }
+        }
+
+        protected void btnEliminarHorarioaMedico(object sender, EventArgs e)
+        {
+            if (listBoxHxM.SelectedIndex != -1)
+            {
+                HorarioxMedico nuevoHorarioMedico = new HorarioxMedico();
+
+                string valorSeleccionado = listBoxHxM.SelectedItem.Value;
+                int idHorario = Convert.ToInt32(valorSeleccionado);
+                int idMedico = Convert.ToInt32(txtId.Text);
+
+                nuevoHorarioMedico.IDHorario = idHorario;
+                nuevoHorarioMedico.IDMedico = idMedico;
+
+                // Eliminar el horario del médico
+                horariosxMed.eliminarHorarioxMedico(nuevoHorarioMedico);
+
+                // Recargar los DropDownList después de eliminar el horario del médico
+                cargarListBox(idMedico);
+                cargarDropDownList(idMedico);
+                cargarDropDownListHxM(idMedico);
+                cargarListBoxHxM(idMedico);
+            }
+        }
+
         protected void cargarListBoxHxM(int idMedico)
         {
             List<HorarioTrabajo> horarios = horarioNegocio.listar();
@@ -149,6 +220,7 @@ namespace AppClinicaMedica
             cargarListBox(IdMedico);
             cargarDropDownList(IdMedico);
             cargarListBoxHxM(IdMedico);
+            cargarDropDownListHxM(IdMedico);
 
         }
         protected void btnBajaMedicoClick(object sender, EventArgs e)
@@ -170,7 +242,7 @@ namespace AppClinicaMedica
         }
 
         protected void btnAgregarEspecialidadaMedico(object sender, EventArgs e)
-        
+
         {
             if (ddlAgregarEsp.SelectedIndex != -1)
             {
@@ -214,5 +286,64 @@ namespace AppClinicaMedica
 
             }
         }
+
+        protected void btnModificar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                string Id = txtId.Text;
+                int Matricula = Convert.ToInt32(txtMatricula.Text);
+                string nombre = txtNombre.Text;
+                string apellido = txtApellido.Text;
+                string email = txtEmail.Text;
+                int Dni = Convert.ToInt32(txtDni.Text);
+                string Domicilio = txtDomicilio.Text;
+                int celular = Convert.ToInt32(txtCelular.Text);
+                int codPost = Convert.ToInt32(txtCodPost.Text);
+
+                Medico medicoModificado = new Medico
+                {
+                    IdMedico = Id,
+                    Matricula = Matricula,
+                    Nombre = nombre,
+                    Apellido = apellido,
+                    Email = email,
+                    Dni = Dni,
+                    Celular = celular,
+                    Domicilio = Domicilio,
+                    CodPostal = codPost,
+
+
+                };
+
+                medicoNegocio.modificarMedico(medicoModificado);
+
+                
+                cargarListaMedicos();
+
+                limpiarCampos();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Error al modificar el paciente: " + ex.Message);
+            }
+
+
+        }
+        protected void limpiarCampos()
+        {
+            txtMatricula.Text = string.Empty;
+            txtNombre.Text = string.Empty;
+            txtApellido.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtDni.Text = string.Empty; 
+            txtCodPost.Text = string.Empty;
+            txtCelular.Text = string.Empty;
+            txtDomicilio.Text = string.Empty;
+            
+        }
     }
 }
+    
