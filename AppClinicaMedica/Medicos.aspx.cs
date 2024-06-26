@@ -163,10 +163,8 @@ namespace AppClinicaMedica
                 nuevoHorarioMedico.IDHorario = idHorario;
                 nuevoHorarioMedico.IDMedico = idMedico;
 
-                // Eliminar el horario del médico
                 horariosxMed.eliminarHorarioxMedico(nuevoHorarioMedico);
 
-                // Recargar los DropDownList después de eliminar el horario del médico
                 cargarListBox(idMedico);
                 cargarDropDownList(idMedico);
                 cargarDropDownListHxM(idMedico);
@@ -319,7 +317,7 @@ namespace AppClinicaMedica
 
                 medicoNegocio.modificarMedico(medicoModificado);
 
-                
+
                 cargarListaMedicos();
 
                 limpiarCampos();
@@ -327,23 +325,64 @@ namespace AppClinicaMedica
             catch (Exception ex)
             {
 
-                Console.WriteLine("Error al modificar el paciente: " + ex.Message);
+                Console.WriteLine("Error al modificar el Medico: " + ex.Message);
             }
 
 
         }
+
         protected void limpiarCampos()
         {
             txtMatricula.Text = string.Empty;
             txtNombre.Text = string.Empty;
             txtApellido.Text = string.Empty;
             txtEmail.Text = string.Empty;
-            txtDni.Text = string.Empty; 
+            txtDni.Text = string.Empty;
             txtCodPost.Text = string.Empty;
             txtCelular.Text = string.Empty;
             txtDomicilio.Text = string.Empty;
-            
+
+        }
+
+        protected void agregarMedico_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                int Matricula = Convert.ToInt32(txtMatricula.Text);
+                string nombre = txtNombre.Text;
+                string apellido = txtApellido.Text;
+                string email = txtEmail.Text;
+                int Dni = Convert.ToInt32(txtDni.Text);
+                string Domicilio = txtDomicilio.Text;
+                int celular = Convert.ToInt32(txtCelular.Text);
+                int codPost = Convert.ToInt32(txtCodPost.Text);
+
+                Medico medicoNuevo = new Medico
+                {
+                    Matricula = Matricula,
+                    Nombre = nombre,
+                    Apellido = apellido,
+                    Email = email,
+                    Dni = Dni,
+                    Celular = celular,
+                    Domicilio = Domicilio,
+                    CodPostal = codPost,
+
+
+                };
+
+                System.Web.HttpContext.Current.Session["MedicoNuevo"] = medicoNuevo;
+                Response.Redirect("NuevoMedico.aspx");
+
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Error al Agregar el Medico: " + ex.Message);
+            }
+
         }
     }
 }
-    
+

@@ -98,6 +98,44 @@ CREATE TABLE MEDICOS( --tipo 3--
 
 go
 
+create or alter procedure SP_Nuevo_Medico
+	--Para Paciente
+	@Nombre varchar(100),
+	@Apellido varchar(100),
+	@Nacimiento datetime,
+	@Dni bigint,
+	@Email varchar(150),
+	@Celular bigint,
+	@Domicilio varchar(100),
+	@CodPostal int,
+	@Matricula int,
+	--Para Usuario
+	@NombreUsuario varchar(100),
+	@Pass varchar(100)
+ as begin
+	begin try
+	begin transaction
+
+		if @Dni not in (select Dni from MEDICOS where Dni = @Dni) begin
+			INSERT INTO Usuarios(NombreUsuario, Pass, Email, Tipo, Estado)
+			values	(@NombreUsuario, @Pass, @Email, 4, 1)
+
+			declare @IDusuario int 
+			select @IDusuario = ID from Usuarios where NombreUsuario = @NombreUsuario
+			INSERT INTO MEDICOS(IDUsuario,Matricula, Nombre, Apellido, Nacimiento, Dni, Celular, Domicilio, CodPostal)
+			values (@IDusuario, @Matricula, @Nombre, @apellido, @Nacimiento, @Dni, @Celular, @Domicilio, @CodPostal)
+		end 
+		else begin
+			raiserror('El DNI ya existe o hubo un error en la registracion', 16, 1)
+		end
+	commit transaction
+	end try
+	begin catch
+		raiserror('El DNI ya existe o hubo un error en la registracion', 16, 1)
+		rollback transaction
+	end catch
+end
+
 create or alter procedure SP_Modificar_Medico
 	--Para Medico
 	@ID int,

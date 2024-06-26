@@ -6,16 +6,17 @@
     <h1 class="titPpal">Médicos </h1>
 
     <div class="row">
-        <div class="col-7 table-responsive">
+        <div class="col-8 table-responsive">
             <asp:GridView runat="server" ID="dgvMedicos" OnSelectedIndexChanged="dgvMedicos_SelectedIndexChanged" CssClass="table table-info table-bordered table-sm">
                 <Columns>
+
                     <asp:CommandField ShowSelectButton="true" SelectText="Seleccionar" HeaderText="Acción" ControlStyle-CssClass="btn btn-sm btn-primary" />
                 </Columns>
             </asp:GridView>
             <asp:TextBox ID="txtId" CssClass="d-none" runat="server" />
         </div>
         <div class="col">
-            <div class="col-5 ">
+            <div class="col-6 ">
 
                 <asp:Label ID="lblNombre" Text="Nombre" Font-Size="Large" CssClass="" runat="server" Style="color: black;" />
                 <asp:TextBox ID="txtNombre" CssClass="form-control" placeholder="Nombre" runat="server" />
@@ -48,6 +49,7 @@
                     <asp:Button ID="btnAgregarEsp" runat="server" OnClick="btnAgregarEspecialidadaMedico" CssClass="btn" Text="Agregar" />
                     <asp:Button ID="btnEliminarEsp" runat="server" OnClick="btnEliminarEspecialidadaMedico" CssClass="btn" Text="Eliminar" />
                 </div>
+
                 <div class="input-group">
                     <asp:ListBox ID="listBox" CssClass="form-control h-100" runat="server"></asp:ListBox>
                 </div>
@@ -64,19 +66,12 @@
                 <div class="row">
 
                     <div>
-                        <a href="NuevoMedico.aspx" class="btn btn-primary prueba">Agregar</a>
+                        <asp:Button Text="Agregar" CssClass="btn btn-primary" ID="agregarMedico" OnClick="agregarMedico_Click" runat="server" />
                         <asp:Button Text="Modificar" CssClass="btn btn-warning prueba" OnClick="btnModificar_Click" runat="server" />
-
+                        <asp:Button Text="Baja" ID="btnBajaMedico" OnClick="btnBajaMedicoClick" CssClass="btn btn-danger" runat="server" />
                     </div>
                 </div>
-
             </div>
         </div>
-        <div>
-            <asp:Button Text="Baja" ID="btnBajaMedico" OnClick="btnBajaMedicoClick" CssClass="btn btn-danger" runat="server" />
-        </div>
-
-
-
     </div>
 </asp:Content>

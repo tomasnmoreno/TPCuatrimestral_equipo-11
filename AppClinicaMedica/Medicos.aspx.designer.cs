@@ -267,6 +267,15 @@ namespace AppClinicaMedica
         protected global::System.Web.UI.WebControls.ListBox listBoxHxM;
 
         /// <summary>
+        /// Control agregarMedico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button agregarMedico;
+
+        /// <summary>
         /// Control btnBajaMedico.
         /// </summary>
         /// <remarks>

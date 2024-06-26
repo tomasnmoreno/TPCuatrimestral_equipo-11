@@ -79,6 +79,40 @@ namespace negocio
             }
         }
 
+        public void agregarMedico(Medico medico)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                
+                    datos.setearProcedure("SP_Nuevo_Medico");
+                    datos.setearParametro("Nombre", medico.Nombre);
+                    datos.setearParametro("Apellido", medico.Apellido);
+                    datos.setearParametro("Nacimiento", medico.FechaDeNacimiento);
+                    datos.setearParametro("Dni", medico.Dni);
+                    datos.setearParametro("Email", medico.Email);
+                    datos.setearParametro("Celular", medico.Celular);
+                    datos.setearParametro("Domicilio", medico.Domicilio);
+                    datos.setearParametro("CodPostal", medico.CodPostal);
+                    datos.setearParametro("Matricula", medico.Matricula);
+                    datos.setearParametro("NombreUsuario", medico.Usuario);
+                    datos.setearParametro("Pass", medico.Contraseña);
+                    datos.ejecutarAccion();
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
         public void bajaMedico(int id)
         {
             try

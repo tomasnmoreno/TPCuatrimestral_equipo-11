@@ -10,6 +10,8 @@ namespace dominio
     {
         public string IdMedico { get; set; }
         public int Matricula { get; set; }
+        public string Usuario { get; set; }
+        public string Contraseña {  get; set; }       
 
     }
 }
