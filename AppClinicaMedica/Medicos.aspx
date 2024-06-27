@@ -30,7 +30,6 @@
                 <asp:Label ID="lblEmail" Text="Email" Font-Size="Large" runat="server" Style="color: black;" />
                 <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="Email" runat="server" />
 
-
                 <asp:Label ID="lblDni" Text="Dni" Font-Size="Large" runat="server" Style="color: black;" />
                 <asp:TextBox ID="txtDni" CssClass="form-control" placeholder="Dni" runat="server" />
 

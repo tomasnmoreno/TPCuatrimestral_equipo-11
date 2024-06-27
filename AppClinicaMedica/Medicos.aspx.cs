@@ -18,12 +18,11 @@ namespace AppClinicaMedica
 
         EspexMedNegocio especialidadesxMedico = new EspexMedNegocio();
         HorarioxMedicoNegocio horariosxMed = new HorarioxMedicoNegocio();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                cargarListaMedicos();
-            }
+
+            cargarListaMedicos();
 
         }
         protected void cargarListaMedicos()
@@ -32,11 +31,8 @@ namespace AppClinicaMedica
             {
                 List<Medico> lista = medicoNegocio.listar();
 
-
                 dgvMedicos.DataSource = lista;
                 dgvMedicos.DataBind();
-
-
 
             }
             catch (Exception ex)
@@ -174,10 +170,12 @@ namespace AppClinicaMedica
 
         protected void cargarListBoxHxM(int idMedico)
         {
+            listBoxHxM.Items.Clear();
             List<HorarioTrabajo> horarios = horarioNegocio.listar();
             List<HorarioxMedico> listaHoraxMed = horariosxMed.listar().Where(hm => hm.IDMedico == idMedico).ToList();
             try
             {
+
                 List<HorarioTrabajo> horariosEncontrados = new List<HorarioTrabajo>();
 
                 foreach (HorarioxMedico horaXMed in listaHoraxMed)
@@ -204,17 +202,18 @@ namespace AppClinicaMedica
             GridViewRow row = dgvMedicos.SelectedRow;
 
             txtMatricula.Text = row.Cells[2].Text;
-            txtNombre.Text = row.Cells[4].Text;
-            txtApellido.Text = row.Cells[5].Text;
-            txtEmail.Text = row.Cells[6].Text;
-            txtCelular.Text = row.Cells[9].Text;
-            txtDni.Text = row.Cells[3].Text;
-            txtDomicilio.Text = row.Cells[8].Text;
-            txtCodPost.Text = row.Cells[10].Text;
+            txtNombre.Text = row.Cells[6].Text;
+            txtApellido.Text = row.Cells[7].Text;
+            txtEmail.Text = row.Cells[8].Text;
+            txtCelular.Text = row.Cells[11].Text;
+            txtDni.Text = row.Cells[5].Text;
+            txtDomicilio.Text = row.Cells[10].Text;
+            txtCodPost.Text = row.Cells[12].Text;
 
             int IdMedico = Convert.ToInt32(row.Cells[1].Text);
 
             txtId.Text = IdMedico.ToString();
+
             cargarListBox(IdMedico);
             cargarDropDownList(IdMedico);
             cargarListBoxHxM(IdMedico);
@@ -317,10 +316,9 @@ namespace AppClinicaMedica
 
                 medicoNegocio.modificarMedico(medicoModificado);
 
-
+                limpiarCampos();
                 cargarListaMedicos();
 
-                limpiarCampos();
             }
             catch (Exception ex)
             {
@@ -341,6 +339,7 @@ namespace AppClinicaMedica
             txtCodPost.Text = string.Empty;
             txtCelular.Text = string.Empty;
             txtDomicilio.Text = string.Empty;
+
 
         }
 

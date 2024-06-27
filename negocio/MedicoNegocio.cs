@@ -55,6 +55,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
+                
                 datos.setearProcedure("SP_Modificar_Medico");
                 datos.setearParametro("Nombre", medico.Nombre);
                 datos.setearParametro("Apellido", medico.Apellido);
@@ -65,9 +66,9 @@ namespace negocio
                 datos.setearParametro("CodPostal", medico.CodPostal);
                 datos.setearParametro("Dni", medico.Dni);
                 datos.setearParametro("ID", medico.IdMedico);
-                datos.ejecutarAccion();
 
                 datos.ejecutarAccion();
+
             }
             catch (Exception ex)
             {
