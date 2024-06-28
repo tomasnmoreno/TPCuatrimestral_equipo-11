@@ -1,4 +1,4 @@
-﻿console.log('hola');
+﻿/*console.log('hola');*/
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -18,10 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const hideMenuResize = () => {
         mobileMenu.style.display = "none"
-    };
+    }   
 
     toggleButton.addEventListener("click", toggleMenu);
-
     window.addEventListener("resize", hideMenuResize);
+    window.addEventListener("load", hideMenuResize);
 
 });

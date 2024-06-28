@@ -218,7 +218,6 @@ namespace AppClinicaMedica
             cargarDropDownList(IdMedico);
             cargarListBoxHxM(IdMedico);
             cargarDropDownListHxM(IdMedico);
-
         }
         protected void btnBajaMedicoClick(object sender, EventArgs e)
         {
@@ -265,9 +264,6 @@ namespace AppClinicaMedica
             EspecialidadesxMedico nuevaExM = new EspecialidadesxMedico();
             if (listBox.SelectedIndex != -1)
             {
-
-
-
                 string valorSeleccionado = listBox.SelectedItem.Value;
 
                 int idEspecialidad = Convert.ToInt32(valorSeleccionado);
@@ -280,7 +276,6 @@ namespace AppClinicaMedica
 
                 cargarListBox(nuevaExM.IDMedico);
                 cargarDropDownList(nuevaExM.IDMedico);
-
             }
         }
 
@@ -288,7 +283,6 @@ namespace AppClinicaMedica
         {
             try
             {
-
                 string Id = txtId.Text;
                 int Matricula = Convert.ToInt32(txtMatricula.Text);
                 string nombre = txtNombre.Text;
@@ -310,23 +304,17 @@ namespace AppClinicaMedica
                     Celular = celular,
                     Domicilio = Domicilio,
                     CodPostal = codPost,
-
-
                 };
 
                 medicoNegocio.modificarMedico(medicoModificado);
 
                 limpiarCampos();
                 cargarListaMedicos();
-
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine("Error al modificar el Medico: " + ex.Message);
             }
-
-
         }
 
         protected void limpiarCampos()
@@ -339,15 +327,12 @@ namespace AppClinicaMedica
             txtCodPost.Text = string.Empty;
             txtCelular.Text = string.Empty;
             txtDomicilio.Text = string.Empty;
-
-
         }
 
         protected void agregarMedico_Click(object sender, EventArgs e)
         {
             try
             {
-
                 int Matricula = Convert.ToInt32(txtMatricula.Text);
                 string nombre = txtNombre.Text;
                 string apellido = txtApellido.Text;
@@ -373,14 +358,11 @@ namespace AppClinicaMedica
 
                 System.Web.HttpContext.Current.Session["MedicoNuevo"] = medicoNuevo;
                 Response.Redirect("NuevoMedico.aspx");
-
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine("Error al Agregar el Medico: " + ex.Message);
             }
-
         }
     }
 }

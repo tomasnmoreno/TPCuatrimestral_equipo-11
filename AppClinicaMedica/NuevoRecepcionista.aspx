@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NuevoPaciente.aspx.cs" Inherits="AppClinicaMedica.NuevoPaciente" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NuevoRecepcionista.aspx.cs" Inherits="AppClinicaMedica.NuevoRecepcionista" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -10,7 +10,7 @@
                 <asp:TextBox runat="server" ID="txtUsuario" placeholder="Usuario" CssClass="form-control" />
             </div>
             <div class="mb-3">
-                <label for="txtPass"  class="form-label">Constraseña</label>
+                <label for="txtPass" class="form-label">Constraseña</label>
                 <asp:TextBox runat="server" TextMode="Password" placeholder="Contraseña" ID="txtPass" CssClass="form-control" />
             </div>
             <div class="mb-3">
@@ -45,15 +45,12 @@
                 <label for="txtCodPostal" class="form-label">Codigo Postal</label>
                 <asp:TextBox runat="server" ID="txtCodPostal" placeholder="Código Postal" CssClass="form-control" />
             </div>
-            <%--             <div class="mb-3">
-                 <asp:Button Text="Aceptar" ID="btnAceptar" OnClick="btnAceptar_Click" runat="server" />
-             </div>--%>
+
             <div class="container agregarEspecialidad">
-                <asp:Button Text="Aceptar" CssClass="btn btn-primary" ID="btnAgregarPaciente" OnClick="btnAgregarPaciente_Click" runat="server" />
+                <asp:Button Text="Aceptar" CssClass="btn btn-primary" ID="btnAgregarRecepcionista" OnClick="btnAgregarRecepcionista_Click" runat="server" />
                 <a href="Pacientes.aspx" class="btn btn-danger" style="margin-left: 10px;">Cancelar</a>
-                <asp:Button Text="Baja" ID="btnBajaPaciente" OnClick="btnBajaPaciente_Click" CssClass="btn btn-danger" runat="server"/>
+                <asp:Button Text="Baja" ID="btnBajaRecepcionista" OnClick="btnBajaRecepcionista_Click" CssClass="btn btn-danger" runat="server" />
             </div>
         </div>
     </div>
-
 </asp:Content>

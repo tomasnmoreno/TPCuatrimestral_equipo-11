@@ -1,3 +1,5 @@
+use master
+go
 CREATE DATABASE TP_CUATRIMESTRAL
 GO
 USE TP_CUATRIMESTRAL
@@ -71,7 +73,6 @@ Create or Alter Procedure SP_Modificar_Especialidad
 --)
 
 go
-
 create table Usuarios(
 	ID int not null primary key identity(1, 1),
 	NombreUsuario varchar(100) not null unique,
@@ -82,8 +83,8 @@ create table Usuarios(
 	Estado bit not null default 1
 )
  
+ ------ MEDICOS ------
 go 
-
 CREATE TABLE MEDICOS( --tipo 3--
 	IDUsuario int not null primary key foreign key references Usuarios(ID),
 	Matricula int not null,
@@ -97,7 +98,6 @@ CREATE TABLE MEDICOS( --tipo 3--
 )
 
 go
-
 create or alter procedure SP_Nuevo_Medico
 	--Para Paciente
 	@Nombre varchar(100),
@@ -136,6 +136,7 @@ create or alter procedure SP_Nuevo_Medico
 	end catch
 end
 
+go
 create or alter procedure SP_Modificar_Medico
 	--Para Medico
 	@ID int,
@@ -159,8 +160,9 @@ as begin
 		raiserror('Hubo un problema en la modificacion, verifique si los datos estan correctos',16,2)
 		rollback transaction
 	end catch
-	end	
+end	
 
+go
 CREATE TABLE EspecialidadesXMedicos(
 	IDEspecialidad int foreign key references ESPECIALIDADES(ID), 
 	IDMedico int not null foreign key references Medicos(IDUsuario)
@@ -168,7 +170,6 @@ CREATE TABLE EspecialidadesXMedicos(
 )
 
 go 
-
  CREATE OR Alter Procedure SP_Nueva_EspecialidadesXMedicos
 	
 	@IDEspecialidad int,
@@ -183,13 +184,14 @@ go
 
 	end;
 
+Go
 CREATE TABLE HorarioTrabajo (
 	IDHorario int not null primary key identity(1,1),
 	HoraInicio time not null,
 	HoraFin time not null
 )
-GO
 
+GO
 CREATE TABLE HorarioxMedico(
 	IDHorario int foreign key references HorarioTrabajo(IDHorario),
 	IDMedico int foreign key references Medicos(IDusuario),
@@ -197,7 +199,6 @@ CREATE TABLE HorarioxMedico(
 )
 
 go
-
 CREATE OR Alter Procedure SP_Nueva_HorarioxMedico
 	
 	@IDHorario int,
@@ -212,13 +213,16 @@ CREATE OR Alter Procedure SP_Nueva_HorarioxMedico
 
 	end;
 
+
+------ PACIENTES ------
+go
 CREATE TABLE PACIENTES( --tipo 4--
 	IDUsuario int not null primary key foreign key references Usuarios(ID),
 	Nombre varchar(100) not null,
 	Apellido varchar(100) not null,
 	Nacimiento date not null,
 	Dni bigint not null unique,
-	Mail varchar(150),
+	EMail varchar(150), -- YA ESTA EN USUARIOS -> SACAR Y REVISAR SI GENERA CONFLICTOS
 	Celular bigint not null,
 	Domicilio varchar(100) not null,
 	CodPostal int not null
@@ -248,7 +252,7 @@ create or alter procedure SP_Nuevo_Paciente
 
 			declare @iDusuario int 
 			select @iDusuario = ID from Usuarios where NombreUsuario = @NombreUsuario
-			INSERT INTO PACIENTES (IDUsuario, Nombre, Apellido, Nacimiento, Dni, Mail, Celular, Domicilio, CodPostal)
+			INSERT INTO PACIENTES (IDUsuario, Nombre, Apellido, Nacimiento, Dni, EMail, Celular, Domicilio, CodPostal)
 			values (@iDusuario, @Nombre, @apellido, @Nacimiento, @Dni, @Email, @Celular, @Domicilio, @CodPostal)
 		end 
 		else begin
@@ -262,8 +266,6 @@ create or alter procedure SP_Nuevo_Paciente
 	end catch
 end
 exec SP_Nuevo_Paciente 'Tomas', 'Moreno', '1999-04-24', 41893710, 'tomasmoreno@gmail.com', 1111111111, 'Agustin de Elia 1155', 1704, 'tmoreno', '1234'
-
-
 
 go
 create or alter procedure SP_Modificar_Paciente
@@ -284,7 +286,7 @@ as begin
 	begin try
 	begin transaction
 		update Usuarios set NombreUsuario = @NombreUsuario, Pass = @Pass, Email = @Email where ID = @ID
-		update Pacientes set Nombre = @Nombre, Apellido = @Apellido, Nacimiento = @Nacimiento, Mail = @Email, Celular = @Celular, Domicilio = @Domicilio, CodPostal = @CodPostal where IDUsuario = @ID
+		update Pacientes set Nombre = @Nombre, Apellido = @Apellido, Nacimiento = @Nacimiento, Celular = @Celular, Domicilio = @Domicilio, CodPostal = @CodPostal where IDUsuario = @ID
 	commit transaction
 	end try
 	begin catch
@@ -294,7 +296,7 @@ as begin
 end
 exec SP_Modificar_Paciente 'Tomas', 'Moreno', '1995-04-24', 'tomasmoreno@gmail.com', 1111111112, 'Agustin de Elia 1155', 1704, 1, 'tmoreno', '1234'
 
-
+------ RECEPCIONISTAS ------
 Go
 CREATE TABLE RECEPCIONISTAS( --tipo 2--
 	IDUsuario int not null primary key foreign key references Usuarios(ID),
@@ -302,8 +304,92 @@ CREATE TABLE RECEPCIONISTAS( --tipo 2--
 	Apellido varchar(100) not null,
 	Nacimiento date not null,
 	Dni bigint not null unique,
-	Celular tinyint not null,
+	Celular bigint not null,
 	Domicilio varchar(100) not null,
-	CodPostal tinyint not null
+	CodPostal int not null
 )
 
+Go
+create or alter procedure SP_Nuevo_Recepcionista
+	--Para Recepcionista
+	@Nombre varchar(100),
+	@Apellido varchar(100),
+	@Nacimiento date,
+	@Dni bigint,
+	@Email varchar(150),
+	@Celular bigint,
+	@Domicilio varchar(100),
+	@CodPostal int,
+	--Para Usuario
+	@NombreUsuario varchar(100),
+	@Pass varchar(100)
+ as begin
+	begin try
+	begin transaction
+
+		if @Dni not in (select Dni from RECEPCIONISTAS where Dni = @Dni) begin
+			INSERT INTO Usuarios(NombreUsuario, Pass, Email, Tipo, Estado)
+			values	(@NombreUsuario, @Pass, @Email, 2, 1)
+
+			declare @iDusuario int 
+			select @iDusuario = ID from Usuarios where NombreUsuario = @NombreUsuario
+			INSERT INTO RECEPCIONISTAS (IDUsuario, Nombre, Apellido, Nacimiento, Dni, Celular, Domicilio, CodPostal)
+			values (@iDusuario, @Nombre, @Apellido, @Nacimiento, @Dni, @Celular, @Domicilio, @CodPostal)
+		end 
+		else begin
+			raiserror('El DNI ya existe o hubo un error en la registracion', 16, 1)
+		end
+	commit transaction
+	end try
+	begin catch
+		raiserror('El DNI ya existe o hubo un error en la registracion', 16, 1)
+		rollback transaction
+	end catch
+end
+exec SP_Nuevo_Recepcionista 'Jesus', 'Ludena', '1999-02-24', 427779999, 'jludena@gmail.com', 1522334455, 'Florencio Varela 2054', 1704, 'jludena', '1234'
+
+
+go
+create or alter procedure SP_Modificar_Recepcionista
+	--Para Paciente
+	@Nombre varchar(100),
+	@Apellido varchar(100),
+	@Nacimiento datetime,
+	--@Dni bigint,
+	@Celular bigint,
+	@Domicilio varchar(100),
+	@CodPostal int,
+	--Para Usuario
+	@ID int,
+	@NombreUsuario varchar(100),
+	@Pass varchar(100),
+	@Email varchar(150)
+as begin
+	begin try
+	begin transaction
+		update Usuarios set NombreUsuario = @NombreUsuario, Pass = @Pass, Email = @Email where ID = @ID
+		update RECEPCIONISTAS set Nombre = @Nombre, Apellido = @Apellido, Nacimiento = @Nacimiento, Celular = @Celular, Domicilio = @Domicilio, CodPostal = @CodPostal where IDUsuario = @ID
+	commit transaction
+	end try
+	begin catch
+		raiserror('Hubo un problema en la modificacion, verifique si los datos estan correctos',16,2)
+		rollback transaction
+	end catch
+end
+
+--select r.IDUsuario, u.Pass, u.NombreUsuario, r.Nombre, r.Apellido, r.Nacimiento, r.Dni, u.EMail, r.Celular, r.Domicilio, r.CodPostal from RECEPCIONISTAS r inner join Usuarios u on u.ID = r.IDUsuario where u.Estado=1
+Go
+create or alter procedure SP_Baja_Recepcionista
+	@IDUsuario int
+as begin
+	begin try
+	begin transaction
+		delete from RECEPCIONISTAS where IDUsuario = @IDUsuario
+		delete from Usuarios where ID = @IDUsuario
+	commit transaction
+	end try
+	begin catch
+		rollback transaction
+		raiserror('Ocurrio un error al borrar los registros de las tablas Usuarios y Recepcionistas', 16, 2)
+	end catch
+end

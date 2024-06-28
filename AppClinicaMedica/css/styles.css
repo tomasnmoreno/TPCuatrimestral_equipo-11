@@ -14,9 +14,11 @@ body {
     font-family: 'Poppins', sans-serif;
     overflow: scroll;
     background-image: url('../img/pixelcut-export (1).jpeg');
+    background-position: center center;
+    background-size: cover;
     background-repeat: no-repeat;
     background-color: mediumturquoise;
-    justify-content: center;
+    /*justify-content: center;*/
     /*border: 10px solid red;*/ /*para hacer pruebas*/
     /*clip-path: polygon(0 0%, 100% 0%, 100% 81%, 0% 100%);*/
 }

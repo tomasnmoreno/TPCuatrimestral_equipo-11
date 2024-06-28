@@ -17,7 +17,7 @@ namespace negocio
 
             try
             {
-                datos.setQuery("select p.IDUsuario, u.Pass, u.NombreUsuario, p.Nombre, p.Apellido, p.Nacimiento, p.Dni, p.Mail, p.Celular, p.Domicilio, p.CodPostal from PACIENTES p inner join Usuarios u on u.ID = p.IDUsuario where u.Estado=1");
+                datos.setQuery("select p.IDUsuario, u.Pass, u.NombreUsuario, p.Nombre, p.Apellido, p.Nacimiento, p.Dni, u.EMail, p.Celular, p.Domicilio, p.CodPostal from PACIENTES p inner join Usuarios u on u.ID = p.IDUsuario where u.Estado=1");
                 datos.leer();
 
                 while (datos.Reader.Read())
@@ -30,7 +30,7 @@ namespace negocio
                     aux.Apellido = (string)datos.Reader["Apellido"];
                     aux.FechaDeNacimiento = (DateTime)datos.Reader["Nacimiento"];
                     aux.Dni = (Int64)datos.Reader["Dni"];
-                    aux.Email = (string)datos.Reader["Mail"];
+                    aux.Email = (string)datos.Reader["EMail"];
                     aux.Celular = (Int64)datos.Reader["Celular"];
                     aux.Domicilio = (string)datos.Reader["Domicilio"];
                     aux.CodPostal = (int)datos.Reader["CodPostal"];
@@ -83,36 +83,36 @@ namespace negocio
 
         }
 
-        public void modificarPacienteSP(Paciente paciente)
-        {
-            AccesoDatos datos = new AccesoDatos();
+        //public void modificarPacienteSP(Paciente paciente)
+        //{
+        //    AccesoDatos datos = new AccesoDatos();
 
-            try
-            {
-            datos.setearProcedure("SP_Modificar_Paciente");
-            //datos.setearParametro("Dni", paciente.Dni); --no va
-            datos.setearParametro("Nombre", paciente.Nombre);
-            datos.setearParametro("Apellido", paciente.Apellido);
-            //datos.setearParametro("Nacimiento", paciente.FechaDeNacimiento);
-            datos.setearParametro("Nacimiento", paciente.FechaDeNacimiento.ToString("yyyy-MM-dd"));
-            datos.setearParametro("Email", paciente.Email);
-            datos.setearParametro("Celular", paciente.Celular);
-            datos.setearParametro("Domicilio", paciente.Domicilio);
-            datos.setearParametro("CodPostal", paciente.CodPostal);
-            datos.setearParametro("ID", paciente.IDPaciente);
-            datos.setearParametro("NombreUsuario", paciente.NombreUsuario);
-            datos.setearParametro("Pass", paciente.Pass);
-            datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
+        //    try
+        //    {
+        //    datos.setearProcedure("SP_Modificar_Paciente");
+        //    //datos.setearParametro("Dni", paciente.Dni); --no va
+        //    datos.setearParametro("Nombre", paciente.Nombre);
+        //    datos.setearParametro("Apellido", paciente.Apellido);
+        //    //datos.setearParametro("Nacimiento", paciente.FechaDeNacimiento);
+        //    datos.setearParametro("Nacimiento", paciente.FechaDeNacimiento.ToString("yyyy-MM-dd"));
+        //    datos.setearParametro("Email", paciente.Email);
+        //    datos.setearParametro("Celular", paciente.Celular);
+        //    datos.setearParametro("Domicilio", paciente.Domicilio);
+        //    datos.setearParametro("CodPostal", paciente.CodPostal);
+        //    datos.setearParametro("ID", paciente.IDPaciente);
+        //    datos.setearParametro("NombreUsuario", paciente.NombreUsuario);
+        //    datos.setearParametro("Pass", paciente.Pass);
+        //    datos.ejecutarAccion();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarConexion();
+        //    }
+        //}
 
         public void modificarPaciente(Paciente paciente)
         {
@@ -120,7 +120,7 @@ namespace negocio
 
             try
             {
-                datos.setQuery("update Usuarios set NombreUsuario = @NombreUsuario, Pass = @Pass, Email = @Email where ID = @ID update Pacientes set Nombre = @Nombre, Apellido = @Apellido, Nacimiento = @Nacimiento, Mail = @Email, Celular = @Celular, Domicilio = @Domicilio, CodPostal = @CodPostal where IDUsuario = @ID");
+                datos.setQuery("update Usuarios set NombreUsuario = @NombreUsuario, Pass = @Pass, Email = @Email where ID = @ID update Pacientes set Nombre = @Nombre, Apellido = @Apellido, Nacimiento = @Nacimiento, Celular = @Celular, Domicilio = @Domicilio, CodPostal = @CodPostal where IDUsuario = @ID");
                 //datos.setearParametro("Dni", paciente.Dni); --no va
                 datos.setearParametro("@Nombre", paciente.Nombre);
                 datos.setearParametro("@Apellido", paciente.Apellido);

@@ -21,6 +21,13 @@ namespace AppClinicaMedica
 
             dgvRecepcionistas.DataSource = listaRecepcionistas;
             dgvRecepcionistas.DataBind();
+            Session.Add("listaRecepcionistas", ReNegocio.listar());
+        }
+
+        protected void dgvRecepcionistas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var id = dgvRecepcionistas.SelectedDataKey.Value.ToString();
+            Response.Redirect("NuevoRecepcionista.aspx?IDUsuario=" + id);
         }
     }
 }

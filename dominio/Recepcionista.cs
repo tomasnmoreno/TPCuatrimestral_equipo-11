@@ -8,6 +8,8 @@ namespace dominio
 {
     public class Recepcionista:Persona
     {
-        public int IdRecepcionista {  get; set; }
+        public int IDRecepcionista {  get; set; }
+        public string NombreUsuario { get; set; }
+        public string Pass { get; set; }
     }
 }

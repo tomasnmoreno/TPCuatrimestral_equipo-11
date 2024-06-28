@@ -14,7 +14,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <a href="Home.aspx"><- Volver</a>
+            <a class="btn btn-warning prueba" style="margin-top: 10px; margin-left: 10px" href="Home.aspx"><- Volver</a>
             <div class="containerLogIn" style="margin-top:400px">
                 <div class="rowLogIn">
                     <div>
@@ -27,7 +27,7 @@
                         <asp:TextBox cssclass="paddingLogIn" type="password" style="width:400px; margin-bottom: 20px;" ID="txtbPassword" placeholder="Contraseña" runat="server" />
                     </div>
                     <div>
-                        <asp:Button CssClass="button button-primary button-ingresar paddingLogIn" ID="btnIngresar" Text="Ingresar" runat="server" />
+                        <asp:Button CssClass="button button-primary button-ingresar paddingLogIn" ID="btnIngresar" OnClick="btnIngresar_Click" Text="Ingresar" runat="server" />
                     </div>
                     <div class="registrarseLogIn">
                         <a class="fuenteLogIn" href="NuevoPaciente.aspx">Si usted es Paciente: regístrese dando click aquí</a>
