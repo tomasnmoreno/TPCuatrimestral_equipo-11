@@ -192,6 +192,17 @@ CREATE TABLE HorarioTrabajo (
 )
 
 GO
+
+CREATE OR ALTER PROCEDURE SP_Nuevo_Horario
+    @HoraInicio TIME,
+    @HoraFin TIME
+AS
+BEGIN
+    INSERT INTO HorarioTrabajo (HoraInicio, HoraFin)
+    VALUES (@HoraInicio, @HoraFin)
+END
+
+
 CREATE TABLE HorarioxMedico(
 	IDHorario int foreign key references HorarioTrabajo(IDHorario),
 	IDMedico int foreign key references Medicos(IDusuario),

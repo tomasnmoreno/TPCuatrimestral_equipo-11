@@ -25,3 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("load", hideMenuResize);
 
 });
+
+function abrirVentanaEmergente() {
+    window.open("NuevoMedico.aspx", "MiVentanaEmergente", "width=400,height=300");
+}

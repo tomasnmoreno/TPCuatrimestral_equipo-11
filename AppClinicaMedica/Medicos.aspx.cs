@@ -364,6 +364,33 @@ namespace AppClinicaMedica
                 Console.WriteLine("Error al Agregar el Medico: " + ex.Message);
             }
         }
+        protected void btnAgregarHorario_Click(object sender, EventArgs e)
+        {
+            HorarioNegocio horarioNegocio = new HorarioNegocio();
+
+            TimeSpan tiempoInicio = new TimeSpan(0, 0, 0);
+            TimeSpan tiempoFin = new TimeSpan(0, 0, 0);
+
+            DateTime nuevoHorarioInicio = DateTime.Today.Add(tiempoInicio);
+            DateTime nuevoHorarioFin = DateTime.Today.Add(tiempoFin);
+
+            string horaInicioText = txtHorarioIni.Text;
+            DateTime.TryParse(horaInicioText, out DateTime horaInicio);
+
+
+            string horaFinText = txtHorarioFin.Text;
+            DateTime.TryParse(horaFinText, out DateTime horaFin);
+
+            horarioNegocio.agregarHorario(horaInicio, horaFin);
+
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "CerrarVentana", "window.close();", true);
+        }
+
+        protected void Unnamed_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "CerrarVentana", "window.close();", true);
+        }
     }
 }
 

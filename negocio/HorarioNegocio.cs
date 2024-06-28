@@ -41,5 +41,22 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void agregarHorario(DateTime horaInicio, DateTime horaFin)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setQuery("INSERT INTO HorarioTrabajo (HoraInicio, HoraFin) VALUES (@HoraInicio, @HoraFin)");
+                datos.setearParametro("@HoraInicio", horaInicio.TimeOfDay);
+                datos.setearParametro("@HoraFin", horaFin.TimeOfDay);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally { datos.cerrarConexion(); }
+        }
     }
 }

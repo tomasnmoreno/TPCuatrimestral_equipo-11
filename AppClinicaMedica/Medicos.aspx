@@ -4,7 +4,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1 class="titPpal">Médicos </h1>
-
+    <script src="js/app2.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <div class="row">
         <div class="col-8 table-responsive">
             <asp:GridView runat="server" ID="dgvMedicos" OnSelectedIndexChanged="dgvMedicos_SelectedIndexChanged" CssClass="table table-info table-bordered table-sm">
@@ -54,6 +57,26 @@
                 </div>
 
                 <asp:Label ID="lblHorarios" Text="Horarios" runat="server" Font-Size="Large" Style="color: black;" />
+                <button type="button" class="btn" data-toggle="modal" data-target="#miModal">
+                    +
+                </button>
+
+                <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Contenido de la ventana emergente -->
+                            <asp:Label ID="lblIni" Text="Hora Inicio" Font-Size="Large" runat="server" Style="color: black;" />
+                            <asp:TextBox ID="txtHorarioIni" TextMode="Time" CssClass="form-control" runat="server" />
+                            <asp:Label ID="lblFin" Text="Hora Fin" Font-Size="Large" runat="server" Style="color: black;" />
+                            <asp:TextBox ID="txtHorarioFin" TextMode="Time"  CssClass="form-control" runat="server" />
+                            <div>
+                                <asp:Button Text="Aceptar" CssClass="btn btn-primary" ID="btnAgregarHorario" onclick="btnAgregarHorario_Click"  runat="server" />
+                                <asp:Button Text="Cancelar" class="btn btn-danger" onclick="Unnamed_Click" style="margin-left: 10px;" runat="server" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="mb-1">
                     <asp:DropDownList ID="DropDownListHxM" class="form-control" runat="server"></asp:DropDownList>
                     <asp:Button ID="agregarHxM" class="btn" OnClick="btnAgregarHorarioaMedico" runat="server" Text="Agregar" />
