@@ -17,9 +17,11 @@ namespace AppClinicaMedica
             if (!IsPostBack)
             {
                 EspecialidadNegocio EspNegocio = new EspecialidadNegocio();
+                Session.Add("listaEspecialidades", EspNegocio.listar());
                 listaEspecialidades = EspNegocio.listar();
 
-                repetidor.DataSource = listaEspecialidades;
+                //repetidor.DataSource = listaEspecialidades;
+                repetidor.DataSource = Session["listaEspecialidades"];
                 repetidor.DataBind();
             }
         }
@@ -40,6 +42,14 @@ namespace AppClinicaMedica
                 throw ex;
             }
 
+        }
+
+        protected void filtro_TextChanged(object sender, EventArgs e)
+        {
+            List<Especialidad> lista = (List<Especialidad>)Session["listaEspecialidades"];
+            List<Especialidad> listaFiltrada = lista.FindAll(esp => esp.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+            repetidor.DataSource = listaFiltrada;
+            repetidor.DataBind();
         }
     }
 }

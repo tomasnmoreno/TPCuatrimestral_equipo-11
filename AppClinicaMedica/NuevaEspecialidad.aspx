@@ -13,7 +13,7 @@
             <asp:TextBox ID="txtImagenNuevaEspecialidad" runat="server" />
         </div>
         <div class="container agregarEspecialidad">
-            <asp:Button Text="Agregar" cssclass="btn btn-primary" ID="btnAgregarEspecialidad" onclick="btnAgregarEspecialidad_Click" runat="server" />
+            <asp:Button Text="Confirmar" cssclass="btn btn-primary" ID="btnAgregarEspecialidad" onclick="btnAgregarEspecialidad_Click" runat="server" />
             <a href="Especialidades.aspx" class="btn btn-danger" style="margin-left: 10px;">Cancelar</a>
         </div>
     </div>

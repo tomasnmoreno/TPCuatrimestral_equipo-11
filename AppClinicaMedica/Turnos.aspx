@@ -36,8 +36,8 @@
                     </asp:DropDownList>
                 </div>
             </div>
-            <asp:Button Text="Aceptar" runat="server"/>
-            <asp:Button Text="Cancelar" runat="server" />
+            <asp:Button Text="Confirmar Turno" runat="server" CssClass="btn btn-success"/>
+            <a href="Turnos.aspx" class="btn btn-danger" style="margin-left: 10px;">Cancelar</a>
 
         </ContentTemplate>
     </asp:UpdatePanel>

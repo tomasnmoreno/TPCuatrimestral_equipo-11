@@ -130,12 +130,8 @@ a{
     border-radius: 12px;
 }
 
-.my-boton {
-    color: blue;
-}
-
     .my-boton:hover {
-        color: white;
+        color: blue;
     }
 
 .mi-card {
