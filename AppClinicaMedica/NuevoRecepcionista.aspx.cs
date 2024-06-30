@@ -66,7 +66,7 @@ namespace AppClinicaMedica
                     negocio.agregarRecepcionista(recepcionista);
                 }
 
-                Response.Redirect("Recepcionistas.aspx");
+                Response.Redirect("Recepcionistas.aspx", false);
             }
             catch (Exception ex)
             {

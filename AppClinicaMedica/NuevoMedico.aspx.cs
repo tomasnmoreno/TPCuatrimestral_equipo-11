@@ -31,7 +31,7 @@ namespace AppClinicaMedica
                     medicoRecuperado.Usuario = txtUsuario.Text;
                     medicoRecuperado.FechaDeNacimiento= DateTime.Parse(txtNacimiento.Text);
                     medicoNegocio.agregarMedico(medicoRecuperado);
-                    Response.Redirect("Medico.aspx");
+                    Response.Redirect("Medicos.aspx");
 
                 }
             }
