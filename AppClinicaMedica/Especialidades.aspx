@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" style="padding 20px">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" style="padding : 20px">
     <h1 class="titPpal">Especialidades</h1>
     <a href="NuevaEspecialidad.aspx" class="btn my-boton" style="margin-left: 70px">Agregar Especialidad</a>
     <div class="row">
@@ -15,7 +15,7 @@
     <div class="row" style="margin-left: 20px;">
         <asp:Repeater runat="server" ID="repetidor">
             <ItemTemplate>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4 d-flex align-items-stretch">
                     <div class="card mi-card" style="width: 100%;">
                         <div class="card-body">
                             <img src="<%#Eval("IMAGEN") %>" class="card-img-top" style="object-fit: cover; object-position: center; width: 100%; height: 200px;" alt="...">

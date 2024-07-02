@@ -11,5 +11,6 @@ namespace dominio
         public int IDHorario {  get; set; }
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
+        public int IdDia { get; set; }
     }
 }

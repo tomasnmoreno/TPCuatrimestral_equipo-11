@@ -16,7 +16,7 @@ namespace negocio
 
             try
             {
-                datos.setQuery("SELECT IDHorario, HoraInicio, HoraFin FROM HorarioTrabajo");
+                datos.setQuery("SELECT IDHorario, HoraInicio, HoraFin, IdDia FROM HorariosTrabajo");
                 datos.leer();
 
                 while (datos.Reader.Read())
@@ -25,6 +25,8 @@ namespace negocio
                     aux.IDHorario = (int)datos.Reader["IDHorario"];
                     aux.HoraInicio = (TimeSpan)datos.Reader["HoraInicio"];
                     aux.HoraFin = (TimeSpan)datos.Reader["HoraFin"];
+                    aux.IdDia = (int)datos.Reader["IdDia"];
+
 
                     lista.Add(aux);
                 }
@@ -42,14 +44,15 @@ namespace negocio
             }
         }
 
-        public void agregarHorario(DateTime horaInicio, DateTime horaFin)
+        public void agregarHorario(DateTime horaInicio, DateTime horaFin, int IdDia)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setQuery("INSERT INTO HorarioTrabajo (HoraInicio, HoraFin) VALUES (@HoraInicio, @HoraFin)");
+                datos.setQuery("INSERT INTO HorariosTrabajo (HoraInicio, HoraFin, IdDia) VALUES (@HoraInicio, @HoraFin, @IdDia)");
                 datos.setearParametro("@HoraInicio", horaInicio.TimeOfDay);
                 datos.setearParametro("@HoraFin", horaFin.TimeOfDay);
+                datos.setearParametro("@IdDia",IdDia);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

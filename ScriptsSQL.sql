@@ -5,6 +5,23 @@ GO
 USE TP_CUATRIMESTRAL
 GO
 
+create Table DiasSemana(
+	Id int not null primary key,
+	Nombre varchar(50)
+	)
+go
+
+Insert Into DiasSemana(Id, Nombre)
+values 
+	(1,'Lunes'),
+	(2,'Martes'),
+	(3,'Miercoles'),
+	(4,'Jueves'),
+	(5,'Viernes')
+
+go
+
+
 Create Table Especialidades(
 	Id Int Not Null Primary Key Identity(1, 1),
 	Nombre Varchar(50) Not Null Unique,
@@ -185,26 +202,28 @@ go
 	end;
 
 Go
-CREATE TABLE HorarioTrabajo (
+CREATE TABLE HorariosTrabajo (
 	IDHorario int not null primary key identity(1,1),
 	HoraInicio time not null,
-	HoraFin time not null
+	HoraFin time not null,
+	IdDia int not null,
 )
 
 GO
 
-CREATE OR ALTER PROCEDURE SP_Nuevo_Horario
+CREATE OR ALTER PROCEDURE SP_Nuevo_Horarios
     @HoraInicio TIME,
-    @HoraFin TIME
+    @HoraFin TIME,
+	@IdDia int
 AS
 BEGIN
-    INSERT INTO HorarioTrabajo (HoraInicio, HoraFin)
-    VALUES (@HoraInicio, @HoraFin)
+    INSERT INTO HorariosTrabajo (HoraInicio, HoraFin, IdDia)
+    VALUES (@HoraInicio, @HoraFin, @IdDia)
 END
 
 
 CREATE TABLE HorarioxMedico(
-	IDHorario int foreign key references HorarioTrabajo(IDHorario),
+	IDHorario int foreign key references HorariosTrabajo(IDHorario),
 	IDMedico int foreign key references Medicos(IDusuario),
 	primary key (IDHorario, IDMedico)
 )

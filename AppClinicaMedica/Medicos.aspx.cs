@@ -15,7 +15,7 @@ namespace AppClinicaMedica
         MedicoNegocio medicoNegocio = new MedicoNegocio();
         EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
         HorarioNegocio horarioNegocio = new HorarioNegocio();
-
+        DiasSemanaNegocio diasSemanaNegocio = new DiasSemanaNegocio();
         EspexMedNegocio especialidadesxMedico = new EspexMedNegocio();
         HorarioxMedicoNegocio horariosxMed = new HorarioxMedicoNegocio();
 
@@ -23,6 +23,7 @@ namespace AppClinicaMedica
         {
 
             cargarListaMedicos();
+            ddlDiasCargar();
 
         }
         protected void cargarListaMedicos()
@@ -30,6 +31,7 @@ namespace AppClinicaMedica
             try
             {
                 List<Medico> lista = medicoNegocio.listar();
+                
 
                 dgvMedicos.DataSource = lista;
                 dgvMedicos.DataBind();
@@ -122,6 +124,25 @@ namespace AppClinicaMedica
             }
         }
 
+        protected void ddlDiasCargar()
+        {
+            try
+            {
+                List<DiasSemana> diasSemanas = diasSemanaNegocio.listar();
+
+                ddlAgregarHorario.DataSource = diasSemanas;
+                ddlAgregarHorario.DataTextField = "Nombre";
+                ddlAgregarHorario.DataValueField = "IdDias";
+                ddlAgregarHorario.DataBind();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         protected void btnAgregarHorarioaMedico(object sender, EventArgs e)
         {
             if (DropDownListHxM.SelectedIndex != -1)
@@ -173,6 +194,7 @@ namespace AppClinicaMedica
             listBoxHxM.Items.Clear();
             List<HorarioTrabajo> horarios = horarioNegocio.listar();
             List<HorarioxMedico> listaHoraxMed = horariosxMed.listar().Where(hm => hm.IDMedico == idMedico).ToList();
+            List<DiasSemana> listadias = diasSemanaNegocio.listar();
             try
             {
 
@@ -181,10 +203,11 @@ namespace AppClinicaMedica
                 foreach (HorarioxMedico horaXMed in listaHoraxMed)
                 {
                     HorarioTrabajo horarioEncontrado = horarios.FirstOrDefault(h => h.IDHorario == horaXMed.IDHorario);
+                    DiasSemana diaEncontrado = listadias.FirstOrDefault(d => d.IdDias == horarioEncontrado.IdDia);
 
                     if (horarioEncontrado != null)
                     {
-                        string horaCompleta = $"{horarioEncontrado.HoraInicio} - {horarioEncontrado.HoraFin}";
+                        string horaCompleta = $"{horarioEncontrado.HoraInicio} - {horarioEncontrado.HoraFin}-{diaEncontrado.Nombre}";
 
                         listBoxHxM.Items.Add(new ListItem(horaCompleta, horarioEncontrado.IDHorario.ToString()));
                     }
@@ -333,30 +356,7 @@ namespace AppClinicaMedica
         {
             try
             {
-                int Matricula = Convert.ToInt32(txtMatricula.Text);
-                string nombre = txtNombre.Text;
-                string apellido = txtApellido.Text;
-                string email = txtEmail.Text;
-                int Dni = Convert.ToInt32(txtDni.Text);
-                string Domicilio = txtDomicilio.Text;
-                int celular = Convert.ToInt32(txtCelular.Text);
-                int codPost = Convert.ToInt32(txtCodPost.Text);
 
-                Medico medicoNuevo = new Medico
-                {
-                    Matricula = Matricula,
-                    Nombre = nombre,
-                    Apellido = apellido,
-                    Email = email,
-                    Dni = Dni,
-                    Celular = celular,
-                    Domicilio = Domicilio,
-                    CodPostal = codPost,
-
-
-                };
-
-                System.Web.HttpContext.Current.Session["MedicoNuevo"] = medicoNuevo;
                 Response.Redirect("NuevoMedico.aspx");
             }
             catch (Exception ex)
@@ -366,30 +366,52 @@ namespace AppClinicaMedica
         }
         protected void btnAgregarHorario_Click(object sender, EventArgs e)
         {
-            HorarioNegocio horarioNegocio = new HorarioNegocio();
+            if (ddlAgregarHorario.SelectedIndex != -1)
+            {
 
-            TimeSpan tiempoInicio = new TimeSpan(0, 0, 0);
-            TimeSpan tiempoFin = new TimeSpan(0, 0, 0);
+                HorarioNegocio horarioNegocio = new HorarioNegocio();
 
-            DateTime nuevoHorarioInicio = DateTime.Today.Add(tiempoInicio);
-            DateTime nuevoHorarioFin = DateTime.Today.Add(tiempoFin);
+                string IdDiaSelecc = ddlAgregarHorario.SelectedValue;
 
-            string horaInicioText = txtHorarioIni.Text;
-            DateTime.TryParse(horaInicioText, out DateTime horaInicio);
+                int IdDia = Convert.ToInt32(IdDiaSelecc);
+
+                TimeSpan tiempoInicio = new TimeSpan(0, 0, 0);
+                TimeSpan tiempoFin = new TimeSpan(0, 0, 0);
+
+                DateTime nuevoHorarioInicio = DateTime.Today.Add(tiempoInicio);
+                DateTime nuevoHorarioFin = DateTime.Today.Add(tiempoFin);
+
+                string horaInicioText = txtHorarioIni.Text;
+                DateTime.TryParse(horaInicioText, out DateTime horaInicio);
 
 
-            string horaFinText = txtHorarioFin.Text;
-            DateTime.TryParse(horaFinText, out DateTime horaFin);
+                string horaFinText = txtHorarioFin.Text;
+                DateTime.TryParse(horaFinText, out DateTime horaFin);
 
-            horarioNegocio.agregarHorario(horaInicio, horaFin);
+                horarioNegocio.agregarHorario(horaInicio, horaFin, IdDia);
 
 
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "CerrarVentana", "window.close();", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "CerrarVentana", "window.close();", true);
+            }
         }
 
         protected void Unnamed_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "CerrarVentana", "window.close();", true);
+        }
+
+        protected void ddlAgregarHorario_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Session.Add("iddia", ddlAgregarHorario.SelectedValue);
+        }
+
+        protected void LimpiarCampos_Click(object sender, EventArgs e)
+        {
+            limpiarCampos();
+            ddlAgregarEsp.Items.Clear();
+            ddlAgregarHorario.Items.Clear();
+            listBox.Items.Clear();
+            listBoxHxM.Items.Clear();
         }
     }
 }

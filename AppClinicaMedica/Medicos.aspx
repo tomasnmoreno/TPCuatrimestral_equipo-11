@@ -4,6 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1 class="titPpal">Médicos </h1>
+    <a href="NuevoMedico.aspx" class="btn my-boton" style="margin-left: 70px">Agregar Medico</a>
     <script src="js/app2.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -69,6 +70,8 @@
                             <asp:TextBox ID="txtHorarioIni" TextMode="Time" CssClass="form-control" runat="server" />
                             <asp:Label ID="lblFin" Text="Hora Fin" Font-Size="Large" runat="server" Style="color: black;" />
                             <asp:TextBox ID="txtHorarioFin" TextMode="Time"  CssClass="form-control" runat="server" />
+
+                            <asp:DropDownList id="ddlAgregarHorario" OnSelectedIndexChanged="ddlAgregarHorario_SelectedIndexChanged"  autopostback="true" CssClass="form-control" runat="server"></asp:DropDownList>
                             <div>
                                 <asp:Button Text="Aceptar" CssClass="btn btn-primary" ID="btnAgregarHorario" onclick="btnAgregarHorario_Click"  runat="server" />
                                 <asp:Button Text="Cancelar" class="btn btn-danger" onclick="Unnamed_Click" style="margin-left: 10px;" runat="server" />
@@ -88,7 +91,7 @@
                 <div class="row">
 
                     <div>
-                        <asp:Button Text="Agregar" CssClass="btn btn-primary" ID="agregarMedico" OnClick="agregarMedico_Click" runat="server" />
+                        <asp:Button Text="Limpiar" CssClass="btn btn-primary" ID="LimpiarCampos" OnClick="LimpiarCampos_Click" runat="server" />
                         <asp:Button Text="Modificar" CssClass="btn btn-warning prueba" OnClick="btnModificar_Click" runat="server" />
                         <asp:Button Text="Baja" ID="btnBajaMedico" OnClick="btnBajaMedicoClick" CssClass="btn btn-danger" runat="server" />
                     </div>
