@@ -58,8 +58,8 @@
                 </div>
 
                 <asp:Label ID="lblHorarios" Text="Horarios" runat="server" Font-Size="Large" Style="color: black;" />
-                <button type="button" class="btn" data-toggle="modal" data-target="#miModal">
-                    +
+                <button type="button" class="btn btn-success border rounded" data-toggle="modal" data-target="#miModal">
+                    + 
                 </button>
 
                 <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
@@ -81,7 +81,7 @@
                 </div>
 
                 <div class="mb-1">
-                    <asp:DropDownList ID="DropDownListHxM" class="form-control" runat="server"></asp:DropDownList>
+                    <asp:DropDownList ID="DropDownListHxM" OnDataBound="DropDownListHxM_DataBound" class="form-control" runat="server"></asp:DropDownList>
                     <asp:Button ID="agregarHxM" class="btn" OnClick="btnAgregarHorarioaMedico" runat="server" Text="Agregar" />
                     <asp:Button ID="eliminarHxM" class="btn" OnClick="btnEliminarHorarioaMedico" runat="server" Text="Eliminar" />
                 </div>

@@ -69,6 +69,7 @@ namespace AppClinicaMedica
 
                 ddlMedicosFiltrados.DataSource = listaMedicosFiltrados;
                 ddlMedicosFiltrados.DataTextField = "apellido";
+                ddlMedicosFiltrados.DataValueField = "IdMedico";
 
                 ddlMedicosFiltrados.DataBind();
             }
@@ -79,5 +80,21 @@ namespace AppClinicaMedica
             }
         }
 
+        protected void ddlMedicosFiltrados_DataBound(object sender, EventArgs e)
+        {
+            MedicoNegocio todosLosMedico = new MedicoNegocio();
+            List<Medico> medicosLista = todosLosMedico.listar();
+            foreach (ListItem item in ddlMedicosFiltrados.Items)
+            {
+                int idMedico = Convert.ToInt32(item.Value);
+
+                var Medico = medicosLista.FirstOrDefault(m => Convert.ToInt32(m.IdMedico) == idMedico);
+                if (Medico != null)
+                {
+
+                    item.Text = $"{Medico.Nombre}  { Medico.Apellido}";
+                }
+            }
+        }
     }
 }

@@ -207,7 +207,7 @@ namespace AppClinicaMedica
 
                     if (horarioEncontrado != null)
                     {
-                        string horaCompleta = $"{horarioEncontrado.HoraInicio} - {horarioEncontrado.HoraFin}-{diaEncontrado.Nombre}";
+                        string horaCompleta = $"{horarioEncontrado.HoraInicio} - {horarioEncontrado.HoraFin} - {diaEncontrado.Nombre}";
 
                         listBoxHxM.Items.Add(new ListItem(horaCompleta, horarioEncontrado.IDHorario.ToString()));
                     }
@@ -365,7 +365,7 @@ namespace AppClinicaMedica
                                 break;
                             case "Mie":
                                 diaSemana = 3;
-                                    break;
+                                break;
                             case "Jue":
                                 diaSemana = 4;
                                 break;
@@ -380,18 +380,19 @@ namespace AppClinicaMedica
                         DateTime auxfecha = DateTime.Now;
                         DateTime diaInicial = auxfecha;
 
-                        while(auxfecha.Month <= diaInicial.Month + 1)
+                        while (auxfecha.Month <= diaInicial.Month + 1)
                         {
-                            if((int)auxfecha.DayOfWeek == diaSemana) {
+                            if ((int)auxfecha.DayOfWeek == diaSemana)
+                            {
                                 turno.Fecha = auxfecha;
                                 negocio.GenerarTurnos(turno);
-                                
+
                             }
-                                
+
                             auxfecha = auxfecha.AddDays(1);
-                        //turno.Fecha = 
+                            //turno.Fecha = 
                         }
-                        
+
                     }
                 }
 
@@ -480,6 +481,34 @@ namespace AppClinicaMedica
         protected void LimpiarCampos_Click(object sender, EventArgs e)
         {
             limpiarCampos();
+        }
+
+        protected void DropDownListHxM_DataBound(object sender, EventArgs e)
+        {
+            int idMedico = Convert.ToInt32(txtId.Text);
+            List<HorarioxMedico> horariosDelMedico = horariosxMed.listar().Where(hm => hm.IDMedico == idMedico).ToList();
+            List<HorarioTrabajo> todosLosHorarios = horarioNegocio.listar();
+            List<DiasSemana> listadias = diasSemanaNegocio.listar();
+
+            List<HorarioTrabajo> horariosNoAsignados = todosLosHorarios.Where(horario =>
+                !horariosDelMedico.Any(horaXMed => horaXMed.IDHorario == horario.IDHorario)).ToList();
+
+
+            foreach (ListItem item in DropDownListHxM.Items)
+            {
+                // Obtén el ID del horario desde el valor del ListItem
+                int idHorario = Convert.ToInt32(item.Value);
+
+                // Busca el horario correspondiente en la lista original
+                var horario = horariosNoAsignados.FirstOrDefault(h => h.IDHorario == idHorario);
+                DiasSemana diaEncontrado = listadias.FirstOrDefault(d => d.IdDias == horario.IdDia);
+
+                if (horario != null)
+                {
+                    // Combina los campos HoraInicio y HoraFin
+                    item.Text = $"{horario.HoraInicio} - {horario.HoraFin} - {diaEncontrado.Nombre}";
+                }
+            }
         }
     }
 }
