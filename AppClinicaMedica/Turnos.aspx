@@ -1,16 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Turnos.aspx.cs" Inherits="AppClinicaMedica.Turnos" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1 class="titPpal">Turnos</h1>
-    <asp:ScriptManager id="scriptManager" runat="server" />
+    <asp:ScriptManager ID="scriptManager" runat="server" />
 
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
             <div class="row">
                 <div class="col">
                     <asp:Label Text="Especialidad" runat="server" />
-                    <asp:DropDownList runat="server" ID="ddlEspecialidades" OnSelectedIndexChanged="ddlEspecialidades_SelectedIndexChanged" 
+                    <asp:DropDownList runat="server" ID="ddlEspecialidades" OnSelectedIndexChanged="ddlEspecialidades_SelectedIndexChanged"
                         AutoPostBack="true" AppendDataBoundItems="true">
                         <asp:ListItem Text="Seleccione una opción" Value="0"></asp:ListItem>
                     </asp:DropDownList>
@@ -25,7 +26,7 @@
                 <div class="col">
                     <asp:Label Text="Fecha" runat="server" />
                     <%--<asp:TextBox runat="server" TextMode="Date"/> --%>
-                    <asp:DropDownList runat="server" id="ddlFechaTurno">
+                    <asp:DropDownList runat="server" ID="ddlFechaTurno">
                         <asp:ListItem Text="text1" />
                         <asp:ListItem Text="text2" />
                     </asp:DropDownList>
@@ -35,10 +36,29 @@
                         <asp:ListItem Text="Horario 2" />
                     </asp:DropDownList>
                 </div>
+                
             </div>
-            <asp:Button Text="Confirmar Turno" runat="server" CssClass="btn btn-success"/>
+            <asp:Button Text="Confirmar Turno" runat="server" CssClass="btn btn-success" />
             <a href="Turnos.aspx" class="btn btn-danger" style="margin-left: 10px;">Cancelar</a>
 
         </ContentTemplate>
     </asp:UpdatePanel>
+    <div class="col">
+    <asp:GridView runat="server" ID="dgvTurnos" CssClass="table table-bordered" Style="margin-left: 50px" AutoGenerateColumns="false">
+        <Columns>
+            <asp:BoundField HeaderText="Turno" DataField="IDTurno" />
+            <asp:BoundField HeaderText="Medico" DataField="IDMedico" />
+            <%--<asp:BoundField HeaderText="Paciente" DataField="Apellido" />--%>
+            <%--<asp:BoundField HeaderText="DNI" DataField="Dni" />--%>
+            <asp:BoundField HeaderText="Fecha" DataField="Fecha" />
+            <asp:BoundField HeaderText="Hora" DataField="Hora" />
+            <%--<asp:BoundField HeaderText="Especialidad" DataField="Email" />--%>
+            <%--                        <asp:BoundField HeaderText="Celular" DataField="Celular" />
+        <asp:BoundField HeaderText="Domicilio" DataField="Domicilio" />
+        <asp:BoundField HeaderText="Cod Postal" DataField="CodPostal" />--%>
+            <asp:CommandField ShowSelectButton="true" SelectText="Presente" HeaderText="Asistio" />
+        </Columns>
+    </asp:GridView>
+</div>
+
 </asp:Content>

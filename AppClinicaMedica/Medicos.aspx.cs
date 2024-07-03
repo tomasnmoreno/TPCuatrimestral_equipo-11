@@ -31,7 +31,7 @@ namespace AppClinicaMedica
             try
             {
                 List<Medico> lista = medicoNegocio.listar();
-                
+
 
                 dgvMedicos.DataSource = lista;
                 dgvMedicos.DataBind();
@@ -331,6 +331,74 @@ namespace AppClinicaMedica
 
                 medicoNegocio.modificarMedico(medicoModificado);
 
+
+                //FUNCION QUE GENERA TURNOS AUTOMATICAMENTE
+                //List<string> listaIDHorario = new List<string>();
+                if (txtId.Text != null)
+                {
+                    listBoxHxM.Items.Clear();
+                    int idmed = int.Parse(txtId.Text.ToString());
+                    cargarListBoxHxM(idmed);
+
+                    TimeSpan Horario;
+                    Turno turno = new Turno();
+                    TurnoNegocio negocio = new TurnoNegocio();
+                    string diaSemana_string;
+                    int diaSemana = 0;
+
+                    foreach (ListItem listitem in listBoxHxM.Items)
+                    {
+                        //Horario = TimeSpan.ParseExact(listitem.ToString().Substring(0, 5), "HH:mm", CultureInfo.InvariantCulture);
+                        Horario = TimeSpan.Parse(listitem.ToString().Substring(0, 5));
+                        turno.Hora = Horario;
+                        turno.IdMedico = txtId.Text;
+
+                        //int longitud = listitem.ToString().Length - 20;
+                        diaSemana_string = listitem.ToString().Substring(20, 3);
+                        switch (diaSemana_string)
+                        {
+                            case "Lun":
+                                diaSemana = 1;
+                                break;
+                            case "Mar":
+                                diaSemana = 2;
+                                break;
+                            case "Mie":
+                                diaSemana = 3;
+                                    break;
+                            case "Jue":
+                                diaSemana = 4;
+                                break;
+                            case "Vie":
+                                diaSemana = 5;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        //RECORRO ALMANAQUE PARA INSERTAR EN FECHAS CORRESPONDIENTES
+                        DateTime auxfecha = DateTime.Now;
+                        DateTime diaInicial = auxfecha;
+
+                        while(auxfecha.Month <= diaInicial.Month + 1)
+                        {
+                            if((int)auxfecha.DayOfWeek == diaSemana) {
+                                turno.Fecha = auxfecha;
+                                negocio.GenerarTurnos(turno);
+                                
+                            }
+                                
+                            auxfecha = auxfecha.AddDays(1);
+                        //turno.Fecha = 
+                        }
+                        
+                    }
+                }
+
+
+                //FIN FUNCION
+
+
                 limpiarCampos();
                 cargarListaMedicos();
             }
@@ -350,6 +418,10 @@ namespace AppClinicaMedica
             txtCodPost.Text = string.Empty;
             txtCelular.Text = string.Empty;
             txtDomicilio.Text = string.Empty;
+            ddlAgregarEsp.Items.Clear();
+            ddlAgregarHorario.Items.Clear();
+            listBox.Items.Clear();
+            listBoxHxM.Items.Clear();
         }
 
         protected void agregarMedico_Click(object sender, EventArgs e)
@@ -371,7 +443,7 @@ namespace AppClinicaMedica
 
                 HorarioNegocio horarioNegocio = new HorarioNegocio();
 
-                string IdDiaSelecc = ddlAgregarHorario.SelectedValue;
+                string IdDiaSelecc = ddlAgregarHorario.SelectedItem.Value;
 
                 int IdDia = Convert.ToInt32(IdDiaSelecc);
 
@@ -408,10 +480,6 @@ namespace AppClinicaMedica
         protected void LimpiarCampos_Click(object sender, EventArgs e)
         {
             limpiarCampos();
-            ddlAgregarEsp.Items.Clear();
-            ddlAgregarHorario.Items.Clear();
-            listBox.Items.Clear();
-            listBoxHxM.Items.Clear();
         }
     }
 }

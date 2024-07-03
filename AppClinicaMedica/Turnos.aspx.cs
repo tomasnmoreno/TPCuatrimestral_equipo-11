@@ -15,6 +15,7 @@ namespace AppClinicaMedica
         {
             EspecialidadNegocio negEspecialidad = new EspecialidadNegocio();
             MedicoNegocio medEspecialidad = new MedicoNegocio();
+            TurnoNegocio turnoNegocio = new TurnoNegocio();
 
             try
             {
@@ -25,12 +26,15 @@ namespace AppClinicaMedica
                     Session["listaMedicos"] = listaMedicos;
 
                     List<Especialidad> listaEspecialidades = negEspecialidad.listar();
-
                     ddlEspecialidades.DataSource = listaEspecialidades;
                     ddlEspecialidades.DataTextField = "Nombre";
                     ddlEspecialidades.DataValueField = "IdEspecialidad";
-                    ddlEspecialidades.DataBind();  
+                    ddlEspecialidades.DataBind();
 
+                    List<Turno> listaTurnos = turnoNegocio.listar();
+                    dgvTurnos.DataSource = listaTurnos;
+                    dgvTurnos.DataBind();
+                    Session.Add("listaTurnos", listaTurnos);
                 }
             }
             catch (Exception ex)
@@ -74,5 +78,6 @@ namespace AppClinicaMedica
                 throw ex;
             }
         }
+
     }
 }

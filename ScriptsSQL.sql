@@ -45,49 +45,27 @@ Values
 	('Endocrinología','Rama de la medicina se ocupa del diagnóstico y tratamiento de enfermedades que afectan a las glándulas endocrinas, que son las que producen hormonas. Los endocrinólogos tratan afecciones como diabetes, enfermedades de la tiroides, trastornos metabólicos y problemas de crecimiento.','https://staticnew-prod.topdoctors.mx/files/Image/large/ebf822a89fa6b93e6d4dc92f9a6bfa60.jpg'),
 	('Hematología','Especialidad médica que se ocupa del estudio, diagnóstico y tratamiento de enfermedades de la sangre y los órganos que la producen, como la médula ósea y el bazo. Los hematólogos tratan afecciones como anemia, coagulación sanguínea y trastornos de la médula ósea.','https://policlinicametropolitana.org/wp-content/uploads/2022/02/coronavirus-vaccine-lab-with-samples.jpg'),
 	('Oftalmología','Rama de la medicina se ocupa del diagnóstico y tratamiento de enfermedades del ojo. Los oftalmólogos tratan afecciones como cataratas, glaucoma, degeneración macular y problemas de visión.','https://aio-oftalmologia.com/wp-content/uploads/De-que-se-ocupa-un-oftalmologo.jpg')
+
 Go
-Create or Alter Procedure SP_Nueva_Especialidad
+Create Procedure SP_Nueva_Especialidad
 	@nombre varchar(50),
 	@descripcion varchar(1000),
 	@imagen varchar(200)
 	as
 	Insert Into Especialidades (Nombre, Descripcion, Imagen)
 	Values(@nombre, @descripcion, @imagen)
+
 Go
-Create or Alter Procedure SP_Modificar_Especialidad
-	@nombre varchar(50),
-	@descripcion varchar(1000),
-	@imagen varchar(200),
-	@id int
-	as
-	Update Especialidades set Nombre = @nombre, Descripcion = @descripcion, Imagen = @imagen
-	Where Id = @id;
+--Create or Alter Procedure SP_Modificar_Especialidad
+--	@nombre varchar(50),
+--	@descripcion varchar(1000),
+--	@imagen varchar(200),
+--	@id int
+--	as
+--	Update Especialidades set Nombre = @nombre, Descripcion = @descripcion, Imagen = @imagen
+--	Where Id = @id;
 
 
---EN ETAPA DE CREACION
-
---Go
---Create Table Estados_Turnos(
---	ID int not null primary key identity(1, 1),
---	Tipo tinyint not null check(Tipo > 0), -- ("1, 2, 3, 4, 5, 6"),
---	Descripcion varchar(100) not null -- ("Nuevo, Reprogramado, Cancelado, No Asistió, Cerrado, etc.")
---)
-
---Go
---CREATE TABLE TURNOS_TRABAJO( --es una especie de codigo generalizado para turnos
---	ID int not null primary key identity(1,1),
---	IDMedico int not null foreign key references Medicos(ID),
---	Tipo tinyint not null check(Tipo>0), --1=mañana 2=tarde
---	Entrada time not null,
---	Salida time not null,
---	Estado bit not null
---)
-
---go
---CREATE TABLE TURNOS_ATENCION(
---	ID int primary key identity(1,1),
-
---)
 
 go
 create table Usuarios(
@@ -221,7 +199,7 @@ BEGIN
     VALUES (@HoraInicio, @HoraFin, @IdDia)
 END
 
-
+Go
 CREATE TABLE HorarioxMedico(
 	IDHorario int foreign key references HorariosTrabajo(IDHorario),
 	IDMedico int foreign key references Medicos(IDusuario),
@@ -295,7 +273,9 @@ create or alter procedure SP_Nuevo_Paciente
 		rollback transaction
 	end catch
 end
-exec SP_Nuevo_Paciente 'Tomas', 'Moreno', '1999-04-24', 41893710, 'tomasmoreno@gmail.com', 1111111111, 'Agustin de Elia 1155', 1704, 'tmoreno', '1234'
+
+go
+exec SP_Nuevo_Paciente 'Tomas', 'Moreno', '1999-04-24', 41893710, 'tomasmoreno@gmail.com', 1111111111, 'Agustin de Elia 1155', 1704, 'tmoreno', '1234';
 
 go
 create or alter procedure SP_Modificar_Paciente
@@ -324,7 +304,7 @@ as begin
 		rollback transaction
 	end catch
 end
-exec SP_Modificar_Paciente 'Tomas', 'Moreno', '1995-04-24', 'tomasmoreno@gmail.com', 1111111112, 'Agustin de Elia 1155', 1704, 1, 'tmoreno', '1234'
+--exec SP_Modificar_Paciente 'Tomas', 'Moreno', '1995-04-24', 'tomasmoreno@gmail.com', 1111111112, 'Agustin de Elia 1155', 1704, 1, 'tmoreno', '1234'
 
 ------ RECEPCIONISTAS ------
 Go
@@ -376,7 +356,9 @@ create or alter procedure SP_Nuevo_Recepcionista
 		rollback transaction
 	end catch
 end
-exec SP_Nuevo_Recepcionista 'Jesus', 'Ludena', '1999-02-24', 427779999, 'jludena@gmail.com', 1522334455, 'Florencio Varela 2054', 1704, 'jludena', '1234'
+
+go
+exec SP_Nuevo_Recepcionista 'Jesus', 'Ludena', '1999-02-24', 427779999, 'jludena@gmail.com', 1522334455, 'Florencio Varela 2054', 1704, 'jludena', '1234';
 
 
 go
@@ -423,3 +405,79 @@ as begin
 		raiserror('Ocurrio un error al borrar los registros de las tablas Usuarios y Recepcionistas', 16, 2)
 	end catch
 end
+
+
+
+------ TURNOS ------	
+Go
+Create Table Estados_Turnos(
+	--ID int not null primary key identity(1, 1),
+	Tipo tinyint not null primary key check(Tipo > 0), -- ("1, 2, 3, 4, 5, 6"),
+	Descripcion varchar(100) not null -- ("Nuevo, Reprogramado, Cancelado, No Asistió, Cerrado, etc.")
+)
+Go
+insert into Estados_Turnos(Tipo, Descripcion)
+values
+(1, 'Nuevo'),
+(2, 'Reprogramado'),
+(3, 'Cancelado'),
+(4, 'No asistio'),
+(5, 'Cerrado')
+
+Go
+Create Table Turnos(
+	IDTurno bigint not null primary key identity(1, 1),
+	IDPaciente int foreign key references PACIENTES(IDUsuario),
+	IDMedico int not null foreign key references MEDICOS(IDUsuario),
+	Fecha date not null,
+	Hora time not null, 
+	Estado tinyint not null foreign key references Estados_Turnos(Tipo) default 1,
+	Asignado bit not null default 0
+)
+--delete from Turnos
+
+Go
+create procedure SP_InsertarTurno
+	@IDMedico int,
+	@Fecha date,
+	@Hora time,
+	@Estado tinyint = 1,
+	@Asignado bit = 0
+
+	as begin
+		begin try
+		begin transaction
+			insert into Turnos (IDMedico, Fecha, Hora, Estado, Asignado) values
+			(@IDMedico, @Fecha, @Hora, @Estado, @Asignado)
+		commit transaction
+		end try
+		begin catch
+			raiserror('Hubo un error en la creacion del turno', 16, 10)
+		end catch
+	end
+
+	select IDTurno, IDMedico, IDPaciente, Fecha, Hora from Turnos
+
+--EN ETAPA DE CREACION
+--Go
+--Create Table Estados_Turnos(
+--	ID int not null primary key identity(1, 1),
+--	Tipo tinyint not null check(Tipo > 0), -- ("1, 2, 3, 4, 5, 6"),
+--	Descripcion varchar(100) not null -- ("Nuevo, Reprogramado, Cancelado, No Asistió, Cerrado, etc.")
+--)
+
+--Go
+--CREATE TABLE TURNOS_TRABAJO( --es una especie de codigo generalizado para turnos
+--	ID int not null primary key identity(1,1),
+--	IDMedico int not null foreign key references Medicos(ID),
+--	Tipo tinyint not null check(Tipo>0), --1=mañana 2=tarde
+--	Entrada time not null,
+--	Salida time not null,
+--	Estado bit not null
+--)
+
+--go
+--CREATE TABLE TURNOS_ATENCION(
+--	ID int primary key identity(1,1),
+
+--)

@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    internal class Turno
+    public class Turno
     {
         public int IdTurno { get; set; }
-        public int IdMedico { get; set; }
+        public string IdMedico { get; set; }
         public int IdPaciente { get; set; }
-        public DateTime FechaHoraTurno { get; set; }
-        public string Observaciones { get; set; }
-        public Estado EstadoTurno { get; set; }
+        public DateTime Fecha { get; set; }
+        public TimeSpan Hora { get; set; }
+        public int Estado { get; set; }
+        //public Estado EstadoTurno { get; set; }
+        public bool Asignado { get; set; }
     }
 }

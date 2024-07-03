@@ -65,7 +65,8 @@ namespace negocio
         {
             if(reader != null)
                 reader.Close();
-            conn.Close();   
+            conn.Close();
+            cmd.Parameters.Clear();
         }
 
         public void setearParametro(string nombre, object valor)

@@ -71,7 +71,7 @@
                             <asp:Label ID="lblFin" Text="Hora Fin" Font-Size="Large" runat="server" Style="color: black;" />
                             <asp:TextBox ID="txtHorarioFin" TextMode="Time"  CssClass="form-control" runat="server" />
 
-                            <asp:DropDownList id="ddlAgregarHorario" OnSelectedIndexChanged="ddlAgregarHorario_SelectedIndexChanged"  autopostback="true" CssClass="form-control" runat="server"></asp:DropDownList>
+                            <asp:DropDownList id="ddlAgregarHorario" OnSelectedIndexChanged="ddlAgregarHorario_SelectedIndexChanged" CssClass="form-control" runat="server"></asp:DropDownList>
                             <div>
                                 <asp:Button Text="Aceptar" CssClass="btn btn-primary" ID="btnAgregarHorario" onclick="btnAgregarHorario_Click"  runat="server" />
                                 <asp:Button Text="Cancelar" class="btn btn-danger" onclick="Unnamed_Click" style="margin-left: 10px;" runat="server" />
