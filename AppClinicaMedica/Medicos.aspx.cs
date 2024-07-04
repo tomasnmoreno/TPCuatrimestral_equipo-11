@@ -351,7 +351,7 @@ namespace AppClinicaMedica
                         //Horario = TimeSpan.ParseExact(listitem.ToString().Substring(0, 5), "HH:mm", CultureInfo.InvariantCulture);
                         Horario = TimeSpan.Parse(listitem.ToString().Substring(0, 5));
                         turno.Hora = Horario;
-                        turno.IdMedico = txtId.Text;
+                        turno.IdMedico = int.Parse(txtId.Text);
 
                         //int longitud = listitem.ToString().Length - 20;
                         diaSemana_string = listitem.ToString().Substring(20, 3);
@@ -390,7 +390,6 @@ namespace AppClinicaMedica
                             }
 
                             auxfecha = auxfecha.AddDays(1);
-                            //turno.Fecha = 
                         }
 
                     }

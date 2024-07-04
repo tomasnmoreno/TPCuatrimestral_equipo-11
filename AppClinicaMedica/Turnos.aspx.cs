@@ -34,7 +34,7 @@ namespace AppClinicaMedica
                     List<Turno> listaTurnos = turnoNegocio.listar();
                     dgvTurnos.DataSource = listaTurnos;
                     dgvTurnos.DataBind();
-                    Session.Add("listaTurnos", listaTurnos);
+                    Session.Add("listaTurnos", turnoNegocio.listar());
                 }
             }
             catch (Exception ex)
@@ -94,6 +94,28 @@ namespace AppClinicaMedica
 
                     item.Text = $"{Medico.Nombre}  { Medico.Apellido}";
                 }
+            }
+        }
+
+        protected void dgvTurnos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ddlMedicosFiltrados_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+            TurnoNegocio turnoNegocio = new TurnoNegocio();
+            int IDMedico = int.Parse(ddlMedicosFiltrados.SelectedItem.Value);
+            List<Turno> listaTurnos = turnoNegocio.listar(IDMedico);
+            dgvTurnos.DataSource = listaTurnos;
+            dgvTurnos.DataBind();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
     }
