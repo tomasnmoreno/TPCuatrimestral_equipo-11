@@ -25,7 +25,7 @@ namespace AppClinicaMedica
                 txtPass.Text = seleccionado.Pass.ToString();
                 txtNombre.Text = seleccionado.Nombre;
                 txtApellido.Text = seleccionado.Apellido;
-                txtNacimiento.Text = seleccionado.FechaDeNacimiento.ToString();
+                //txtNacimiento.Text = seleccionado.FechaDeNacimiento.ToString();
                 //DateTime nac = DateTime.Parse(seleccionado.FechaDeNacimiento.ToString("yyyy-MM-dd"));
                 txtNacimiento.Text = seleccionado.FechaDeNacimiento.ToString("yyyy-MM-dd").ToString();
                 txtDNI.Text = (string)seleccionado.Dni.ToString();

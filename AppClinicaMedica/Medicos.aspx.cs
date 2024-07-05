@@ -18,10 +18,11 @@ namespace AppClinicaMedica
         DiasSemanaNegocio diasSemanaNegocio = new DiasSemanaNegocio();
         EspexMedNegocio especialidadesxMedico = new EspexMedNegocio();
         HorarioxMedicoNegocio horariosxMed = new HorarioxMedicoNegocio();
+        TurnoNegocio turnoNegocio = new TurnoNegocio();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
             cargarListaMedicos();
             ddlDiasCargar();
 
@@ -34,7 +35,9 @@ namespace AppClinicaMedica
 
 
                 dgvMedicos.DataSource = lista;
+                Session.Add("listaMedicos", lista);
                 dgvMedicos.DataBind();
+
 
             }
             catch (Exception ex)
@@ -408,6 +411,7 @@ namespace AppClinicaMedica
             }
         }
 
+
         protected void limpiarCampos()
         {
             txtMatricula.Text = string.Empty;
@@ -420,6 +424,7 @@ namespace AppClinicaMedica
             txtDomicilio.Text = string.Empty;
             ddlAgregarEsp.Items.Clear();
             ddlAgregarHorario.Items.Clear();
+            DropDownListHxM.Items.Clear();
             listBox.Items.Clear();
             listBoxHxM.Items.Clear();
         }
@@ -443,7 +448,7 @@ namespace AppClinicaMedica
 
                 HorarioNegocio horarioNegocio = new HorarioNegocio();
 
-                string IdDiaSelecc = ddlAgregarHorario.SelectedItem.Value;
+                string IdDiaSelecc = ddlAgregarHorario.SelectedItem.Value.ToString();
 
                 int IdDia = Convert.ToInt32(IdDiaSelecc);
 
@@ -462,6 +467,12 @@ namespace AppClinicaMedica
 
                 horarioNegocio.agregarHorario(horaInicio, horaFin, IdDia);
 
+                //var medicoSeleccionado = Session["listaMedicos"];
+                GridViewRow row = dgvMedicos.SelectedRow;
+                int IdMedico = Convert.ToInt32(row.Cells[1].Text);
+                //int idMedico = int.Parse(medicoSeleccionado.ToString());
+                DropDownListHxM.Items.Clear();
+                cargarDropDownListHxM(IdMedico);
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "CerrarVentana", "window.close();", true);
             }
@@ -472,10 +483,11 @@ namespace AppClinicaMedica
             ScriptManager.RegisterStartupScript(this, this.GetType(), "CerrarVentana", "window.close();", true);
         }
 
-        protected void ddlAgregarHorario_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Session.Add("iddia", ddlAgregarHorario.SelectedValue);
-        }
+        //protected void ddlAgregarHorario_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    Session.Add("iddia", ddlAgregarHorario.SelectedItem.Value);
+        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal", "$('#miModal').modal('show');", true);
+        //}
 
         protected void LimpiarCampos_Click(object sender, EventArgs e)
         {
