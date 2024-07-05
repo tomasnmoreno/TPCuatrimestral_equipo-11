@@ -36,7 +36,7 @@ namespace AppClinicaMedica
                     List<Paciente> listaPacientes = pacienteNegocio.listar();
                     ddlPacientes.DataSource = listaPacientes;
                     ddlPacientes.DataTextField = "Nombre";
-                    ddlPacientes.DataTextField = "IDPaciente";
+                    ddlPacientes.DataValueField = "IDPaciente";
                     ddlPacientes.DataBind();
                     Session.Add("listaPAcientes", listaPacientes.ToList());
                     var pies = Session["listaPacientes"];
@@ -132,6 +132,10 @@ namespace AppClinicaMedica
             {
                 int IDMedico = int.Parse(ddlMedicosFiltrados.SelectedItem.Value);
                 cargarDgvTurnos(IDMedico, 0);
+                if (ddlMedicosFiltrados.Text.ToString() != "Seleccione una opción")
+                {
+                    dgvTurnos_SelectedIndexChanged(sender, e);
+                }
             }
             catch (Exception ex)
             {
@@ -159,6 +163,7 @@ namespace AppClinicaMedica
             {
                 if (IDMedico != 0)
                 {
+                    Session.Add("IDMedico", IDMedico);
                     TurnoNegocio turnoNegocio = new TurnoNegocio();
                     List<Turno> listaTurnos = turnoNegocio.listar(IDMedico);
                     dgvTurnos.DataSource = listaTurnos;
@@ -246,6 +251,9 @@ namespace AppClinicaMedica
         {
             try
             {
+                //var quesendertengo = sender.ToString();
+                if(sender.ToString() == "System.Web.UI.WebControls.GridView")
+                {
                 //var id = dgvTurnos.SelectedDataKey.Value.ToString();
                 GridViewRow row = dgvTurnos.SelectedRow;
 
@@ -267,6 +275,16 @@ namespace AppClinicaMedica
                         $"Dr/Dra. {ddlMedicosFiltrados.SelectedItem.Text} - " +
                         $"{txtFecha.Text.ToString()} " +
                         $"{hora.ToString().Substring(0, 5)}hs";
+                }
+
+                else
+                {
+                    txtbEleccion.Text = $"{ddlPacientes.Text} - " +
+                        $"Drs. {ddlMedicosFiltrados.SelectedItem.Text.ToString()} " +
+                        $"| {txtFecha.Text.ToString()} " +
+                        $"{txtHorario.Text.ToString()}hs.";
+                }
+
             }
             catch (Exception)
             {
@@ -282,10 +300,30 @@ namespace AppClinicaMedica
                 ddlPacientes.Items.Insert(0, new ListItem("Seleccione una opción", ""));
             }
         }
-
-        protected void Unnamed_Click(object sender, EventArgs e)
+        protected void txtFecha_TextChanged(object sender, EventArgs e)
         {
+            if (txtFecha.Text != "")
+               dgvTurnos_SelectedIndexChanged(sender, e);
+        }
 
+        protected void txtHorario_TextChanged(object sender, EventArgs e)
+        {
+            if (txtHorario.Text != "")
+                dgvTurnos_SelectedIndexChanged(sender, e);
+        }
+
+        protected void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            //tengo que tomar los valores de todos los campos y parsearlos si es necesario () AH NO PARA
+            // --> SOLO TOMO EL ID DEL PACIENTE Y DEL TURNO (celda grid de nro turno) y UPDATE SQL en tabla Turnos Where IDTurno = @IDTurno {setear parametro}
+            
+            int IDPaciente = Convert.ToInt32(ddlPacientes.SelectedItem.Value);
+            TurnoNegocio turnoNegocio = new TurnoNegocio();
+            List<Turno> listaTurnos = turnoNegocio.listar(int.Parse(Session["IDMedico"].ToString()));
+            //if(txtHorario.Text.ToString() == listaTurnos) // VALIDACION
+            //int IDTurno = 
+
+            //tengo que meter los datos a la base de datos
         }
     }
 }

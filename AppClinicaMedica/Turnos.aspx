@@ -33,16 +33,17 @@
             <div class="row">
                 <div class="col-6">
                     <div class="col-6">
-                        <asp:Label Text="Fecha" Style="color: royalblue" runat="server" />
-                        <asp:TextBox ID="txtFecha" runat="server" TextMode="Date" />
+                        <asp:Label Text="Fecha" Style="color: royalblue" runat="server"/>
+                        <asp:TextBox ID="txtFecha" runat="server" TextMode="Date" OnTextChanged="txtFecha_TextChanged" AutoPostBack="true"/>
                         <%--<asp:DropDownList runat="server" CssClass="form-control" ID="ddlFechaTurno"
                             OnDataBound="ddlFechaTurno_DataBound" OnPreRender="ddlFechaTurno_PreRender">
                             <%-- TODA ESTA SECCIOM SE TIENE QUE COMPLETAR CON DATOS SELECCIONADOS DEL GRID VIEW--%>
                         <%--<asp:ListItem Text="Fecha" Value="0" />
                         </asp:DropDownList>--%>
                         <div style="margin-top: 30px">
-                            <asp:Label ID="Horario" Text="txtHorario" Style="color: royalblue" runat="server" />
-                            <asp:TextBox ID="txtHorario" runat="server" TextMode="Time" class="fomr-control" />
+                            <asp:Label ID="lblHorario" Text="Horario" Style="color: royalblue" runat="server" />
+                            <asp:TextBox ID="txtHorario" runat="server" TextMode="Time" class="fomr-control" 
+                                OnTextChanged="txtHorario_TextChanged" AutoPostBack="true"/>
                             <%--<asp:DropDownList ID="ddlHora" CssClass="form-control" runat="server"
                             OnDataBound="ddlHora_DataBound" OnPreRender="ddlHora_PreRender">
                             <asp:ListItem Text="Horario" Value="0" />
@@ -96,7 +97,7 @@
                     <asp:TextBox runat="server" TextMode="MultiLine" ID="txtbEleccion" ReadOnly="true" Style="width: 1000px" />
                 </div>
             </div>
-            <asp:Button Text="Confirmar Turno" runat="server" OnClick="Unnamed_Click" CssClass="btn btn-success" Style="margin-top: 40px; margin-left: 42px" />
+            <asp:Button ID="btnConfirmar" Text="Confirmar Turno" runat="server" OnClick="btnConfirmar_Click" CssClass="btn btn-success" Style="margin-top: 40px; margin-left: 42px" />
             <a href="Turnos.aspx" class="btn btn-danger" style="margin-top: 40px; margin-left: 10px;">Cancelar</a>
         </ContentTemplate>
     </asp:UpdatePanel>
