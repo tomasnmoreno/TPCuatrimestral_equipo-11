@@ -83,7 +83,8 @@
                             </ItemTemplate>
                         </asp:TemplateField>--%>
                         <asp:BoundField HeaderText="Hora" DataField="Hora" />
-                        <asp:CommandField ShowSelectButton="true" SelectText="Asignar Actual" HeaderText="Asignar" />
+                        <asp:CommandField ShowSelectButton="true" SelectText="Asignar Actual" HeaderText="Asignar" ButtonType="Button" ControlStyle-CssClass="btn btn-primary" />
+                        <asp:CommandField ShowSelectButton="true" SelectText="Desasignar" HeaderText="Desasignar" ButtonType="Button" ControlStyle-CssClass="btn btn-danger"/>
                     </Columns>
                 </asp:GridView>
             </div>

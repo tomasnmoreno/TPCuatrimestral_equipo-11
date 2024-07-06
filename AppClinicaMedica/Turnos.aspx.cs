@@ -249,47 +249,70 @@ namespace AppClinicaMedica
 
         protected void dgvTurnos_SelectedIndexChanged(object sender, EventArgs e)
         {
+            GridViewRow row = dgvTurnos.SelectedRow;
+            AccesoDatos datos = new AccesoDatos();
             try
             {
+
                 //var quesendertengo = sender.ToString();
-                if(sender.ToString() == "System.Web.UI.WebControls.GridView")
-                {
-                //var id = dgvTurnos.SelectedDataKey.Value.ToString();
-                GridViewRow row = dgvTurnos.SelectedRow;
+               
+                    //if (row.Cells[3].Text.ToString() != "Sin Asignar")
+                    //{
+                    //    int IDTurno = int.Parse(row.Cells[0].Text.ToString());
 
-                Label lblFecha = (Label)row.FindControl("lblFecha");
-                string fecha = lblFecha.Text;
-                DateTime _fecha = DateTime.Parse(fecha);
-                txtFecha.Text = _fecha.ToString("yyyy-MM-dd");
+                    //    datos.setQuery("UPDATE TURNOS SET IDPaciente = NULL, Asignado = 0 WHERE IDTurno = @IDTurno");
+                    //    datos.setearParametro("@IDTurno", IDTurno);
+                    //    datos.ejecutarAccion();
 
-                //Label lblHora = (Label)row.FindControl("lblHora");
-                //string hora = lblHora.Text;
-                //TimeSpan _hora = TimeSpan.Parse(hora);
-                //txtHorario.Text = _hora.ToString();
+                    //}
+                    if (sender.ToString() == "System.Web.UI.WebControls.GridView")
+                    {
+                        //var id = dgvTurnos.SelectedDataKey.Value.ToString();
+
+
+                        Label lblFecha = (Label)row.FindControl("lblFecha");
+                        string fecha = lblFecha.Text;
+                        DateTime _fecha = DateTime.Parse(fecha);
+                        txtFecha.Text = _fecha.ToString("yyyy-MM-dd");
+
+                        //Label lblHora = (Label)row.FindControl("lblHora");
+                        //string hora = lblHora.Text;
+                        //TimeSpan _hora = TimeSpan.Parse(hora);
+                        //txtHorario.Text = _hora.ToString();
+
+                        string hora = row.Cells[5].Text.ToString();
+                        TimeSpan _hora = TimeSpan.Parse(hora.ToString());
+                        txtHorario.Text = hora;
+
+                        int IDTurno = Convert.ToInt32(row.Cells[0].Text.ToString());
+                        Session.Add("IDTurno", IDTurno);
+
+                        txtbEleccion.Text = $"{ddlPacientes.SelectedItem.Text} - " +
+                                $"Dr/Dra. {ddlMedicosFiltrados.SelectedItem.Text} - " +
+                                $"{txtFecha.Text.ToString()} " +
+                                $"{hora.ToString().Substring(0, 5)}hs";
+                    }
+
+                    else
+                    {
+                        txtbEleccion.Text = $"{ddlPacientes.Text} - " +
+                            $"Drs. {ddlMedicosFiltrados.SelectedItem.Text.ToString()} " +
+                            $"| {txtFecha.Text.ToString()} " +
+                            $"{txtHorario.Text.ToString()}hs.";
+                    }
+
                 
-                string hora= row.Cells[5].Text.ToString();
-                TimeSpan _hora = TimeSpan.Parse(hora.ToString());
-                txtHorario.Text = hora;
-
-                txtbEleccion.Text = $"{ddlPacientes.SelectedItem.Text} - " +
-                        $"Dr/Dra. {ddlMedicosFiltrados.SelectedItem.Text} - " +
-                        $"{txtFecha.Text.ToString()} " +
-                        $"{hora.ToString().Substring(0, 5)}hs";
-                }
-
-                else
-                {
-                    txtbEleccion.Text = $"{ddlPacientes.Text} - " +
-                        $"Drs. {ddlMedicosFiltrados.SelectedItem.Text.ToString()} " +
-                        $"| {txtFecha.Text.ToString()} " +
-                        $"{txtHorario.Text.ToString()}hs.";
-                }
-
             }
             catch (Exception)
             {
                 throw;
             }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            
         }
 
         protected void ddlPacientes_PreRender(object sender, EventArgs e)
@@ -316,10 +339,33 @@ namespace AppClinicaMedica
         {
             //tengo que tomar los valores de todos los campos y parsearlos si es necesario () AH NO PARA
             // --> SOLO TOMO EL ID DEL PACIENTE Y DEL TURNO (celda grid de nro turno) y UPDATE SQL en tabla Turnos Where IDTurno = @IDTurno {setear parametro}
+            AccesoDatos datos = new AccesoDatos();
             
-            int IDPaciente = Convert.ToInt32(ddlPacientes.SelectedItem.Value);
-            TurnoNegocio turnoNegocio = new TurnoNegocio();
-            List<Turno> listaTurnos = turnoNegocio.listar(int.Parse(Session["IDMedico"].ToString()));
+            try
+            {
+                int IDPaciente = Convert.ToInt32(ddlPacientes.SelectedItem.Value);
+                int IDTurno = int.Parse(Session["IDTurno"].ToString());
+
+                datos.setQuery("UPDATE TURNOS SET IDPaciente = @IDPaciente, Asignado = 1 WHERE IDTurno = @IDTurno");
+                datos.setearParametro("@IDPaciente", IDPaciente);
+                datos.setearParametro("@IDTurno", IDTurno);
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            Response.Redirect("Home.aspx");
+
+            //TurnoNegocio turnoNegocio = new TurnoNegocio();
+            //List<Turno> listaTurnos = turnoNegocio.listar(int.Parse(Session["IDMedico"].ToString()));
             //if(txtHorario.Text.ToString() == listaTurnos) // VALIDACION
             //int IDTurno = 
 
