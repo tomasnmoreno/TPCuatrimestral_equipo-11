@@ -49,9 +49,17 @@
                                     <a href="Recepcionistas.aspx">Recepcionistas</a>
                                 </li>
                             </ul>
-
+                            <% if (Session["usuario"] == null)
+                                {   %> <%--&& ((dominio.Usuario)Session["usuario"]).TipoUsuario --%>
                             <a href="LogIn.aspx" class="button button-primary button-ingresar">Ingresar
                             </a>
+                            <%  } %>
+
+                            <% if (Session["usuario"] != null) {   %> 
+                            <a href="MiSesion.aspx" class="navbar_User">
+                                <img src="img/User.png" alt="Alternate Text" />
+                            </a>
+                            <%  } %>
 
                             <button class="navbar__toggle-btn">
                                 <img src="img\menu-icon.svg" alt="boton de busqueda" />

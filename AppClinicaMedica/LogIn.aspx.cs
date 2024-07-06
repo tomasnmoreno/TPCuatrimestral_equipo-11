@@ -22,7 +22,7 @@ namespace AppClinicaMedica
             UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
             try
             {
-                usuario = new Usuario(txtbUserName.Text, txtbPassword.Text, false);
+                usuario = new Usuario(txtbUserName.Text, txtbPassword.Text, 1);
                 if (usuarioNegocio.Loguear(usuario))
                 {
                     Session.Add("usuario", usuario);
@@ -38,6 +38,10 @@ namespace AppClinicaMedica
             {
                 Session.Add("error", ex.ToString());
                 //throw;
+            }
+            finally
+            {
+                Response.Redirect("Home.aspx");
             }
         }
     }

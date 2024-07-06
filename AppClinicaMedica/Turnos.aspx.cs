@@ -19,13 +19,46 @@ namespace AppClinicaMedica
             MedicoNegocio medEspecialidad = new MedicoNegocio();
             TurnoNegocio turnoNegocio = new TurnoNegocio();
             PacienteNegocio pacienteNegocio = new PacienteNegocio();
-
+            bool cargarTodosPacientes = true;
             try
             {
                 if (!IsPostBack)
                 {
+                    if (Session["usuario"] != null)
+                    {
+                        cargarTodosPacientes = false; 
+                        dominio.Usuario usuario = (dominio.Usuario)Session["usuario"];
+
+                        // Verificar si el usuario no es admin ni recepcionista
+                        if (usuario.TipoUsuario != dominio.TipoUsuario.RECEP &&
+                            usuario.TipoUsuario != dominio.TipoUsuario.ADMIN)
+                        {
+                            txtFecha.ReadOnly = true;
+                            txtHorario.ReadOnly = true;
+
+                            List<Paciente> lista1Paciente = pacienteNegocio.listar(usuario.ID);
+                            ddlPacientes.DataSource = lista1Paciente;
+                            ddlPacientes.DataTextField = "Nombre";
+                            ddlPacientes.DataValueField = "IDPaciente";
+                            ddlPacientes.DataBind();
+                            ddlPacientes.Enabled = false;
+                        }
+                    }
+
+                    txtbEleccion.Text = $"-Dr/Dra | hs. ";
+
                     List<Medico> listaMedicos = medEspecialidad.listar();
                     Session["listaMedicos"] = listaMedicos;
+
+                    if (cargarTodosPacientes)
+                    {
+                    List<Paciente> listaPacientes = pacienteNegocio.listar();
+                    ddlPacientes.DataSource = listaPacientes;
+                    ddlPacientes.DataTextField = "Nombre";
+                    ddlPacientes.DataValueField = "IDPaciente";
+                    ddlPacientes.DataBind();
+                    Session.Add("listaPacientes", listaPacientes.ToList());
+                    }
 
                     List<Especialidad> listaEspecialidades = negEspecialidad.listar();
                     ddlEspecialidades.DataSource = listaEspecialidades;
@@ -33,18 +66,18 @@ namespace AppClinicaMedica
                     ddlEspecialidades.DataValueField = "IdEspecialidad";
                     ddlEspecialidades.DataBind();
 
-                    List<Paciente> listaPacientes = pacienteNegocio.listar();
-                    ddlPacientes.DataSource = listaPacientes;
-                    ddlPacientes.DataTextField = "Nombre";
-                    ddlPacientes.DataValueField = "IDPaciente";
-                    ddlPacientes.DataBind();
-                    Session.Add("listaPAcientes", listaPacientes.ToList());
-                    var pies = Session["listaPacientes"];
                     //List<Turno> listaTurnos = turnoNegocio.listar();
                     //dgvTurnos.DataSource = listaTurnos;
                     //dgvTurnos.DataBind();
                     //Session.Add("listaTurnos", turnoNegocio.listar());
                     cargarDgvTurnos(0, 0);
+                }
+                else
+                {
+                    if ((Session["usuario"] != null && ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE))
+                    {
+
+                    }
                 }
             }
             catch (Exception ex)
@@ -130,8 +163,11 @@ namespace AppClinicaMedica
         {
             try
             {
+                if (ddlMedicosFiltrados.SelectedItem.Value != "") 
+                { 
                 int IDMedico = int.Parse(ddlMedicosFiltrados.SelectedItem.Value);
                 cargarDgvTurnos(IDMedico, 0);
+                }
                 if (ddlMedicosFiltrados.Text.ToString() != "Seleccione una opción")
                 {
                     dgvTurnos_SelectedIndexChanged(sender, e);
@@ -205,7 +241,6 @@ namespace AppClinicaMedica
             if (!IsPostBack || ddlMedicosFiltrados.Items.Count == 0)
             {
                 ddlMedicosFiltrados.Items.Insert(0, new ListItem("Seleccione una opción", ""));
-
             }
             if (Session["listaMedicos"].ToString() != "" && ddlMedicosFiltrados.Items[0].Text != "Seleccione una opción" && ddlMedicosFiltrados.Items.Count >= 1) /*ddlMedicosFiltrados.Items.Count >= 1*/
             {
@@ -247,25 +282,27 @@ namespace AppClinicaMedica
             //}
         }
 
-        protected void dgvTurnos_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        protected void dgvTurnos_SelectedIndexChanged(object sender, EventArgs e) 
+        { 
+        
             GridViewRow row = dgvTurnos.SelectedRow;
+
             AccesoDatos datos = new AccesoDatos();
             try
             {
 
                 //var quesendertengo = sender.ToString();
-               
-                    //if (row.Cells[3].Text.ToString() != "Sin Asignar")
-                    //{
-                    //    int IDTurno = int.Parse(row.Cells[0].Text.ToString());
 
-                    //    datos.setQuery("UPDATE TURNOS SET IDPaciente = NULL, Asignado = 0 WHERE IDTurno = @IDTurno");
-                    //    datos.setearParametro("@IDTurno", IDTurno);
-                    //    datos.ejecutarAccion();
+                if (row != null && row.Cells[3].Text != "Sin Asignar")
+                {
+                    int IDTurno = int.Parse(row.Cells[0].Text.ToString());
 
-                    //}
-                    if (sender.ToString() == "System.Web.UI.WebControls.GridView")
+                    datos.setQuery("UPDATE TURNOS SET IDPaciente = NULL, Asignado = 0 WHERE IDTurno = @IDTurno");
+                    datos.setearParametro("@IDTurno", IDTurno);
+                    datos.ejecutarAccion();
+
+                }
+                if (sender.ToString() == "System.Web.UI.WebControls.GridView" && row.Cells[3].Text == "Sin Asignar")
                     {
                         //var id = dgvTurnos.SelectedDataKey.Value.ToString();
 
@@ -284,20 +321,49 @@ namespace AppClinicaMedica
                         TimeSpan _hora = TimeSpan.Parse(hora.ToString());
                         txtHorario.Text = hora;
 
-                        int IDTurno = Convert.ToInt32(row.Cells[0].Text.ToString());
+                    //string especialidad = row.Cells[2].Text.ToString();
+                    //ListItem item1 = ddlEspecialidades.Items.FindByValue(especialidad);
+                    //if (item1 != null)
+                    //{
+                    //    // Seleccionar el elemento en el DropDownList
+                    //    ddlEspecialidades.ClearSelection(); // Limpiar selección actual, si la hay
+                    //    item1.Selected = true;
+                    //}
+
+                    //string medico = row.Cells[1].Text.ToString();
+                    //ListItem item2 = ddlMedicosFiltrados.Items.FindByValue(medico);
+                    //if (item2 != null)
+                    //{
+                    //    // Seleccionar el elemento en el DropDownList
+                    //    ddlMedicosFiltrados.ClearSelection(); // Limpiar selección actual, si la hay
+                    //    item2.Selected = true;
+                    //}
+
+                    int IDTurno = Convert.ToInt32(row.Cells[0].Text.ToString());
                         Session.Add("IDTurno", IDTurno);
 
                         txtbEleccion.Text = $"{ddlPacientes.SelectedItem.Text} - " +
-                                $"Dr/Dra. {ddlMedicosFiltrados.SelectedItem.Text} - " +
-                                $"{txtFecha.Text.ToString()} " +
+                                $"Dr/Dra. {row.Cells[1].Text.ToString()} - " + /*ddlMedicosFiltrados.SelectedItem.Text*/
+                                $"{txtFecha.Text.ToString()}, " +
                                 $"{hora.ToString().Substring(0, 5)}hs";
                     }
 
                     else
                     {
-                        txtbEleccion.Text = $"{ddlPacientes.Text} - " +
-                            $"Drs. {ddlMedicosFiltrados.SelectedItem.Text.ToString()} " +
-                            $"| {txtFecha.Text.ToString()} " +
+                        string paciente = ddlPacientes.SelectedItem.Text;
+                    if (paciente == "Seleccione una opción")
+                        {
+                        paciente  = null;
+                        }
+
+                    string medico = ddlMedicosFiltrados.SelectedItem.Text;
+                    if (medico == "Seleccione una opción")
+                    {
+                        medico = null;
+                    }
+                        txtbEleccion.Text = $"{paciente} - " +
+                            $"Drs. {medico} " +
+                            $"| {txtFecha.Text.ToString()}, " +
                             $"{txtHorario.Text.ToString()}hs.";
                     }
 
@@ -317,11 +383,15 @@ namespace AppClinicaMedica
 
         protected void ddlPacientes_PreRender(object sender, EventArgs e)
         {
-            //if (ddlPacientes.Items.Count > 0 && ddlPacientes.Items[0].Text != "Seleccione una opción")
-            if (!IsPostBack)
+            if (!IsPostBack || ( Session["usuario"] != null && ( ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.ADMIN || ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.RECEP) ) )
             {
                 ddlPacientes.Items.Insert(0, new ListItem("Seleccione una opción", ""));
             }
+            if(!IsPostBack && (Session["usuario"] != null && ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE))
+            {
+                ddlPacientes.Items.RemoveAt(0);
+            }
+
         }
         protected void txtFecha_TextChanged(object sender, EventArgs e)
         {
@@ -333,6 +403,14 @@ namespace AppClinicaMedica
         {
             if (txtHorario.Text != "")
                 dgvTurnos_SelectedIndexChanged(sender, e);
+        }
+
+        protected void ddlPacientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlPacientes.Text.ToString() != "Seleccione una opción")
+            { 
+                dgvTurnos_SelectedIndexChanged(sender, e);
+            }
         }
 
         protected void btnConfirmar_Click(object sender, EventArgs e)
@@ -362,7 +440,7 @@ namespace AppClinicaMedica
                 datos.cerrarConexion();
             }
 
-            Response.Redirect("Home.aspx");
+            Response.Redirect("Turnos.aspx");
 
             //TurnoNegocio turnoNegocio = new TurnoNegocio();
             //List<Turno> listaTurnos = turnoNegocio.listar(int.Parse(Session["IDMedico"].ToString()));

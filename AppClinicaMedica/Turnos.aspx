@@ -33,27 +33,20 @@
             <div class="row">
                 <div class="col-6">
                     <div class="col-6">
-                        <asp:Label Text="Fecha" Style="color: royalblue" runat="server"/>
-                        <asp:TextBox ID="txtFecha" runat="server" TextMode="Date" OnTextChanged="txtFecha_TextChanged" AutoPostBack="true"/>
-                        <%--<asp:DropDownList runat="server" CssClass="form-control" ID="ddlFechaTurno"
-                            OnDataBound="ddlFechaTurno_DataBound" OnPreRender="ddlFechaTurno_PreRender">
-                            <%-- TODA ESTA SECCIOM SE TIENE QUE COMPLETAR CON DATOS SELECCIONADOS DEL GRID VIEW--%>
-                        <%--<asp:ListItem Text="Fecha" Value="0" />
-                        </asp:DropDownList>--%>
+                        <asp:Label Text="Fecha" Style="color: royalblue" runat="server" />
+                        <asp:TextBox ID="txtFecha" runat="server" TextMode="Date" OnTextChanged="txtFecha_TextChanged" AutoPostBack="true" />
+
                         <div style="margin-top: 30px">
                             <asp:Label ID="lblHorario" Text="Horario" Style="color: royalblue" runat="server" />
-                            <asp:TextBox ID="txtHorario" runat="server" TextMode="Time" class="fomr-control" 
-                                OnTextChanged="txtHorario_TextChanged" AutoPostBack="true"/>
-                            <%--<asp:DropDownList ID="ddlHora" CssClass="form-control" runat="server"
-                            OnDataBound="ddlHora_DataBound" OnPreRender="ddlHora_PreRender">
-                            <asp:ListItem Text="Horario" Value="0" />
-                        </asp:DropDownList>--%>
+                            <asp:TextBox ID="txtHorario" runat="server" TextMode="Time" class="fomr-control"
+                                OnTextChanged="txtHorario_TextChanged" AutoPostBack="true" />
                         </div>
                     </div>
                 </div>
                 <div class="col-6">
                     <asp:Label Text="Paciente" Style="color: royalblue" runat="server" />
-                    <asp:DropDownList ID="ddlPacientes" OnPreRender="ddlPacientes_PreRender" OnDataBound="ddlPacientes_DataBound" CssClass="form-control" runat="server">
+                    <asp:DropDownList ID="ddlPacientes" OnPreRender="ddlPacientes_PreRender" OnDataBound="ddlPacientes_DataBound" CssClass="form-control" runat="server"
+                        OnSelectedIndexChanged="ddlPacientes_SelectedIndexChanged" AutoPostBack="true">
                         <asp:ListItem Text="Seleccione un Paciente" Value="0" />
                     </asp:DropDownList>
                 </div>
@@ -61,7 +54,7 @@
             <hr />
             <asp:Label Text="Turnos Encontrados" runat="server"
                 Style="color: mediumorchid; margin-left: 42px; font-size: 35px" />
-            <div class="row" style="overflow: scroll; flex: content; max-height:500px">
+            <div class="row" style="overflow: scroll; flex: content; max-height: 500px">
                 <asp:GridView runat="server" ID="dgvTurnos" DataKeyNames="IDTurno" OnSelectedIndexChanged="dgvTurnos_SelectedIndexChanged"
                     CssClass="table table-bordered" Style="margin-left: 0px; margin-top: 10px" AutoGenerateColumns="false">
                     <Columns>
@@ -84,7 +77,7 @@
                         </asp:TemplateField>--%>
                         <asp:BoundField HeaderText="Hora" DataField="Hora" />
                         <asp:CommandField ShowSelectButton="true" SelectText="Asignar Actual" HeaderText="Asignar" ButtonType="Button" ControlStyle-CssClass="btn btn-primary" />
-                        <asp:CommandField ShowSelectButton="true" SelectText="Desasignar" HeaderText="Desasignar" ButtonType="Button" ControlStyle-CssClass="btn btn-danger"/>
+                        <asp:CommandField ShowSelectButton="true" SelectText="Desasignar" HeaderText="Desasignar" ButtonType="Button" ControlStyle-CssClass="btn btn-danger" />
                     </Columns>
                 </asp:GridView>
             </div>

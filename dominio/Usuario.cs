@@ -23,11 +23,24 @@ namespace dominio
 
         public TipoUsuario TipoUsuario { get; set; }
 
-        public Usuario(string user, string pass, bool admin)
+        public Usuario(string user, string pass, int tipo)
         {
             NombreUsuario = user;
             Pass = pass;
-            TipoUsuario = admin ? TipoUsuario.ADMIN : TipoUsuario;
+            //TipoUsuario = admin ? TipoUsuario.ADMIN : TipoUsuario;
+            switch (tipo)
+            {
+                case 1: TipoUsuario = TipoUsuario.ADMIN;
+                    break;
+                case 2: TipoUsuario = TipoUsuario.RECEP;
+                    break;
+                case 3: TipoUsuario = TipoUsuario.MEDICO;
+                    break;
+                case 4: TipoUsuario = TipoUsuario.PACIENTE;
+                    break;
+                default: 
+                    break;
+            }
         }
     }
 }

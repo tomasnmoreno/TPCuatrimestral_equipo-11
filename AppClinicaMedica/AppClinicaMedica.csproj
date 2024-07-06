@@ -79,10 +79,12 @@
     <Content Include="img\menu-icon.svg" />
     <Content Include="img\pixelcut-export %281%29.jpeg" />
     <Content Include="img\tilde.svg" />
+    <Content Include="img\User.png" />
     <Content Include="js\app.js" />
     <Content Include="js\app2.js" />
     <Content Include="LogIn.aspx" />
     <Content Include="Medicos.aspx" />
+    <Content Include="MiSesion.aspx" />
     <Content Include="NuevaEspecialidad.aspx" />
     <Content Include="NuevoMedico.aspx" />
     <Content Include="NuevoPaciente.aspx" />
@@ -124,6 +126,13 @@
     </Compile>
     <Compile Include="Medicos.aspx.designer.cs">
       <DependentUpon>Medicos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MiSesion.aspx.cs">
+      <DependentUpon>MiSesion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MiSesion.aspx.designer.cs">
+      <DependentUpon>MiSesion.aspx</DependentUpon>
     </Compile>
     <Compile Include="NuevaEspecialidad.aspx.cs">
       <DependentUpon>NuevaEspecialidad.aspx</DependentUpon>
