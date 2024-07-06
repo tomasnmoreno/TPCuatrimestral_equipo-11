@@ -11,15 +11,12 @@
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/header.css" rel="stylesheet" />
 </head>
-<body>
+<body style="background-color: aliceblue">
     <form id="form1" runat="server">
         <div>
             <a class="btn btn-warning prueba" style="margin-top: 10px; margin-left: 10px" href="Home.aspx"><- Volver</a>
-            <div class="containerLogIn" style="margin-top: 400px">
+            <div class="containerLogIn" style="margin-top: 20px; margin-bottom: 1000px">
                 <div class="rowLogIn">
-                    <div>
-                    </div>
-
                     <div>
                         <asp:TextBox CssClass="paddingLogIn" Style="width: 400px; margin-bottom: 20px" ID="txtbUserName" placeholder="Usuario" runat="server" />
                     </div>

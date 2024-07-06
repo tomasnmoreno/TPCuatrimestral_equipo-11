@@ -56,7 +56,7 @@
                 Style="color: mediumorchid; margin-left: 42px; font-size: 35px" />
             <div class="row" style="overflow: scroll; flex: content; max-height: 500px">
                 <asp:GridView runat="server" ID="dgvTurnos" DataKeyNames="IDTurno" OnSelectedIndexChanged="dgvTurnos_SelectedIndexChanged"
-                    CssClass="table table-bordered" Style="margin-left: 0px; margin-top: 10px" AutoGenerateColumns="false">
+                    CssClass="table table-bordered" Style="margin-left: 0px; margin-top: 10px" AutoGenerateColumns="false">  <%--OnRowDataBound="dgvTurnos_RowDataBound"--%>
                     <Columns>
                         <%--EL GRID SE DEBE AUTOCOMPLETAR CADA VEZ QUE SE CAMBIA EL MEDICO--%>
                         <asp:BoundField HeaderText="Nro de Turno" DataField="IDTurno" />

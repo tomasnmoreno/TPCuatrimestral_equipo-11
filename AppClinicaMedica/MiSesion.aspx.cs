@@ -13,5 +13,15 @@ namespace AppClinicaMedica
         {
 
         }
+
+        protected void btnDesloguearse_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCambioContraseña_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -4,11 +4,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row">
+        <h1 style="color: navy">Mi Perfil</h1>
+    </div>
+    <div class="row">
         <div class="col-6">
-            <asp:Button Text="Desloguearse" CssClass="btn btn-danger" runat="server" />
+            <asp:Button ID="btnDesloguearse" Text="Desloguearse" CssClass="btn btn-danger" runat="server" OnClick="btnDesloguearse_Click" />
         </div>
         <div class="col-6">
-            <asp:Button Text="Cambiar Contraseña" CssClass="btn btn-primary" runat="server" />
+            <asp:Button ID="btnCambioContraseña" Text="Cambiar Contraseña" CssClass="btn btn-primary" runat="server" OnClick="btnCambioContraseña_Click"/>
         </div>
     </div>
 

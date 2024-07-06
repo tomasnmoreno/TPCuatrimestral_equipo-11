@@ -26,7 +26,7 @@ namespace AppClinicaMedica
                 {
                     if (Session["usuario"] != null)
                     {
-                        cargarTodosPacientes = false; 
+                        cargarTodosPacientes = false;
                         dominio.Usuario usuario = (dominio.Usuario)Session["usuario"];
 
                         // Verificar si el usuario no es admin ni recepcionista
@@ -52,12 +52,12 @@ namespace AppClinicaMedica
 
                     if (cargarTodosPacientes)
                     {
-                    List<Paciente> listaPacientes = pacienteNegocio.listar();
-                    ddlPacientes.DataSource = listaPacientes;
-                    ddlPacientes.DataTextField = "Nombre";
-                    ddlPacientes.DataValueField = "IDPaciente";
-                    ddlPacientes.DataBind();
-                    Session.Add("listaPacientes", listaPacientes.ToList());
+                        List<Paciente> listaPacientes = pacienteNegocio.listar();
+                        ddlPacientes.DataSource = listaPacientes;
+                        ddlPacientes.DataTextField = "Nombre";
+                        ddlPacientes.DataValueField = "IDPaciente";
+                        ddlPacientes.DataBind();
+                        Session.Add("listaPacientes", listaPacientes.ToList());
                     }
 
                     List<Especialidad> listaEspecialidades = negEspecialidad.listar();
@@ -66,18 +66,37 @@ namespace AppClinicaMedica
                     ddlEspecialidades.DataValueField = "IdEspecialidad";
                     ddlEspecialidades.DataBind();
 
-                    //List<Turno> listaTurnos = turnoNegocio.listar();
-                    //dgvTurnos.DataSource = listaTurnos;
-                    //dgvTurnos.DataBind();
-                    //Session.Add("listaTurnos", turnoNegocio.listar());
+                  
                     cargarDgvTurnos(0, 0);
-                }
-                else
-                {
-                    if ((Session["usuario"] != null && ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE))
-                    {
 
+                    // PARA OCULTAR LOS BOTONES SEGUN CORRESPONDA
+                    foreach (GridViewRow row in dgvTurnos.Rows)
+                    {
+                        Button btnAsignar = row.Cells[6].Controls[0] as Button;
+                        var asignado = row.Cells[3].Text as string;
+                        if (asignado == "Sin Asignar")
+                        {
+                            btnAsignar.Visible = true;
+                        }
+                        else
+                        {
+                            btnAsignar.Visible = false;
+                        }
                     }
+                    foreach (GridViewRow row in dgvTurnos.Rows)
+                    {
+                        Button btnDesasignar = row.Cells[7].Controls[0] as Button;
+                        var asignado = row.Cells[3].Text as string;
+                        if (asignado == "Sin Asignar")
+                        {
+                            btnDesasignar.Visible = false;
+                        }
+                        else
+                        {
+                            btnDesasignar.Visible = true;
+                        }
+                    }
+                    // FIN // PARA OCULTAR LOS BOTONES SEGUN CORRESPONDA
                 }
             }
             catch (Exception ex)
@@ -87,11 +106,6 @@ namespace AppClinicaMedica
             }
 
         }
-
-        //protected void cargarDgvTurnos()
-        //{
-
-        //}
 
         protected void ddlEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -104,18 +118,9 @@ namespace AppClinicaMedica
                 datos.setearParametro("@IdEspecialidad", id);
                 datos.leer();
 
-                //bool bandera = false;
                 while (datos.Reader.Read())
                 {
                     Medico aux = new Medico();
-                    //if (!bandera)
-                    //{
-                    //    Medico aux2 = new Medico();
-                    //    bandera = true;
-                    //    aux2.Apellido = "Seleccione una opcion";
-                    //    aux.IdMedico = "0";
-                    //    listaMedicosFiltrados.Add(aux2);
-                    //}
 
                     aux.IdMedico = (string)datos.Reader["IDUsuario"].ToString();
                     aux.Apellido = (string)datos.Reader["apellido"];
@@ -163,10 +168,10 @@ namespace AppClinicaMedica
         {
             try
             {
-                if (ddlMedicosFiltrados.SelectedItem.Value != "") 
-                { 
-                int IDMedico = int.Parse(ddlMedicosFiltrados.SelectedItem.Value);
-                cargarDgvTurnos(IDMedico, 0);
+                if (ddlMedicosFiltrados.SelectedItem.Value != "")
+                {
+                    int IDMedico = int.Parse(ddlMedicosFiltrados.SelectedItem.Value);
+                    cargarDgvTurnos(IDMedico, 0);
                 }
                 if (ddlMedicosFiltrados.Text.ToString() != "Seleccione una opción")
                 {
@@ -178,19 +183,6 @@ namespace AppClinicaMedica
 
                 throw ex;
             }
-            //try
-            //{
-            //TurnoNegocio turnoNegocio = new TurnoNegocio();
-            //int IDMedico = int.Parse(ddlMedicosFiltrados.SelectedItem.Value);
-            //List<Turno> listaTurnos = turnoNegocio.listar(IDMedico);
-            //dgvTurnos.DataSource = listaTurnos;
-            //dgvTurnos.DataBind();
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    throw ex;
-            //}
         }
 
         protected void cargarDgvTurnos(int IDMedico, int IDEspecialidad)
@@ -265,61 +257,45 @@ namespace AppClinicaMedica
                     item.Text = $"{Paciente.Nombre} {Paciente.Apellido}";
                 }
             }
-
-
-            //MedicoNegocio todosLosMedico = new MedicoNegocio();
-            //List<Medico> medicosLista = todosLosMedico.listar();
-            //foreach (ListItem item in ddlMedicosFiltrados.Items)
-            //{
-            //    int idMedico = Convert.ToInt32(item.Value);
-
-            //    var Medico = medicosLista.FirstOrDefault(m => Convert.ToInt32(m.IdMedico) == idMedico);
-            //    if (Medico != null)
-            //    {
-
-            //        item.Text = $"{Medico.Nombre}  {Medico.Apellido}";
-            //    }
-            //}
         }
 
-        protected void dgvTurnos_SelectedIndexChanged(object sender, EventArgs e) 
-        { 
-        
+        protected void dgvTurnos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
             GridViewRow row = dgvTurnos.SelectedRow;
 
             AccesoDatos datos = new AccesoDatos();
+            bool bandera = false;
             try
             {
-
                 //var quesendertengo = sender.ToString();
-
                 if (row != null && row.Cells[3].Text != "Sin Asignar")
                 {
+                    bandera = true;
                     int IDTurno = int.Parse(row.Cells[0].Text.ToString());
 
                     datos.setQuery("UPDATE TURNOS SET IDPaciente = NULL, Asignado = 0 WHERE IDTurno = @IDTurno");
                     datos.setearParametro("@IDTurno", IDTurno);
                     datos.ejecutarAccion();
-
                 }
                 if (sender.ToString() == "System.Web.UI.WebControls.GridView" && row.Cells[3].Text == "Sin Asignar")
-                    {
-                        //var id = dgvTurnos.SelectedDataKey.Value.ToString();
+                {
+                    //var id = dgvTurnos.SelectedDataKey.Value.ToString();
 
 
-                        Label lblFecha = (Label)row.FindControl("lblFecha");
-                        string fecha = lblFecha.Text;
-                        DateTime _fecha = DateTime.Parse(fecha);
-                        txtFecha.Text = _fecha.ToString("yyyy-MM-dd");
+                    Label lblFecha = (Label)row.FindControl("lblFecha");
+                    string fecha = lblFecha.Text;
+                    DateTime _fecha = DateTime.Parse(fecha);
+                    txtFecha.Text = _fecha.ToString("yyyy-MM-dd");
 
-                        //Label lblHora = (Label)row.FindControl("lblHora");
-                        //string hora = lblHora.Text;
-                        //TimeSpan _hora = TimeSpan.Parse(hora);
-                        //txtHorario.Text = _hora.ToString();
+                    //Label lblHora = (Label)row.FindControl("lblHora");
+                    //string hora = lblHora.Text;
+                    //TimeSpan _hora = TimeSpan.Parse(hora);
+                    //txtHorario.Text = _hora.ToString();
 
-                        string hora = row.Cells[5].Text.ToString();
-                        TimeSpan _hora = TimeSpan.Parse(hora.ToString());
-                        txtHorario.Text = hora;
+                    string hora = row.Cells[5].Text.ToString();
+                    TimeSpan _hora = TimeSpan.Parse(hora.ToString());
+                    txtHorario.Text = hora;
 
                     //string especialidad = row.Cells[2].Text.ToString();
                     //ListItem item1 = ddlEspecialidades.Items.FindByValue(especialidad);
@@ -340,34 +316,34 @@ namespace AppClinicaMedica
                     //}
 
                     int IDTurno = Convert.ToInt32(row.Cells[0].Text.ToString());
-                        Session.Add("IDTurno", IDTurno);
+                    Session.Add("IDTurno", IDTurno);
 
-                        txtbEleccion.Text = $"{ddlPacientes.SelectedItem.Text} - " +
-                                $"Dr/Dra. {row.Cells[1].Text.ToString()} - " + /*ddlMedicosFiltrados.SelectedItem.Text*/
-                                $"{txtFecha.Text.ToString()}, " +
-                                $"{hora.ToString().Substring(0, 5)}hs";
-                    }
+                    txtbEleccion.Text = $"{ddlPacientes.SelectedItem.Text} - " +
+                            $"Dr/Dra. {row.Cells[1].Text.ToString()} - " + /*ddlMedicosFiltrados.SelectedItem.Text*/
+                            $"{txtFecha.Text.ToString()}, " +
+                            $"{hora.ToString().Substring(0, 5)}hs";
+                }
 
-                    else
-                    {
-                        string paciente = ddlPacientes.SelectedItem.Text;
+                else
+                {
+                    string paciente = ddlPacientes.SelectedItem.Text;
                     if (paciente == "Seleccione una opción")
-                        {
-                        paciente  = null;
-                        }
+                    {
+                        paciente = null;
+                    }
 
                     string medico = ddlMedicosFiltrados.SelectedItem.Text;
                     if (medico == "Seleccione una opción")
                     {
                         medico = null;
                     }
-                        txtbEleccion.Text = $"{paciente} - " +
-                            $"Drs. {medico} " +
-                            $"| {txtFecha.Text.ToString()}, " +
-                            $"{txtHorario.Text.ToString()}hs.";
-                    }
+                    txtbEleccion.Text = $"{paciente} - " +
+                        $"Drs. {medico} " +
+                        $"| {txtFecha.Text.ToString()}, " +
+                        $"{txtHorario.Text.ToString()}hs.";
+                }
 
-                
+
             }
             catch (Exception)
             {
@@ -376,18 +352,22 @@ namespace AppClinicaMedica
             finally
             {
                 datos.cerrarConexion();
+                if (bandera == true)
+                {
+                Response.Redirect("Turnos.aspx");
+                }
             }
 
-            
+
         }
 
         protected void ddlPacientes_PreRender(object sender, EventArgs e)
         {
-            if (!IsPostBack || ( Session["usuario"] != null && ( ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.ADMIN || ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.RECEP) ) )
+            if (!IsPostBack || (Session["usuario"] != null && (((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.ADMIN || ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.RECEP)))
             {
                 ddlPacientes.Items.Insert(0, new ListItem("Seleccione una opción", ""));
             }
-            if(!IsPostBack && (Session["usuario"] != null && ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE))
+            if (!IsPostBack && (Session["usuario"] != null && ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE))
             {
                 ddlPacientes.Items.RemoveAt(0);
             }
@@ -396,7 +376,7 @@ namespace AppClinicaMedica
         protected void txtFecha_TextChanged(object sender, EventArgs e)
         {
             if (txtFecha.Text != "")
-               dgvTurnos_SelectedIndexChanged(sender, e);
+                dgvTurnos_SelectedIndexChanged(sender, e);
         }
 
         protected void txtHorario_TextChanged(object sender, EventArgs e)
@@ -408,7 +388,7 @@ namespace AppClinicaMedica
         protected void ddlPacientes_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlPacientes.Text.ToString() != "Seleccione una opción")
-            { 
+            {
                 dgvTurnos_SelectedIndexChanged(sender, e);
             }
         }
@@ -418,7 +398,7 @@ namespace AppClinicaMedica
             //tengo que tomar los valores de todos los campos y parsearlos si es necesario () AH NO PARA
             // --> SOLO TOMO EL ID DEL PACIENTE Y DEL TURNO (celda grid de nro turno) y UPDATE SQL en tabla Turnos Where IDTurno = @IDTurno {setear parametro}
             AccesoDatos datos = new AccesoDatos();
-            
+
             try
             {
                 int IDPaciente = Convert.ToInt32(ddlPacientes.SelectedItem.Value);
@@ -438,16 +418,60 @@ namespace AppClinicaMedica
             finally
             {
                 datos.cerrarConexion();
+                Response.Redirect("Turnos.aspx");
+            }
+        }
+
+        private bool VerSiEstaAsignado(int IDTurno)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setQuery("select Asignado from Turnos where IDTurno = @IDTurno");
+                datos.setearParametro("@IDTurno", IDTurno);
+                datos.leer();
+                while (datos.Reader.Read())
+                {
+                    var quetengo = datos.Reader["Asignado"].ToString();
+                    if (quetengo == "True")
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
 
-            Response.Redirect("Turnos.aspx");
-
-            //TurnoNegocio turnoNegocio = new TurnoNegocio();
-            //List<Turno> listaTurnos = turnoNegocio.listar(int.Parse(Session["IDMedico"].ToString()));
-            //if(txtHorario.Text.ToString() == listaTurnos) // VALIDACION
-            //int IDTurno = 
-
-            //tengo que meter los datos a la base de datos
         }
+
+
+
+        //protected void dgvTurnos_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        int IDTurno = Convert.ToInt32(dgvTurnos.DataKeys[e.Row.RowIndex].Values["IDTurno"]);
+        //        bool turnoAsignado = VerSiEstaAsignado(IDTurno);
+
+        //        if (turnoAsignado)
+        //        {
+        //            //CommandField fieldAsignar = dgvTurnos.Columns[6] as CommandField;
+        //            //CommandField fieldAsignar = e.Row.Cells[6].Controls[0] as CommandField; // Suponiendo que "Asignar Actual" está en la posición 6
+        //            CommandField fieldAsignar = dgvTurnos.Columns
+        //    .OfType<CommandField>()
+        //    .FirstOrDefault(field => field.ButtonType == ButtonType.Button && field.ShowSelectButton && field.HeaderText == "Asignar");
+        //            if (fieldAsignar != null)
+        //            {
+        //                ButtonField buttonAsignar = fieldAsignar.FindControl("SelectButton") as ButtonField;
+        //                fieldAsignar.Visible = false; // Ocultar el CommandField "Asignar Actual"
+        //            }
+        //        }
+        //    }
+        //}
+
     }
 }
