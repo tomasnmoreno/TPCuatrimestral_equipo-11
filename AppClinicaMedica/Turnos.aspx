@@ -84,7 +84,7 @@
                         </asp:TemplateField>
 
                         <asp:BoundField HeaderText="Hora" DataField="HoraInicio" />
-                        <asp:CommandField ShowSelectButton="true" SelectText="Elegir" HeaderText="Asignar" ButtonType="Button" ControlStyle-CssClass="btn btn-primary" />
+                        <asp:CommandField ShowSelectButton="true" SelectText="Elegir" HeaderText="Elegir Turno" ButtonType="Button" ControlStyle-CssClass="btn btn-primary" />
                         <asp:CommandField ShowSelectButton="true" SelectText="Desasignar" HeaderText="Desasignar" ButtonType="Button" ControlStyle-CssClass="btn btn-danger" />
                     </Columns>
                 </asp:GridView>

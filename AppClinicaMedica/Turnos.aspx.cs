@@ -268,6 +268,19 @@ namespace AppClinicaMedica
                             break; // Romper el bucle una vez que se haya encontrado y ocultado la columna
                         }
                     }
+                    foreach (GridViewRow row in dgvTurnos.Rows)
+                    {
+                        Button btnAsignar = row.Cells[6].Controls[0] as Button;
+                        var asignado = row.Cells[3].Text as string;
+                        if (asignado == "Sin Asignar")
+                        {
+                            btnAsignar.Visible = true;
+                        }
+                        else
+                        {
+                            btnAsignar.Visible = false;
+                        }
+                    }
                 }
                 else
                 {
@@ -340,7 +353,7 @@ namespace AppClinicaMedica
             }
         }
 
-        protected void dgvTurnos_SelectedIndexChanged(object sender, EventArgs e)
+        protected void dgvTurnos_SelectedIndexChanged(object sender, EventArgs e) //POR ACA PASAN Y SE RENDERIZAN VARIAS COSAS, OJO CON LO QUE SE TOCA
         {
 
             GridViewRow row = dgvTurnos.SelectedRow;
@@ -538,8 +551,6 @@ namespace AppClinicaMedica
                 ddlEspecialidades.Items.Insert(0, new ListItem("Seleccione una opción", ""));
             }
         }
-
-
 
         //protected void dgvTurnos_RowDataBound(object sender, GridViewRowEventArgs e)
         //{
