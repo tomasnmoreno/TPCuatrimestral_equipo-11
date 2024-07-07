@@ -12,7 +12,8 @@ namespace dominio
         public int IdMedico { get; set; }
         public int IdPaciente { get; set; }
         public DateTime Fecha { get; set; }
-        public TimeSpan Hora { get; set; }
+        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan HoraFin { get; set; }
         public int Estado { get; set; }
         //public Estado EstadoTurno { get; set; }
         public bool Asignado { get; set; }

@@ -19,6 +19,7 @@ namespace AppClinicaMedica
         EspexMedNegocio especialidadesxMedico = new EspexMedNegocio();
         HorarioxMedicoNegocio horariosxMed = new HorarioxMedicoNegocio();
         TurnoNegocio turnoNegocio = new TurnoNegocio();
+        AccesoDatos datos = new AccesoDatos();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -337,14 +338,30 @@ namespace AppClinicaMedica
 
                 //FUNCION QUE GENERA TURNOS AUTOMATICAMENTE
                 //List<string> listaIDHorario = new List<string>();
-                if (txtId.Text != null)
-                {
-                    listBoxHxM.Items.Clear();
-                    int idmed = int.Parse(txtId.Text.ToString());
-                    cargarListBoxHxM(idmed);
+                GenerarTurnosModificando( int.Parse(medicoModificado.IdMedico) );
+                //FIN FUNCION
 
-                    TimeSpan Horario;
+                listBoxHxM.Items.Clear();
+                int idmed = int.Parse(txtId.Text.ToString());
+                cargarListBoxHxM(idmed);
+
+                limpiarCampos();
+                cargarListaMedicos();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al modificar el Medico: " + ex.Message);
+            }
+        }
+
+        protected void GenerarTurnosModificando(int IDMedico)
+        {
+            try
+            {
+                    TimeSpan HorarioInicio;
+                    TimeSpan HorarioFin;
                     Turno turno = new Turno();
+                    turno.IdMedico = IDMedico;
                     TurnoNegocio negocio = new TurnoNegocio();
                     string diaSemana_string;
                     int diaSemana = 0;
@@ -352,12 +369,16 @@ namespace AppClinicaMedica
                     foreach (ListItem listitem in listBoxHxM.Items)
                     {
                         //Horario = TimeSpan.ParseExact(listitem.ToString().Substring(0, 5), "HH:mm", CultureInfo.InvariantCulture);
-                        Horario = TimeSpan.Parse(listitem.ToString().Substring(0, 5));
-                        turno.Hora = Horario;
-                        turno.IdMedico = int.Parse(txtId.Text);
+                        HorarioInicio = TimeSpan.Parse(listitem.ToString().Substring(0, 5));
+                        turno.HoraInicio = HorarioInicio;
+                        HorarioFin = TimeSpan.Parse(listitem.ToString().Substring(11, 5));
+                        //turno.HoraFin = HorarioFin; NO LO NECESITO PORQUE ESTE SERA EL PARAMETRO PARA PONER EN EL WHILE COMO CONDICION DE Q NO SE SUPERE, A IRE AGREGANDO HORAS
+                        //turno.IdMedico = int.Parse(txtId.Text); // YA LO TNEOG EL ID
 
-                        //int longitud = listitem.ToString().Length - 20;
-                        diaSemana_string = listitem.ToString().Substring(20, 3);
+                        diaSemana_string = listitem.ToString().Substring(22, 3);
+
+                    if(diaSemana_string != null)
+                    {
                         switch (diaSemana_string)
                         {
                             case "Lun":
@@ -379,35 +400,34 @@ namespace AppClinicaMedica
                                 break;
                         }
 
-                        //RECORRO ALMANAQUE PARA INSERTAR EN FECHAS CORRESPONDIENTES
-                        DateTime auxfecha = DateTime.Now;
+                        //RECORRO ALMANAQUE PARA INSERTAR EN FECHAS HORARIOS CORRESPONDIENTES
+                        DateTime auxfecha = DateTime.Now; // Para WHILE
                         DateTime diaInicial = auxfecha;
+                        TimeSpan auxHoraInicio = HorarioInicio;
 
                         while (auxfecha.Month <= diaInicial.Month + 1)
                         {
                             if ((int)auxfecha.DayOfWeek == diaSemana)
                             {
                                 turno.Fecha = auxfecha;
+                                auxHoraInicio = HorarioInicio;
+                                while (auxHoraInicio < HorarioFin)
+                                {
+                                turno.HoraInicio = auxHoraInicio;
                                 negocio.GenerarTurnos(turno);
 
+                                auxHoraInicio = auxHoraInicio.Add(TimeSpan.FromHours(1)); //Sumo una hora a la actual
+                                }
                             }
-
                             auxfecha = auxfecha.AddDays(1);
                         }
-
                     }
                 }
-
-
-                //FIN FUNCION
-
-
-                limpiarCampos();
-                cargarListaMedicos();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al modificar el Medico: " + ex.Message);
+
+                throw ex;
             }
         }
 
@@ -433,7 +453,6 @@ namespace AppClinicaMedica
         {
             try
             {
-
                 Response.Redirect("NuevoMedico.aspx");
             }
             catch (Exception ex)
@@ -445,7 +464,6 @@ namespace AppClinicaMedica
         {
             if (ddlAgregarHorario.SelectedIndex != -1)
             {
-
                 HorarioNegocio horarioNegocio = new HorarioNegocio();
 
                 string IdDiaSelecc = ddlAgregarHorario.SelectedItem.Value.ToString();

@@ -45,7 +45,7 @@ namespace negocio
                     }
 
                     aux.Fecha = (DateTime)datos.Reader["Fecha"];
-                    aux.Hora = (TimeSpan)datos.Reader["Hora"];
+                    aux.HoraInicio = (TimeSpan)datos.Reader["Hora"];
 
                     listaTurnos.Add(aux);
                 }
@@ -98,7 +98,7 @@ namespace negocio
                     }
 
                     aux.Fecha = (DateTime)datos.Reader["Fecha"];
-                    aux.Hora = (TimeSpan)datos.Reader["Hora"];
+                    aux.HoraInicio = (TimeSpan)datos.Reader["Hora"];
 
                     listaTurnos.Add(aux);
                 }
@@ -151,7 +151,7 @@ namespace negocio
                     }
 
                     aux.Fecha = (DateTime)datos.Reader["Fecha"];
-                    aux.Hora = (TimeSpan)datos.Reader["Hora"];
+                    aux.HoraInicio = (TimeSpan)datos.Reader["Hora"];
 
                     listaTurnos.Add(aux);
                 }
@@ -178,18 +178,16 @@ namespace negocio
             datos.setearProcedure("SP_InsertarTurno");
             datos.setearParametro("IDMedico", turno.IdMedico);
             datos.setearParametro("Fecha", turno.Fecha);
-            datos.setearParametro("Hora", turno.Hora);
+            datos.setearParametro("Hora", turno.HoraInicio);
 
             datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
             {
-                
                 datos.cerrarConexion();
             }
         }

@@ -75,7 +75,7 @@
                                 <asp:Label ID="lblHora" runat="server" Text='<%# Bind("Hora", "{0:HH:mm}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>--%>
-                        <asp:BoundField HeaderText="Hora" DataField="Hora" />
+                        <asp:BoundField HeaderText="Hora" DataField="HoraInicio" />
                         <asp:CommandField ShowSelectButton="true" SelectText="Asignar Actual" HeaderText="Asignar" ButtonType="Button" ControlStyle-CssClass="btn btn-primary" />
                         <asp:CommandField ShowSelectButton="true" SelectText="Desasignar" HeaderText="Desasignar" ButtonType="Button" ControlStyle-CssClass="btn btn-danger" />
                     </Columns>

@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <asp:ScriptManager ID="scriptManager" runat="server" />
+
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
             <div class="row">
