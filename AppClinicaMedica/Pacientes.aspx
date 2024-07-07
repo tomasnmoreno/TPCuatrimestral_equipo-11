@@ -12,7 +12,8 @@
     <h1 class="titPpal">Pacientes</h1>
     <a href="NuevoPaciente.aspx" class="btn my-boton" style="margin-left: 50px; margin-bottom: 10px">Agregar Paciente</a>
 
-    <asp:GridView runat="server" ID="dgvPacientes" DataKeyNames="IDPaciente" OnSelectedIndexChanged="dgvPacientes_SelectedIndexChanged" CssClass="table table-bordered" Style="margin-left: 50px" AutoGenerateColumns="false">
+    <div class="row">
+    <asp:GridView runat="server" ID="dgvPacientes" DataKeyNames="IDPaciente" OnSelectedIndexChanged="dgvPacientes_SelectedIndexChanged" CssClass="table table-bordered" Style="margin-right: 5px" AutoGenerateColumns="false">
         <Columns>
             <%--<asp:BoundField HeaderText="ID" DataField="IDUsuario" HeaderStyle-CssClass="oculto" ItemStyle-CssClass="oculto" />--%>
             <%--<asp:BoundField HeaderText="ID" DataField="IDUsuario" />--%>
@@ -28,6 +29,7 @@
             <asp:CommandField ShowSelectButton="true" SelectText="Modificar" HeaderText="Modificar" />
         </Columns>
     </asp:GridView>
+    </div>
 
     <div></div>
 </asp:Content>

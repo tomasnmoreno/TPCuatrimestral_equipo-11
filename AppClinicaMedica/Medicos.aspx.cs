@@ -23,9 +23,12 @@ namespace AppClinicaMedica
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             cargarListaMedicos();
-            ddlDiasCargar();
+            if (!IsPostBack)
+            {
+                ddlDiasCargar();
+            }
 
         }
         protected void cargarListaMedicos()
@@ -107,6 +110,14 @@ namespace AppClinicaMedica
 
         protected void cargarDropDownListHxM(int idMedico)
         {
+            if(txtId.Text == "")
+            {
+                DropDownListHxM.DataSource = horarioNegocio.listar();
+                DropDownListHxM.DataTextField = "HoraInicio";
+                DropDownListHxM.DataValueField = "IDHorario";
+
+                DropDownListHxM.DataBind();
+            }
             try
             {
                 List<HorarioxMedico> horariosDelMedico = horariosxMed.listar().Where(hm => hm.IDMedico == idMedico).ToList();
@@ -338,7 +349,7 @@ namespace AppClinicaMedica
 
                 //FUNCION QUE GENERA TURNOS AUTOMATICAMENTE
                 //List<string> listaIDHorario = new List<string>();
-                GenerarTurnosModificando( int.Parse(medicoModificado.IdMedico) );
+                GenerarTurnosModificando(int.Parse(medicoModificado.IdMedico));
                 //FIN FUNCION
 
                 listBoxHxM.Items.Clear();
@@ -358,26 +369,26 @@ namespace AppClinicaMedica
         {
             try
             {
-                    TimeSpan HorarioInicio;
-                    TimeSpan HorarioFin;
-                    Turno turno = new Turno();
-                    turno.IdMedico = IDMedico;
-                    TurnoNegocio negocio = new TurnoNegocio();
-                    string diaSemana_string;
-                    int diaSemana = 0;
+                TimeSpan HorarioInicio;
+                TimeSpan HorarioFin;
+                Turno turno = new Turno();
+                turno.IdMedico = IDMedico;
+                TurnoNegocio negocio = new TurnoNegocio();
+                string diaSemana_string;
+                int diaSemana = 0;
 
-                    foreach (ListItem listitem in listBoxHxM.Items)
-                    {
-                        //Horario = TimeSpan.ParseExact(listitem.ToString().Substring(0, 5), "HH:mm", CultureInfo.InvariantCulture);
-                        HorarioInicio = TimeSpan.Parse(listitem.ToString().Substring(0, 5));
-                        turno.HoraInicio = HorarioInicio;
-                        HorarioFin = TimeSpan.Parse(listitem.ToString().Substring(11, 5));
-                        //turno.HoraFin = HorarioFin; NO LO NECESITO PORQUE ESTE SERA EL PARAMETRO PARA PONER EN EL WHILE COMO CONDICION DE Q NO SE SUPERE, A IRE AGREGANDO HORAS
-                        //turno.IdMedico = int.Parse(txtId.Text); // YA LO TNEOG EL ID
+                foreach (ListItem listitem in listBoxHxM.Items)
+                {
+                    //Horario = TimeSpan.ParseExact(listitem.ToString().Substring(0, 5), "HH:mm", CultureInfo.InvariantCulture);
+                    HorarioInicio = TimeSpan.Parse(listitem.ToString().Substring(0, 5));
+                    turno.HoraInicio = HorarioInicio;
+                    HorarioFin = TimeSpan.Parse(listitem.ToString().Substring(11, 5));
+                    //turno.HoraFin = HorarioFin; NO LO NECESITO PORQUE ESTE SERA EL PARAMETRO PARA PONER EN EL WHILE COMO CONDICION DE Q NO SE SUPERE, A IRE AGREGANDO HORAS
+                    //turno.IdMedico = int.Parse(txtId.Text); // YA LO TNEOG EL ID
 
-                        diaSemana_string = listitem.ToString().Substring(22, 3);
+                    diaSemana_string = listitem.ToString().Substring(22, 3);
 
-                    if(diaSemana_string != null)
+                    if (diaSemana_string != null)
                     {
                         switch (diaSemana_string)
                         {
@@ -413,10 +424,10 @@ namespace AppClinicaMedica
                                 auxHoraInicio = HorarioInicio;
                                 while (auxHoraInicio < HorarioFin)
                                 {
-                                turno.HoraInicio = auxHoraInicio;
-                                negocio.GenerarTurnos(turno);
+                                    turno.HoraInicio = auxHoraInicio;
+                                    negocio.GenerarTurnos(turno);
 
-                                auxHoraInicio = auxHoraInicio.Add(TimeSpan.FromHours(1)); //Sumo una hora a la actual
+                                    auxHoraInicio = auxHoraInicio.Add(TimeSpan.FromHours(1)); //Sumo una hora a la actual
                                 }
                             }
                             auxfecha = auxfecha.AddDays(1);
@@ -486,25 +497,31 @@ namespace AppClinicaMedica
                 horarioNegocio.agregarHorario(horaInicio, horaFin, IdDia);
 
                 //var medicoSeleccionado = Session["listaMedicos"];
-                GridViewRow row = dgvMedicos.SelectedRow;
-                int IdMedico = Convert.ToInt32(row.Cells[1].Text);
-                //int idMedico = int.Parse(medicoSeleccionado.ToString());
-                DropDownListHxM.Items.Clear();
-                cargarDropDownListHxM(IdMedico);
+                if (txtId.Text != "")
+                {
+                    GridViewRow row = dgvMedicos.SelectedRow;
+                    int IdMedico = Convert.ToInt32(row.Cells[1].Text);
+                    //int idMedico = int.Parse(medicoSeleccionado.ToString());
+                    DropDownListHxM.Items.Clear();
+                    cargarDropDownListHxM(IdMedico);
+                }
+                else
+                {
 
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "CerrarVentana", "window.close();", true);
+                }
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "CerrarVentana", "window.close();", true);
             }
         }
 
-        protected void Unnamed_Click(object sender, EventArgs e)
-        {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "CerrarVentana", "window.close();", true);
-        }
+        //DEL MODAL DE ALEX
+        //protected void Unnamed_Click(object sender, EventArgs e)
+        //{
+        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "CerrarVentana", "window.close();", true);
+        //}
 
         //protected void ddlAgregarHorario_SelectedIndexChanged(object sender, EventArgs e)
         //{
-        //    Session.Add("iddia", ddlAgregarHorario.SelectedItem.Value);
-        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal", "$('#miModal').modal('show');", true);
+
         //}
 
         protected void LimpiarCampos_Click(object sender, EventArgs e)
@@ -514,28 +531,31 @@ namespace AppClinicaMedica
 
         protected void DropDownListHxM_DataBound(object sender, EventArgs e)
         {
-            int idMedico = Convert.ToInt32(txtId.Text);
-            List<HorarioxMedico> horariosDelMedico = horariosxMed.listar().Where(hm => hm.IDMedico == idMedico).ToList();
-            List<HorarioTrabajo> todosLosHorarios = horarioNegocio.listar();
-            List<DiasSemana> listadias = diasSemanaNegocio.listar();
-
-            List<HorarioTrabajo> horariosNoAsignados = todosLosHorarios.Where(horario =>
-                !horariosDelMedico.Any(horaXMed => horaXMed.IDHorario == horario.IDHorario)).ToList();
-
-
-            foreach (ListItem item in DropDownListHxM.Items)
+            if (txtId.Text != null)
             {
-                // Obtén el ID del horario desde el valor del ListItem
-                int idHorario = Convert.ToInt32(item.Value);
+                int idMedico = Convert.ToInt32(txtId.Text);
+                List<HorarioxMedico> horariosDelMedico = horariosxMed.listar().Where(hm => hm.IDMedico == idMedico).ToList();
+                List<HorarioTrabajo> todosLosHorarios = horarioNegocio.listar();
+                List<DiasSemana> listadias = diasSemanaNegocio.listar();
 
-                // Busca el horario correspondiente en la lista original
-                var horario = horariosNoAsignados.FirstOrDefault(h => h.IDHorario == idHorario);
-                DiasSemana diaEncontrado = listadias.FirstOrDefault(d => d.IdDias == horario.IdDia);
+                List<HorarioTrabajo> horariosNoAsignados = todosLosHorarios.Where(horario =>
+                    !horariosDelMedico.Any(horaXMed => horaXMed.IDHorario == horario.IDHorario)).ToList();
 
-                if (horario != null)
+
+                foreach (ListItem item in DropDownListHxM.Items)
                 {
-                    // Combina los campos HoraInicio y HoraFin
-                    item.Text = $"{horario.HoraInicio} - {horario.HoraFin} - {diaEncontrado.Nombre}";
+                    // Obtén el ID del horario desde el valor del ListItem
+                    int idHorario = Convert.ToInt32(item.Value);
+
+                    // Busca el horario correspondiente en la lista original
+                    var horario = horariosNoAsignados.FirstOrDefault(h => h.IDHorario == idHorario);
+                    DiasSemana diaEncontrado = listadias.FirstOrDefault(d => d.IdDias == horario.IdDia);
+
+                    if (horario != null)
+                    {
+                        // Combina los campos HoraInicio y HoraFin
+                        item.Text = $"{horario.HoraInicio} - {horario.HoraFin} - {diaEncontrado.Nombre}";
+                    }
                 }
             }
         }

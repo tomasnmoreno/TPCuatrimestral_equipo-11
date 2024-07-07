@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <h1 class="titPpal">Nuevo Recepcionista</h1>
     <div class="row nuevoPaciente">
         <div class="col-6">
             <div class="mb-3">
@@ -25,6 +26,8 @@
                 <label for="txtDNI" class="form-label">DNI</label>
                 <asp:TextBox runat="server" ID="txtDNI" placeholder="DNI" CssClass="form-control" />
             </div>
+        </div>
+        <div class="col-6">
             <div class="mb-3">
                 <label for="txtNacimiento" class="form-label">Fecha Nacimiento</label>
                 <asp:TextBox runat="server" TextMode="Date" ID="txtNacimiento" placeholder="Fecha de Nacimiento" CssClass="form-control" />
@@ -45,12 +48,13 @@
                 <label for="txtCodPostal" class="form-label">Codigo Postal</label>
                 <asp:TextBox runat="server" ID="txtCodPostal" placeholder="Código Postal" CssClass="form-control" />
             </div>
-
-            <div class="container agregarEspecialidad">
-                <asp:Button Text="Aceptar" CssClass="btn btn-primary" ID="btnAgregarRecepcionista" OnClick="btnAgregarRecepcionista_Click" runat="server" />
-                <a href="Pacientes.aspx" class="btn btn-danger" style="margin-left: 10px;">Cancelar</a>
-                <asp:Button Text="Baja" ID="btnBajaRecepcionista" OnClick="btnBajaRecepcionista_Click" CssClass="btn btn-danger" runat="server" />
-            </div>
         </div>
+
+        <div class="container agregarEspecialidad">
+            <asp:Button Text="Aceptar" CssClass="btn btn-primary" ID="btnAgregarRecepcionista" OnClick="btnAgregarRecepcionista_Click" runat="server" />
+            <a href="Pacientes.aspx" class="btn btn-danger" style="margin-left: 10px;">Cancelar</a>
+            <asp:Button Text="Baja" ID="btnBajaRecepcionista" OnClick="btnBajaRecepcionista_Click" CssClass="btn btn-danger" runat="server" />
+        </div>
+        <%--</div>--%>
     </div>
 </asp:Content>

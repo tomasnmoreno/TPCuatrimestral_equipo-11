@@ -78,15 +78,6 @@ namespace AppClinicaMedica
         protected global::System.Web.UI.WebControls.DropDownList ddlPacientes;
 
         /// <summary>
-        /// dgvTurnos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvTurnos;
-
-        /// <summary>
         /// txtbEleccion control.
         /// </summary>
         /// <remarks>
@@ -103,5 +94,14 @@ namespace AppClinicaMedica
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnConfirmar;
+
+        /// <summary>
+        /// dgvTurnos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgvTurnos;
     }
 }

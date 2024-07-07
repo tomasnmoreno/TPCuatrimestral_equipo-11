@@ -240,6 +240,33 @@ namespace AppClinicaMedica
         protected global::System.Web.UI.WebControls.Label lblHorarios;
 
         /// <summary>
+        /// DropDownListHxM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListHxM;
+
+        /// <summary>
+        /// agregarHxM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button agregarHxM;
+
+        /// <summary>
+        /// eliminarHxM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button eliminarHxM;
+
+        /// <summary>
         /// lblIni control.
         /// </summary>
         /// <remarks>
@@ -292,33 +319,6 @@ namespace AppClinicaMedica
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAgregarHorario;
-
-        /// <summary>
-        /// DropDownListHxM control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListHxM;
-
-        /// <summary>
-        /// agregarHxM control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button agregarHxM;
-
-        /// <summary>
-        /// eliminarHxM control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button eliminarHxM;
 
         /// <summary>
         /// listBoxHxM control.

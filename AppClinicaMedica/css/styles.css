@@ -8,6 +8,7 @@
 }
 
 body {
+    height: 100%;
     position: relative;
    /* min-height: 100vh;*/
     background-color: lightgrey;
@@ -26,6 +27,7 @@ body {
 .footer { /*footer*/
     position: absolute;
     bottom: 0;
+    /*width: 100%;*/
 }
 
 a{

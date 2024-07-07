@@ -15,6 +15,7 @@ namespace AppClinicaMedica
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
             EspecialidadNegocio negEspecialidad = new EspecialidadNegocio();
             MedicoNegocio medEspecialidad = new MedicoNegocio();
             TurnoNegocio turnoNegocio = new TurnoNegocio();
@@ -24,6 +25,7 @@ namespace AppClinicaMedica
             {
                 if (!IsPostBack)
                 {
+                    limpiarCampos();
                     if (Session["usuario"] != null)
                     {
                         cargarTodosPacientes = false;
@@ -66,7 +68,7 @@ namespace AppClinicaMedica
                     ddlEspecialidades.DataValueField = "IdEspecialidad";
                     ddlEspecialidades.DataBind();
 
-                  
+
                     cargarDgvTurnos(0, 0);
 
                     // PARA OCULTAR LOS BOTONES SEGUN CORRESPONDA
@@ -83,6 +85,7 @@ namespace AppClinicaMedica
                             btnAsignar.Visible = false;
                         }
                     }
+
                     foreach (GridViewRow row in dgvTurnos.Rows)
                     {
                         Button btnDesasignar = row.Cells[7].Controls[0] as Button;
@@ -97,6 +100,21 @@ namespace AppClinicaMedica
                         }
                     }
                     // FIN // PARA OCULTAR LOS BOTONES SEGUN CORRESPONDA
+
+                    //if ( ( Session["usuario"] != null && (((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE) ) ){
+                    if (esPaciente()) { 
+                        foreach (DataControlField column in dgvTurnos.Columns)
+                        {
+                            // Verificar si la columna es un CommandField y tiene el texto "Desasignar"
+                            if (column is CommandField && ((CommandField)column).ShowSelectButton == true && ((CommandField)column).SelectText == "Desasignar")
+                            {
+                                // Ocultar la columna
+                                column.Visible = false;
+                                break; // Romper el bucle una vez que se haya encontrado y ocultado la columna
+                            }
+                        }
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -104,6 +122,15 @@ namespace AppClinicaMedica
 
                 Session.Add("error", ex);
             }
+        }
+
+        protected void limpiarCampos()
+        {
+            ddlEspecialidades.Items.Clear();
+            ddlMedicosFiltrados.Items.Clear();
+            ddlPacientes.Items.Clear();
+            txtFecha.Text = string.Empty;
+            txtHorario.Text = string.Empty;
 
         }
 
@@ -354,7 +381,7 @@ namespace AppClinicaMedica
                 datos.cerrarConexion();
                 if (bandera == true)
                 {
-                Response.Redirect("Turnos.aspx");
+                    Response.Redirect("Turnos.aspx");
                 }
             }
 
@@ -363,11 +390,13 @@ namespace AppClinicaMedica
 
         protected void ddlPacientes_PreRender(object sender, EventArgs e)
         {
-            if (!IsPostBack || (Session["usuario"] != null && (((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.ADMIN || ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.RECEP)))
+            //if (!IsPostBack || (Session["usuario"] != null && (((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.ADMIN || ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.RECEP)))
+            if (!IsPostBack || (Session["usuario"] != null && (esAdmin() || esRecepcionista()) ) )
             {
                 ddlPacientes.Items.Insert(0, new ListItem("Seleccione una opción", ""));
             }
-            if (!IsPostBack && (Session["usuario"] != null && ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE))
+            //if (!IsPostBack && (Session["usuario"] != null && ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE))
+            if (!IsPostBack && (Session["usuario"] != null && (esPaciente()) ) )
             {
                 ddlPacientes.Items.RemoveAt(0);
             }
@@ -448,6 +477,11 @@ namespace AppClinicaMedica
 
         }
 
+        protected void ddlEspecialidades_PreRender(object sender, EventArgs e)
+        {
+            ddlEspecialidades.Items.Insert(0, new ListItem("Seleccione una opción", ""));
+        }
+
 
 
         //protected void dgvTurnos_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -472,6 +506,42 @@ namespace AppClinicaMedica
         //        }
         //    }
         //}
+
+        public bool esAdmin()
+        {
+            if ((Session["usuario"] != null && (((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.ADMIN)))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool esRecepcionista()
+        {
+            if ((Session["usuario"] != null && (((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.RECEP)))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool esMedico()
+        {
+            if ((Session["usuario"] != null && (((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.MEDICO)))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool esPaciente()
+        {
+            if ((Session["usuario"] != null && (((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE)))
+            {
+                return true;
+            }
+            return false;
+        }
 
     }
 }

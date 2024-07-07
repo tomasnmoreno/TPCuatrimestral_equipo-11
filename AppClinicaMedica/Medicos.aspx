@@ -5,12 +5,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1 class="titPpal">Médicos </h1>
     <a href="NuevoMedico.aspx" class="btn my-boton" style="margin-left: 70px">Agregar Medico</a>
-    <script src="js/app2.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <asp:ScriptManager ID="scriptManager" runat="server" />
 
+    <asp:ScriptManager ID="scriptManager" runat="server" />
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
             <div class="row">
@@ -53,8 +49,8 @@
                         <asp:Label ID="lblEspecialidades" Text="Especialidades" runat="server" Font-Size="Large" Style="color: black;" />
                         <div class="mb-1">
                             <asp:DropDownList ID="ddlAgregarEsp" CssClass="form-control" runat="server"></asp:DropDownList>
-                            <asp:Button ID="btnAgregarEsp" runat="server" OnClick="btnAgregarEspecialidadaMedico" CssClass="btn" Text="Agregar" />
-                            <asp:Button ID="btnEliminarEsp" runat="server" OnClick="btnEliminarEspecialidadaMedico" CssClass="btn" Text="Eliminar" />
+                            <asp:Button ID="btnAgregarEsp" runat="server" OnClick="btnAgregarEspecialidadaMedico" CssClass="btn btn-success" Text="Agregar" />
+                            <asp:Button ID="btnEliminarEsp" runat="server" OnClick="btnEliminarEspecialidadaMedico" CssClass="btn btn-dark" Text="Eliminar" />
                         </div>
 
                         <div class="input-group">
@@ -62,11 +58,72 @@
                         </div>
 
                         <asp:Label ID="lblHorarios" Text="Horarios" runat="server" Font-Size="Large" Style="color: black;" />
-                        <button type="button" class="btn btn-success border rounded" data-toggle="modal" data-target="#miModal">
-                            + 
-                        </button>
+                        <div class="mb-1">
+                            <asp:DropDownList ID="DropDownListHxM" OnDataBound="DropDownListHxM_DataBound" class="form-control" runat="server"></asp:DropDownList>
 
-                        <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+                            <%  if (txtId.Text == "")
+                                { %>
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                                +
+                            </button>
+                            <div style="min-height: 0px">
+                                <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                                    <div class="card card-body" style="width: 200px; color: black; font-size: 15px; background-color: firebrick">
+                                        No hay medico seleccionado
+                                    </div>
+                                </div>
+                            </div>
+
+                            <%--<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Seleccione un Médico">
+                                +
+                            </button>--%>
+
+
+                            <%  }  %>
+                            <%else
+                                { %>
+
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                +
+                            </button>
+
+                            <% } %>
+
+                        </div>
+                            <asp:Button ID="agregarHxM" class="btn btn-success" OnClick="btnAgregarHorarioaMedico" runat="server" Text="Agregar" />
+                            <asp:Button ID="eliminarHxM" class="btn btn-dark" OnClick="btnEliminarHorarioaMedico" runat="server" Text="Eliminar" />
+
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <%--<div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>--%>
+                                    <div class="modal-body">
+                                        <asp:Label ID="lblIni" Text="Hora Inicio" Font-Size="Large" runat="server" Style="color: black;" />
+                                        <asp:TextBox ID="txtHorarioIni" TextMode="Time" CssClass="form-control" runat="server" />
+                                        <asp:Label ID="lblFin" Text="Hora Fin" Font-Size="Large" runat="server" Style="color: black;" />
+                                        <asp:TextBox ID="txtHorarioFin" TextMode="Time" CssClass="form-control" runat="server" />
+
+                                        <asp:DropDownList ID="ddlAgregarHorario" CssClass="form-control" runat="server"></asp:DropDownList>
+                                        <%--AutoPostBack="true" OnSelectedIndexChanged="ddlAgregarHorario_SelectedIndexChanged"--%>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <asp:Button Text="Agregar" CssClass="btn btn-primary" ID="btnAgregarHorario" OnClick="btnAgregarHorario_Click" runat="server" AutoPostBack="false" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <%--<button type="button" class="btn btn-success border rounded" data-toggle="modal" data-target="#miModal">
+                            + 
+                        </button>--%>
+
+                        <%-- <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <!-- Contenido de la ventana emergente -->
@@ -75,20 +132,16 @@
                                     <asp:Label ID="lblFin" Text="Hora Fin" Font-Size="Large" runat="server" Style="color: black;" />
                                     <asp:TextBox ID="txtHorarioFin" TextMode="Time" CssClass="form-control" runat="server" />
 
-                                    <asp:DropDownList ID="ddlAgregarHorario" CssClass="form-control" runat="server"></asp:DropDownList> <%--OnSelectedIndexChanged="ddlAgregarHorario_SelectedIndexChanged"--%>
+                                    <asp:DropDownList ID="ddlAgregarHorario" CssClass="form-control" runat="server"></asp:DropDownList> 
                                     <div>
                                         <asp:Button Text="Aceptar" CssClass="btn btn-primary" ID="btnAgregarHorario" OnClick="btnAgregarHorario_Click" runat="server" />
                                         <asp:Button Text="Cancelar" class="btn btn-danger" OnClick="Unnamed_Click" Style="margin-left: 10px;" runat="server" />
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>--%>
 
-                        <div class="mb-1">
-                            <asp:DropDownList ID="DropDownListHxM" OnDataBound="DropDownListHxM_DataBound" class="form-control" runat="server"></asp:DropDownList>
-                            <asp:Button ID="agregarHxM" class="btn" OnClick="btnAgregarHorarioaMedico" runat="server" Text="Agregar" />
-                            <asp:Button ID="eliminarHxM" class="btn" OnClick="btnEliminarHorarioaMedico" runat="server" Text="Eliminar" />
-                        </div>
+
                         <div>
                             <asp:ListBox ID="listBoxHxM" CssClass="form-control h-100" runat="server"></asp:ListBox>
                         </div>

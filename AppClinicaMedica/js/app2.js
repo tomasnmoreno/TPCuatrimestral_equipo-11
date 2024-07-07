@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //si el menu esta 
     const toggleMenu = () => {
+        event.preventDefault();
         mobileMenu.style.display =
             mobileMenu.style.display === "none" || mobileMenu.style.display === ""
                 ? "flex"
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const hideMenuResize = () => {
         mobileMenu.style.display = "none"
-    }   
+    }
 
     toggleButton.addEventListener("click", toggleMenu);
     window.addEventListener("resize", hideMenuResize);
@@ -26,6 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-function abrirVentanaEmergente() {
-    window.open("NuevoMedico.aspx", "MiVentanaEmergente", "width=400,height=300");
-}
+//function abrirVentanaEmergente() {
+//    window.open("NuevoMedico.aspx", "MiVentanaEmergente", "width=400,height=300");
+//}
