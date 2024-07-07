@@ -71,51 +71,53 @@ namespace AppClinicaMedica
 
                     cargarDgvTurnos(0, 0);
 
-                    // PARA OCULTAR LOS BOTONES SEGUN CORRESPONDA
-                    foreach (GridViewRow row in dgvTurnos.Rows)
-                    {
-                        Button btnAsignar = row.Cells[6].Controls[0] as Button;
-                        var asignado = row.Cells[3].Text as string;
-                        if (asignado == "Sin Asignar")
-                        {
-                            btnAsignar.Visible = true;
-                        }
-                        else
-                        {
-                            btnAsignar.Visible = false;
-                        }
-                    }
-
-                    foreach (GridViewRow row in dgvTurnos.Rows)
-                    {
-                        Button btnDesasignar = row.Cells[7].Controls[0] as Button;
-                        var asignado = row.Cells[3].Text as string;
-                        if (asignado == "Sin Asignar")
-                        {
-                            btnDesasignar.Visible = false;
-                        }
-                        else
-                        {
-                            btnDesasignar.Visible = true;
-                        }
-                    }
-                    // FIN // PARA OCULTAR LOS BOTONES SEGUN CORRESPONDA
-
-                    //if ( ( Session["usuario"] != null && (((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE) ) ){
-                    if (esPaciente()) { 
-                        foreach (DataControlField column in dgvTurnos.Columns)
-                        {
-                            // Verificar si la columna es un CommandField y tiene el texto "Desasignar"
-                            if (column is CommandField && ((CommandField)column).ShowSelectButton == true && ((CommandField)column).SelectText == "Desasignar")
-                            {
-                                // Ocultar la columna
-                                column.Visible = false;
-                                break; // Romper el bucle una vez que se haya encontrado y ocultado la columna
-                            }
-                        }
-                    }
-
                 }
+                //if (esPaciente())
+                //{
+                //    foreach (DataControlField column in dgvTurnos.Columns)
+                //    {
+                //        // Verificar si la columna es un CommandField y tiene el texto "Desasignar"
+                //        if (column is CommandField && ((CommandField)column).ShowSelectButton == true && ((CommandField)column).SelectText == "Desasignar")
+                //        {
+                //            // Ocultar la columna
+                //            column.Visible = false;
+                //            break; // Romper el bucle una vez que se haya encontrado y ocultado la columna
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    // PARA OCULTAR LOS BOTONES SEGUN CORRESPONDA
+                //    foreach (GridViewRow row in dgvTurnos.Rows)
+                //    {
+                //        Button btnAsignar = row.Cells[6].Controls[0] as Button;
+                //        var asignado = row.Cells[3].Text as string;
+                //        if (asignado == "Sin Asignar")
+                //        {
+                //            btnAsignar.Visible = true;
+                //        }
+                //        else
+                //        {
+                //            btnAsignar.Visible = false;
+                //        }
+                //    }
+
+                //    foreach (GridViewRow row in dgvTurnos.Rows)
+                //    {
+                //        Button btnDesasignar = row.Cells[7].Controls[0] as Button;
+                //        var asignado = row.Cells[3].Text as string;
+                //        if (asignado == "Sin Asignar")
+                //        {
+                //            btnDesasignar.Visible = false;
+                //        }
+                //        else
+                //        {
+                //            btnDesasignar.Visible = true;
+                //        }
+                //    }
+                //    // FIN // PARA OCULTAR LOS BOTONES SEGUN CORRESPONDA
+                //}
+
             }
             catch (Exception ex)
             {
@@ -140,32 +142,39 @@ namespace AppClinicaMedica
             List<Medico> listaMedicosFiltrados = new List<Medico>();
             try
             {
-                int id = int.Parse(ddlEspecialidades.SelectedItem.Value);
-                datos.setQuery("select m.apellido, m.IDUsuario from MEDICOS m inner join EspecialidadesXMedicos em on em.IDMedico = m.IDUsuario inner join Especialidades e on e.Id = em.IDEspecialidad where e.Id = @idEspecialidad");
-                datos.setearParametro("@IdEspecialidad", id);
-                datos.leer();
-
-                while (datos.Reader.Read())
+                if (ddlEspecialidades.SelectedIndex == 0)
                 {
-                    Medico aux = new Medico();
-
-                    aux.IdMedico = (string)datos.Reader["IDUsuario"].ToString();
-                    aux.Apellido = (string)datos.Reader["apellido"];
-
-                    listaMedicosFiltrados.Add(aux);
+                    cargarDgvTurnos(0, 0);
                 }
+                else
+                {
+                    int id = int.Parse(ddlEspecialidades.SelectedItem.Value);
+                    datos.setQuery("select m.apellido, m.IDUsuario from MEDICOS m inner join EspecialidadesXMedicos em on em.IDMedico = m.IDUsuario inner join Especialidades e on e.Id = em.IDEspecialidad where e.Id = @idEspecialidad");
+                    datos.setearParametro("@IdEspecialidad", id);
+                    datos.leer();
 
-                // Limpiar DropDownList antes de agregar nuevos datos
-                ddlMedicosFiltrados.Items.Clear();
-                ddlMedicosFiltrados.DataSource = listaMedicosFiltrados;
-                Session.Add("listaMedicosFiltrados", listaMedicosFiltrados.ToList());
-                ddlMedicosFiltrados.DataTextField = "apellido";
-                ddlMedicosFiltrados.DataValueField = "IdMedico";
+                    while (datos.Reader.Read())
+                    {
+                        Medico aux = new Medico();
 
-                ddlMedicosFiltrados.DataBind();
+                        aux.IdMedico = (string)datos.Reader["IDUsuario"].ToString();
+                        aux.Apellido = (string)datos.Reader["apellido"];
 
-                int IDEspecialidad = int.Parse(ddlEspecialidades.SelectedItem.Value);
-                cargarDgvTurnos(0, IDEspecialidad);
+                        listaMedicosFiltrados.Add(aux);
+                    }
+
+                    // Limpiar DropDownList antes de agregar nuevos datos
+                    ddlMedicosFiltrados.Items.Clear();
+                    ddlMedicosFiltrados.DataSource = listaMedicosFiltrados;
+                    Session.Add("listaMedicosFiltrados", listaMedicosFiltrados.ToList());
+                    ddlMedicosFiltrados.DataTextField = "apellido";
+                    ddlMedicosFiltrados.DataValueField = "IdMedico";
+
+                    ddlMedicosFiltrados.DataBind();
+
+                    int IDEspecialidad = int.Parse(ddlEspecialidades.SelectedItem.Value);
+                    cargarDgvTurnos(0, IDEspecialidad);
+                }
             }
             catch (Exception ex)
             {
@@ -246,6 +255,51 @@ namespace AppClinicaMedica
                     List<Turno> listaTurnos = turnoNegocio.listar();
                     dgvTurnos.DataSource = listaTurnos;
                     dgvTurnos.DataBind();
+                }
+                if (esPaciente())
+                {
+                    foreach (DataControlField column in dgvTurnos.Columns)
+                    {
+                        // Verificar si la columna es un CommandField y tiene el texto "Desasignar"
+                        if (column is CommandField && ((CommandField)column).ShowSelectButton == true && ((CommandField)column).SelectText == "Desasignar")
+                        {
+                            // Ocultar la columna
+                            column.Visible = false;
+                            break; // Romper el bucle una vez que se haya encontrado y ocultado la columna
+                        }
+                    }
+                }
+                else
+                {
+                    // PARA OCULTAR LOS BOTONES SEGUN CORRESPONDA
+                    foreach (GridViewRow row in dgvTurnos.Rows)
+                    {
+                        Button btnAsignar = row.Cells[6].Controls[0] as Button;
+                        var asignado = row.Cells[3].Text as string;
+                        if (asignado == "Sin Asignar")
+                        {
+                            btnAsignar.Visible = true;
+                        }
+                        else
+                        {
+                            btnAsignar.Visible = false;
+                        }
+                    }
+
+                    foreach (GridViewRow row in dgvTurnos.Rows)
+                    {
+                        Button btnDesasignar = row.Cells[7].Controls[0] as Button;
+                        var asignado = row.Cells[3].Text as string;
+                        if (asignado == "Sin Asignar")
+                        {
+                            btnDesasignar.Visible = false;
+                        }
+                        else
+                        {
+                            btnDesasignar.Visible = true;
+                        }
+                    }
+                    // FIN // PARA OCULTAR LOS BOTONES SEGUN CORRESPONDA
                 }
             }
             catch (Exception ex)
@@ -391,12 +445,12 @@ namespace AppClinicaMedica
         protected void ddlPacientes_PreRender(object sender, EventArgs e)
         {
             //if (!IsPostBack || (Session["usuario"] != null && (((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.ADMIN || ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.RECEP)))
-            if (!IsPostBack || (Session["usuario"] != null && (esAdmin() || esRecepcionista()) ) )
+            if (!IsPostBack || (Session["usuario"] != null && (esAdmin() || esRecepcionista())))
             {
                 ddlPacientes.Items.Insert(0, new ListItem("Seleccione una opción", ""));
             }
             //if (!IsPostBack && (Session["usuario"] != null && ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE))
-            if (!IsPostBack && (Session["usuario"] != null && (esPaciente()) ) )
+            if (!IsPostBack && (Session["usuario"] != null && (esPaciente())))
             {
                 ddlPacientes.Items.RemoveAt(0);
             }
@@ -479,7 +533,10 @@ namespace AppClinicaMedica
 
         protected void ddlEspecialidades_PreRender(object sender, EventArgs e)
         {
-            ddlEspecialidades.Items.Insert(0, new ListItem("Seleccione una opción", ""));
+            if (!IsPostBack || ddlEspecialidades.Items.Count == 0)
+            {
+                ddlEspecialidades.Items.Insert(0, new ListItem("Seleccione una opción", ""));
+            }
         }
 
 

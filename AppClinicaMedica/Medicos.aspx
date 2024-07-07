@@ -19,10 +19,10 @@
                     </asp:GridView>
                     <asp:TextBox ID="txtId" CssClass="d-none" runat="server" />
                 </div>
-                <div class="col">
+                <div class="col" style="margin-left: 50px">
                     <div class="col-6 ">
 
-                        <asp:Label ID="lblNombre" Text="Nombre" Font-Size="Large" CssClass="" runat="server" Style="color: black;" />
+                        <asp:Label ID="lblNombre" Text="Nombre" runat="server" Font-Size="Large" Style="color: black;" />
                         <asp:TextBox ID="txtNombre" CssClass="form-control" placeholder="Nombre" runat="server" />
 
                         <asp:Label ID="lblApellido" Text="Apellido" Font-Size="Large" runat="server" Style="color: black;" />
@@ -60,7 +60,6 @@
                         <asp:Label ID="lblHorarios" Text="Horarios" runat="server" Font-Size="Large" Style="color: black;" />
                         <div class="mb-1">
                             <asp:DropDownList ID="DropDownListHxM" OnDataBound="DropDownListHxM_DataBound" class="form-control" runat="server"></asp:DropDownList>
-
                             <%  if (txtId.Text == "")
                                 { %>
                             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">

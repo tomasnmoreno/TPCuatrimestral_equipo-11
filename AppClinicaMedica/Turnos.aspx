@@ -25,7 +25,7 @@
                     <div class="col-6">
                         <asp:Label Text="Médico" Style="color: royalblue" runat="server" />
                         <asp:DropDownList runat="server" OnDataBound="ddlMedicosFiltrados_DataBound" OnPreRender="ddlMedicosFiltrados_PreRender"
-                            CssClass="form-control" style="width: 300px" ID="ddlMedicosFiltrados" AutoPostBack="true" OnSelectedIndexChanged="ddlMedicosFiltrados_SelectedIndexChanged">
+                            CssClass="form-control" Style="width: 300px" ID="ddlMedicosFiltrados" AutoPostBack="true" OnSelectedIndexChanged="ddlMedicosFiltrados_SelectedIndexChanged">
                             <%--<asp:ListItem Text="Seleccione una opción" Value="0"></asp:ListItem>--%>
                         </asp:DropDownList>
                     </div>
@@ -54,7 +54,7 @@
                     <div>
                         <div class="col-6" style="color: slateblue">
                             <asp:Label Text="Su elección" runat="server" />
-                            <asp:TextBox runat="server" TextMode="MultiLine" ID="txtbEleccion" ReadOnly="true" Style="width: 580px; font-size: 15px; border-color: blue; box-shadow: 0px 0px 8px 0px blue;" />
+                            <asp:TextBox runat="server" TextMode="MultiLine" ID="txtbEleccion" ReadOnly="true" Style="width: 580px; font-size: 15px; border-color: blue; box-shadow: 0px 0px 8px 0px blue; text-indent: 8px;"/>
                         </div>
                     </div>
                     <%--</div>--%>
@@ -67,9 +67,9 @@
             <hr />
             <asp:Label Text="Turnos Encontrados" runat="server"
                 Style="color: mediumorchid; margin-top: 5px; margin-left: 42px; font-size: 35px" />
-            <div class="row" style="overflow: scroll; flex: content; max-height: 500px">
+            <div class="row" style="overflow: scroll; flex: content; max-height: 500px; margin-bottom: 50px;">
                 <asp:GridView runat="server" ID="dgvTurnos" DataKeyNames="IDTurno" OnSelectedIndexChanged="dgvTurnos_SelectedIndexChanged"
-                    CssClass="table table-bordered" Style="margin-left: 0px; margin-top: 0px" AutoGenerateColumns="false">
+                    CssClass="table table-bordered" Style="margin-left: 0px; margin-top: 0px; box-shadow: 0px 0px 8px 0px blueviolet;" AutoGenerateColumns="false">
                     <%--OnRowDataBound="dgvTurnos_RowDataBound"--%>
                     <Columns>
                         <%--EL GRID SE DEBE AUTOCOMPLETAR CADA VEZ QUE SE CAMBIA EL MEDICO--%>
