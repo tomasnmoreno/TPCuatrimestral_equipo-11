@@ -23,7 +23,7 @@
                             <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: 200;"><%#Eval("DESCRIPCION") %></p>
                         </div>
                         <div class="col-md-4 mb-4">
-                            <asp:Button Text="Modificar" CssClass="btn btn-success" runat="server" CommandArgument='<%#Eval("IdEspecialidad") %>' CommandName="IdEspecialidad" style="margin-left: 15px;"/>
+                            <a href="NuevaEspecialidad.aspx?id=<%#Eval("IdEspecialidad") %>" class="btn btn-success" style="margin-left: 15px;">Modificar</a>
                             <asp:Button Text="Baja" ID="btnBajaEspecialidad" OnClick="btnBajaEspecialidad_Click" CssClass="btn btn-danger" runat="server" CommandArgument='<%#Eval("IdEspecialidad") %>' CommandName="IdEspecialidad" />
                         </div>
                         <a href="Turnos.aspx" class="btn my-boton">Más información</a>

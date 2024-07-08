@@ -30,7 +30,7 @@ namespace AppClinicaMedica
                 }
                 else
                 {
-                    Session.Add("error", "Use op Pass incorrectas");
+                    Session.Add("error", "Usuario o contraseña incorrectos.");
                     Response.Redirect("Error.aspx");
                 }
             }

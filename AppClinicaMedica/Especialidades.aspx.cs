@@ -51,5 +51,11 @@ namespace AppClinicaMedica
             repetidor.DataSource = listaFiltrada;
             repetidor.DataBind();
         }
+
+
+        protected void btnModificarEspecialidad_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NuevaEspecialidad.aspx");
+        }
     }
 }

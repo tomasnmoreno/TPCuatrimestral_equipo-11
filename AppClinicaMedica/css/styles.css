@@ -225,3 +225,7 @@ a{
 .labelCh {
     font-size: 5px;
 }
+
+.lblError{
+    font-size: 40px;
+}

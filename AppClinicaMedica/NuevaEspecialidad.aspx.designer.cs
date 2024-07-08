@@ -69,12 +69,12 @@ namespace AppClinicaMedica
         protected global::System.Web.UI.WebControls.TextBox txtImagenNuevaEspecialidad;
 
         /// <summary>
-        /// Control btnAgregarEspecialidad.
+        /// Control btnConfirmarEspecialidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarEspecialidad;
+        protected global::System.Web.UI.WebControls.Button btnConfirmarEspecialidad;
     }
 }

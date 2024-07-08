@@ -34,10 +34,19 @@ namespace AppClinicaMedica
             }
         }
 
-        protected void btnAgregarEspecialidad_Click(object sender, EventArgs e)
+        protected void btnConfirmarEspecialidad_Click(object sender, EventArgs e)
         {
             try
             {
+                List<Especialidad> listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
+                foreach (Especialidad esp in listaEspecialidades)
+                {
+                    if(txtEspecialidad.Text == esp.Nombre)
+                    {
+                        Session.Add("error", "Ya existe una especialidad con este nombre.");                      
+                    }
+                }
+                
                 EspecialidadNegocio negocio = new EspecialidadNegocio();
                 Especialidad especialidad = new Especialidad();
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
@@ -58,8 +67,8 @@ namespace AppClinicaMedica
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                Response.Redirect("Error.aspx");
+                
             }
         }
     }

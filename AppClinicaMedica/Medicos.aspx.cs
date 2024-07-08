@@ -37,7 +37,6 @@ namespace AppClinicaMedica
             {
                 List<Medico> lista = medicoNegocio.listar();
 
-
                 dgvMedicos.DataSource = lista;
                 Session.Add("listaMedicos", lista);
                 dgvMedicos.DataBind();
