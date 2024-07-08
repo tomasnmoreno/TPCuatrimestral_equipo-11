@@ -47,12 +47,13 @@ namespace AppClinicaMedica
 
 
                 paciente.NombreUsuario = txtUsuario.Text;
+                if(txtPass.Text != "")
+                {
                 paciente.Pass = txtPass.Text;
+                }
                 paciente.Nombre = txtNombre.Text;
                 paciente.Apellido = txtApellido.Text;
-                //paciente.Dni = txtDNI.Text;
                 paciente.Dni = Convert.ToInt64(txtDNI.Text);
-                //paciente.FechaDeNacimiento = txtNacimiento.Text;
                 paciente.FechaDeNacimiento = DateTime.Parse(txtNacimiento.Text);
                 paciente.Email = txtEmail.Text;
                 paciente.Celular = Convert.ToInt64(txtCelular.Text);
@@ -63,7 +64,7 @@ namespace AppClinicaMedica
                 {
                     paciente.IDPaciente = int.Parse(id);
                     //negocio.modificarPacienteSP(paciente);
-                    negocio.modificarPaciente(paciente);
+                    negocio.modificarPaciente(paciente, 0);
                 }
                 else
                 {

@@ -3,50 +3,69 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <% if (txtUsuario.Text != "")
+        { %>
+    <h1 class="titPpal">Modificar Paciente</h1>
+    <%  }
+
+    %>
+    <%else
+        { %>
     <h1 class="titPpal">Nuevo Paciente</h1>
+    <%} %>
     <div class="row nuevoPaciente">
         <div class="col-6">
             <div class="mb-3">
                 <label for="txtUsuario" class="form-label nuevoPaciente">Usuario</label>
-                <asp:TextBox runat="server" ID="txtUsuario" placeholder="Usuario" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtUsuario" placeholder="Usuario" CssClass="form-control" REQUIRED />
             </div>
             <div class="mb-3">
                 <label for="txtPass" class="form-label">Constraseña</label>
-                <asp:TextBox runat="server" TextMode="Password" placeholder="Contraseña" ID="txtPass" CssClass="form-control" />
+                <% if (txtUsuario.Text != "")
+                    { %>
+                <asp:TextBox runat="server" TextMode="Password" placeholder="************************************************************************" ID="TextBox1" CssClass="form-control" />
+                <%  }
+
+                %>
+                <%else
+                    { %>
+                <asp:TextBox runat="server" TextMode="Password" placeholder="Contraseña" ID="txtPass" CssClass="form-control" REQUIRED/>
+                
+                <%} %>
             </div>
             <div class="mb-3">
                 <label for="txtNombre" class="form-label">Nombre</label>
-                <asp:TextBox runat="server" ID="txtNombre" placeholder="Nombre" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtNombre" placeholder="Nombre" CssClass="form-control" REQUIRED />
             </div>
             <div class="mb-3">
                 <label for="txtApellido" class="form-label">Apellido</label>
-                <asp:TextBox runat="server" ID="txtApellido" placeholder="Apellido" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtApellido" placeholder="Apellido" CssClass="form-control" REQUIRED />
             </div>
             <div class="mb-3">
                 <label for="txtDNI" class="form-label">DNI</label>
-                <asp:TextBox runat="server" ID="txtDNI" placeholder="DNI" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtDNI" placeholder="DNI" CssClass="form-control" REQUIRED />
             </div>
         </div>
         <div class="col-6">
             <div class="mb-3">
                 <label for="txtNacimiento" class="form-label">Fecha Nacimiento</label>
-                <asp:TextBox runat="server" TextMode="Date" ID="txtNacimiento" placeholder="Fecha de Nacimiento" CssClass="form-control" />
+                <asp:TextBox runat="server" TextMode="Date" ID="txtNacimiento" placeholder="Fecha de Nacimiento" CssClass="form-control" REQUIRED />
             </div>
             <div class="mb-3">
                 <label for="txtEmail" class="form-label">Email</label>
-                <asp:TextBox runat="server" TextMode="Email" ID="txtEmail" placeholder="Email" CssClass="form-control" />
+                <asp:TextBox runat="server" TextMode="Email" ID="txtEmail" placeholder="Email" CssClass="form-control" REQUIRED />
             </div>
             <div class="mb-3">
                 <label for="txtCelular" class="form-label">Celular</label>
-                <asp:TextBox runat="server" TextMode="Phone" ID="txtCelular" placeholder="Celular" CssClass="form-control" />
+                <asp:TextBox runat="server" TextMode="Phone" ID="txtCelular" placeholder="Celular" CssClass="form-control" REQUIRED />
             </div>
             <div class="mb-3">
                 <label for="txtDomicilio" class="form-label">Domicilio</label>
-                <asp:TextBox runat="server" ID="txtDomicilio" placeholder="Domicilio" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtDomicilio" placeholder="Domicilio" CssClass="form-control" REQUIRED />
             </div>
             <div class="mb-3">
                 <label for="txtCodPostal" class="form-label">Codigo Postal</label>
-                <asp:TextBox runat="server" ID="txtCodPostal" placeholder="Código Postal" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtCodPostal" placeholder="Código Postal" CssClass="form-control" REQUIRED />
             </div>
         </div>
         <div class="container agregarEspecialidad">

@@ -1,12 +1,22 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Turnos.aspx.cs" Inherits="AppClinicaMedica.Turnos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script>
+        function validar() {
+            const ddlPacientes = document.getElementById("ddlPacientes");
+            if (ddlPacientes.value == "0") {
+                alert("Debes elegir un Paciente");
+                ddlPacientes.classList.add("is-invalid");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <h1 class="titPpal">Turnos</h1>
     <asp:ScriptManager ID="scriptManager" runat="server" />
-
-
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
             <div class="row">
@@ -46,22 +56,22 @@
                 </div>
                 <div class="col-6">
                     <asp:Label Text="Paciente" Style="color: royalblue" runat="server" />
-                    <asp:DropDownList ID="ddlPacientes" OnPreRender="ddlPacientes_PreRender" OnDataBound="ddlPacientes_DataBound" CssClass="form-control" runat="server"
-                        OnSelectedIndexChanged="ddlPacientes_SelectedIndexChanged" AutoPostBack="true" Style="margin-bottom: 30px; width: 300px;">
+                    <asp:DropDownList ID="ddlPacientes" OnPreRender="ddlPacientes_PreRender" ClientIDMode="Static" OnDataBound="ddlPacientes_DataBound" CssClass="form-control" runat="server"
+                        OnSelectedIndexChanged="ddlPacientes_SelectedIndexChanged" AutoPostBack="true" Style="margin-bottom: 30px; width: 300px;" REQUIRED>
                         <asp:ListItem Text="Seleccione un Paciente" Value="0" />
                     </asp:DropDownList>
                     <%--<div class="row">--%>
                     <div>
                         <div class="col-6" style="color: slateblue">
                             <asp:Label Text="Su elección" runat="server" />
-                            <asp:TextBox runat="server" TextMode="MultiLine" ID="txtbEleccion" ReadOnly="true" Style="width: 580px; font-size: 15px; border-color: blue; box-shadow: 0px 0px 8px 0px blue; text-indent: 8px;"/>
+                            <asp:TextBox runat="server" TextMode="MultiLine" ID="txtbEleccion" ReadOnly="true" Style="width: 580px; font-size: 15px; border-color: blue; box-shadow: 0px 0px 8px 0px blue; text-indent: 8px;" />
                         </div>
                     </div>
                     <%--</div>--%>
                 </div>
             </div>
             <div style="display: flex; justify-content: center; gap: 50px;">
-                <asp:Button ID="btnConfirmar" Text="Confirmar Turno" runat="server" OnClick="btnConfirmar_Click" CssClass="btn btn-success" Style="margin-top: 40px; margin-left: 42px" />
+                <asp:Button ID="btnConfirmar" Text="Confirmar Turno" runat="server" ClientIDMode="Static" OnClientClick="return validar()" OnClick="btnConfirmar_Click" CssClass="btn btn-success" Style="margin-top: 40px; margin-left: 42px" />
                 <a href="Turnos.aspx" class="btn btn-danger" style="margin-top: 40px; margin-left: 10px;">Cancelar</a>
             </div>
             <hr />

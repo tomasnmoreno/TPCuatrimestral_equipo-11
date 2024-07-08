@@ -16,7 +16,8 @@ namespace AppClinicaMedica
 
         protected void btnDesloguearse_Click(object sender, EventArgs e)
         {
-
+            Session.Add("usuario", null);
+            Response.Redirect("Home.aspx");
         }
 
         protected void btnCambioContraseña_Click(object sender, EventArgs e)

@@ -1,10 +1,12 @@
 ﻿using dominio;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace negocio
 {
@@ -123,26 +125,41 @@ namespace negocio
 
         }
 
-        public void modificarPaciente(Paciente paciente)
+        public void modificarPaciente(Paciente paciente, int queHagoconLaPass)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setQuery("update Usuarios set NombreUsuario = @NombreUsuario, Pass = @Pass, Email = @Email where ID = @ID update Pacientes set Nombre = @Nombre, Apellido = @Apellido, Nacimiento = @Nacimiento, Celular = @Celular, Domicilio = @Domicilio, CodPostal = @CodPostal where IDUsuario = @ID");
-                //datos.setearParametro("Dni", paciente.Dni); --no va
-                datos.setearParametro("@Nombre", paciente.Nombre);
-                datos.setearParametro("@Apellido", paciente.Apellido);
-                //datos.setearParametro("Nacimiento", paciente.FechaDeNacimiento);
-                datos.setearParametro("@Nacimiento", paciente.FechaDeNacimiento.ToString("yyyy-MM-dd"));
-                datos.setearParametro("@Email", paciente.Email);
-                datos.setearParametro("@Celular", paciente.Celular);
-                datos.setearParametro("@Domicilio", paciente.Domicilio);
-                datos.setearParametro("@CodPostal", paciente.CodPostal);
-                datos.setearParametro("@ID", paciente.IDPaciente);
-                datos.setearParametro("@NombreUsuario", paciente.NombreUsuario);
-                datos.setearParametro("@Pass", paciente.Pass);
-                datos.ejecutarAccion();
+                if (queHagoconLaPass == 0)
+                {
+                    datos.setQuery("update Usuarios set NombreUsuario = @NombreUsuario, Email = @Email where ID = @ID update Pacientes set Nombre = @Nombre, Apellido = @Apellido, Nacimiento = @Nacimiento, Celular = @Celular, Domicilio = @Domicilio, CodPostal = @CodPostal where IDUsuario = @ID");
+                    datos.setearParametro("@Nombre", paciente.Nombre);
+                    datos.setearParametro("@Apellido", paciente.Apellido);
+                    datos.setearParametro("@Nacimiento", paciente.FechaDeNacimiento.ToString("yyyy-MM-dd"));
+                    datos.setearParametro("@Email", paciente.Email);
+                    datos.setearParametro("@Celular", paciente.Celular);
+                    datos.setearParametro("@Domicilio", paciente.Domicilio);
+                    datos.setearParametro("@CodPostal", paciente.CodPostal);
+                    datos.setearParametro("@ID", paciente.IDPaciente);
+                    datos.setearParametro("@NombreUsuario", paciente.NombreUsuario);
+                    datos.ejecutarAccion();
+                }
+                else
+                {
+                    datos.setQuery("update Usuarios set NombreUsuario = @NombreUsuario, Pass = @Pass, Email = @Email where ID = @ID update Pacientes set Nombre = @Nombre, Apellido = @Apellido, Nacimiento = @Nacimiento, Celular = @Celular, Domicilio = @Domicilio, CodPostal = @CodPostal where IDUsuario = @ID");
+                    datos.setearParametro("@Nombre", paciente.Nombre);
+                    datos.setearParametro("@Apellido", paciente.Apellido);
+                    datos.setearParametro("@Nacimiento", paciente.FechaDeNacimiento.ToString("yyyy-MM-dd"));
+                    datos.setearParametro("@Email", paciente.Email);
+                    datos.setearParametro("@Celular", paciente.Celular);
+                    datos.setearParametro("@Domicilio", paciente.Domicilio);
+                    datos.setearParametro("@CodPostal", paciente.CodPostal);
+                    datos.setearParametro("@ID", paciente.IDPaciente);
+                    datos.setearParametro("@NombreUsuario", paciente.NombreUsuario);
+                    datos.ejecutarAccion();
+                }
+
             }
             catch (Exception ex)
             {

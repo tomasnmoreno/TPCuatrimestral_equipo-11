@@ -38,17 +38,20 @@
                                 <li class="nav__link">
                                     <a href="Turnos.aspx">Turnos</a>
                                 </li>
+                                <%if (!esPaciente())
+                                    { %>
                                 <li class="nav__link">
                                     <a href="Medicos.aspx">Médicos</a>
-                                </li>
-                                <li class="nav__link">
-                                    <a href="Especialidades.aspx">Especialidades</a>
                                 </li>
                                 <li class="nav__link">
                                     <a href="Pacientes.aspx">Pacientes</a>
                                 </li>
                                 <li class="nav__link">
                                     <a href="Recepcionistas.aspx">Recepcionistas</a>
+                                </li>
+                                <% } %>
+                                <li class="nav__link">
+                                    <a href="Especialidades.aspx">Especialidades</a>
                                 </li>
                             </ul>
                             <% if (Session["usuario"] == null)

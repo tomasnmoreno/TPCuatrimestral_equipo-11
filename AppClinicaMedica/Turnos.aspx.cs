@@ -50,7 +50,8 @@ namespace AppClinicaMedica
                     txtbEleccion.Text = $"-Dr/Dra | hs. ";
 
                     List<Medico> listaMedicos = medEspecialidad.listar();
-                    Session["listaMedicos"] = listaMedicos;
+                    //Session["listaMedicos"] = listaMedicos;
+                    Session.Add("listaMedicos", listaMedicos);
 
                     if (cargarTodosPacientes)
                     {
@@ -328,7 +329,7 @@ namespace AppClinicaMedica
             {
                 ddlMedicosFiltrados.Items.Insert(0, new ListItem("Seleccione una opción", ""));
             }
-            if (Session["listaMedicos"].ToString() != "" && ddlMedicosFiltrados.Items[0].Text != "Seleccione una opción" && ddlMedicosFiltrados.Items.Count >= 1) /*ddlMedicosFiltrados.Items.Count >= 1*/
+            if (Session["listaMedicos"].ToString() != "" && ddlMedicosFiltrados.Items[0].Text != "Seleccione una opción" && ddlMedicosFiltrados.Items.Count >= 1)
             {
                 ddlMedicosFiltrados.Items.Insert(0, new ListItem("Seleccione una opción", ""));
             }
@@ -494,16 +495,21 @@ namespace AppClinicaMedica
             //tengo que tomar los valores de todos los campos y parsearlos si es necesario () AH NO PARA
             // --> SOLO TOMO EL ID DEL PACIENTE Y DEL TURNO (celda grid de nro turno) y UPDATE SQL en tabla Turnos Where IDTurno = @IDTurno {setear parametro}
             AccesoDatos datos = new AccesoDatos();
-
+            //bool bandera = false;
             try
             {
-                int IDPaciente = Convert.ToInt32(ddlPacientes.SelectedItem.Value);
-                int IDTurno = int.Parse(Session["IDTurno"].ToString());
+                if (ddlPacientes.SelectedItem.Value != "" && Session["IDTurno"] != null)
+                {
+                    //bandera = true;
+                    int IDPaciente = Convert.ToInt32(ddlPacientes.SelectedItem.Value);
+                    int IDTurno = int.Parse(Session["IDTurno"].ToString());
 
-                datos.setQuery("UPDATE TURNOS SET IDPaciente = @IDPaciente, Asignado = 1 WHERE IDTurno = @IDTurno");
-                datos.setearParametro("@IDPaciente", IDPaciente);
-                datos.setearParametro("@IDTurno", IDTurno);
-                datos.ejecutarAccion();
+                    datos.setQuery("UPDATE TURNOS SET IDPaciente = @IDPaciente, Asignado = 1 WHERE IDTurno = @IDTurno");
+                    datos.setearParametro("@IDPaciente", IDPaciente);
+                    datos.setearParametro("@IDTurno", IDTurno);
+                    datos.ejecutarAccion();
+                    Response.Redirect("Turnos.aspx");
+                }
 
             }
             catch (Exception ex)
@@ -514,7 +520,8 @@ namespace AppClinicaMedica
             finally
             {
                 datos.cerrarConexion();
-                Response.Redirect("Turnos.aspx");
+                //if (!bandera)
+                //    Response.Redirect("Turnos.aspx");
             }
         }
 
