@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Globalization;
+using System.Resources;
 
 namespace AppClinicaMedica
 {
@@ -20,13 +21,13 @@ namespace AppClinicaMedica
             MedicoNegocio medEspecialidad = new MedicoNegocio();
             TurnoNegocio turnoNegocio = new TurnoNegocio();
             PacienteNegocio pacienteNegocio = new PacienteNegocio();
-            bool cargarTodosPacientes = true;
             try
             {
                 if (!IsPostBack)
                 {
+                    bool cargarTodosPacientes = true;
                     limpiarCampos();
-                    if (Session["usuario"] != null)
+                    if (Session["usuario"] != null && esPaciente())
                     {
                         cargarTodosPacientes = false;
                         dominio.Usuario usuario = (dominio.Usuario)Session["usuario"];
@@ -464,7 +465,7 @@ namespace AppClinicaMedica
                 ddlPacientes.Items.Insert(0, new ListItem("Seleccione una opción", ""));
             }
             //if (!IsPostBack && (Session["usuario"] != null && ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE))
-            if (!IsPostBack && (Session["usuario"] != null && (esPaciente())))
+            if (!IsPostBack && (Session["usuario"] != null && (esPaciente())) )
             {
                 ddlPacientes.Items.RemoveAt(0);
             }
@@ -510,6 +511,16 @@ namespace AppClinicaMedica
                     datos.ejecutarAccion();
                     Response.Redirect("Turnos.aspx");
                 }
+                //if (esRecepcionista())
+                //{
+                //    int IDPaciente = Convert.ToInt32(ddlPacientes.SelectedItem.Value);
+
+                //    datos.setQuery("insert TURNOS SET IDPaciente = @IDPaciente, Asignado = 1 WHERE IDTurno = @IDTurno");
+                //    datos.setearParametro("@IDPaciente", IDPaciente);
+                //    datos.setearParametro("@IDTurno", IDTurno);
+                //    datos.ejecutarAccion();
+                //    Response.Redirect("Turnos.aspx");
+                //}
 
             }
             catch (Exception ex)
