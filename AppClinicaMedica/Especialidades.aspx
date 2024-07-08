@@ -2,13 +2,16 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" style="padding : 20px">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" style="padding: 20px">
     <h1 class="titPpal">Especialidades</h1>
+    <%if (!esPaciente())
+        {  %>
     <a href="NuevaEspecialidad.aspx" class="btn my-boton" style="margin-left: 70px">Agregar Especialidad</a>
+    <%} %>
     <div class="row">
         <div class="col-2">
-            <asp:Label Text="Buscar" style="color: black" runat="server" />
-            <asp:TextBox runat="server" ID="txtFiltro" AutoPostBack="true" OnTextChanged="filtro_TextChanged" CssClass="form-control"/>
+            <asp:Label Text="Buscar" Style="color: black" runat="server" />
+            <asp:TextBox runat="server" ID="txtFiltro" AutoPostBack="true" OnTextChanged="filtro_TextChanged" CssClass="form-control" />
             <a href="Especialidades.aspx" class="btn btn-secondary">Limpiar filtro</a>
         </div>
     </div>
@@ -23,10 +26,23 @@
                             <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: 200;"><%#Eval("DESCRIPCION") %></p>
                         </div>
                         <div class="col-md-4 mb-4">
+                            <%if (!esPaciente())
+                                {  %>
                             <a href="NuevaEspecialidad.aspx?id=<%#Eval("IdEspecialidad") %>" class="btn btn-success" style="margin-left: 15px;">Modificar</a>
                             <asp:Button Text="Baja" ID="btnBajaEspecialidad" OnClick="btnBajaEspecialidad_Click" CssClass="btn btn-danger" runat="server" CommandArgument='<%#Eval("IdEspecialidad") %>' CommandName="IdEspecialidad" />
+                            <%}
+
+                            %>
                         </div>
-                        <a href="Turnos.aspx" class="btn my-boton">Más información</a>
+                        <%if (Session["usuario"] == null)
+                            { %>
+                                <a href="LogIn.aspx" class="btn my-boton">Reserva un turno.</a>
+                        <% }
+
+                            %>
+                        <%else { %> 
+                            <a href="Turnos.aspx" class="btn my-boton">Reserva un turno.</a>
+                        <% } %>
                     </div>
                 </div>
             </ItemTemplate>
