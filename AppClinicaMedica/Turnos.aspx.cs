@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Globalization;
 using System.Resources;
+using System.Data;
 
 namespace AppClinicaMedica
 {
@@ -380,6 +381,7 @@ namespace AppClinicaMedica
             bool bandera = false;
             try
             {
+                string diaSemana = "";
                 //var quesendertengo = sender.ToString();
                 if (row != null && row.Cells[3].Text != "Sin Asignar")
                 {
@@ -393,15 +395,42 @@ namespace AppClinicaMedica
                 if (sender.ToString() == "System.Web.UI.WebControls.GridView" && row.Cells[3].Text == "Sin Asignar")
                 {
                     Label lblFecha = (Label)row.FindControl("lblFecha");
-                    string fecha = lblFecha.Text;
-                    DateTime _fecha = DateTime.Parse(fecha);
-                    txtFecha.Text = _fecha.ToString("yyyy-MM-dd");
+                    string fechaCompleta = lblFecha.Text;
+                    string[] partesFecha = fechaCompleta.Split(new char[] { ',' }, 2, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (partesFecha.Length == 2)
+                    {
+                        diaSemana = partesFecha[0].Trim();
+                        string fecha = partesFecha[1].Trim();
+
+                        // Intentar parsear solo la fecha
+                        DateTime _fecha;
+                        if (DateTime.TryParseExact(fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out _fecha))
+                        {
+                            // Aquí _fecha contiene la fecha parseada correctamente
+                            txtFecha.Text = _fecha.ToString("yyyy-MM-dd");
+                        }
+                        else
+                        {
+                            // Manejar el caso en que la cadena no pueda ser parseada como fecha
+                            txtFecha.Text = "Fecha inválida";
+                        }
+                    }
+                    else
+                    {
+                        // Manejar el caso donde la cadena no está en el formato esperado
+                        txtFecha.Text = "Formato de fecha inválido";
+                    }
+
+
+                    //DateTime _fecha = DateTime.Parse(fecha);
+                    //txtFecha.Text = _fecha.ToString("yyyy-MM-dd");
 
                     string hora = row.Cells[5].Text.ToString();
                     TimeSpan _hora = TimeSpan.Parse(hora.ToString());
                     txtHorario.Text = hora;
 
-                    List < Medico > listaMedicos = (List<Medico>)Session["listaMedicos"];
+                    List<Medico> listaMedicos = (List<Medico>)Session["listaMedicos"];
                     var medico = listaMedicos.Find(med => (med.Nombre + ", " + med.Apellido) == row.Cells[1].Text.ToString());
                     ddlEspecialidades.SelectedValue = medico.IDEspecialidad.ToString();
                     ddlEspecialidades_SelectedIndexChanged(sender, e);
@@ -414,7 +443,7 @@ namespace AppClinicaMedica
 
                     txtbEleccion.Text = $"{ddlPacientes.SelectedItem.Text} - " +
                             $"Dr/Dra. {row.Cells[1].Text.ToString()} - " + /*ddlMedicosFiltrados.SelectedItem.Text*/
-                            $"{txtFecha.Text.ToString()}, " +
+                            $"| {diaSemana.ToString()}, " + $"{txtFecha.Text.ToString()}, " +
                             $"{hora.ToString().Substring(0, 5)}hs";
                 }
 
@@ -431,9 +460,12 @@ namespace AppClinicaMedica
                     {
                         medico = null;
                     }
+                    //diaSemana = DateTime.Parse(txtFecha.Text.ToString()).DayOfWeek.ToString();
+                    DateTime fecha = DateTime.Parse(txtFecha.Text);
+                    diaSemana = fecha.ToString("dddd", new CultureInfo("es-ES"));
                     txtbEleccion.Text = $"{paciente} - " +
                         $"Drs. {medico} " +
-                        $"| {txtFecha.Text.ToString()}, " +
+                        $"| {diaSemana.ToString()}, " + $"{txtFecha.Text.ToString()}, " +
                         $"{txtHorario.Text.ToString()}hs.";
                 }
 
@@ -463,7 +495,7 @@ namespace AppClinicaMedica
                 ddlPacientes.Items.Insert(0, new ListItem("Seleccione una opción", ""));
             }
             //if (!IsPostBack && (Session["usuario"] != null && ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE))
-            if (!IsPostBack && (Session["usuario"] != null && (esPaciente())) )
+            if (!IsPostBack && (Session["usuario"] != null && (esPaciente())))
             {
                 ddlPacientes.Items.RemoveAt(0);
             }
@@ -608,6 +640,56 @@ namespace AppClinicaMedica
             }
             return false;
         }
+
+        //protected void dgvTurnos_Sorting(object sender, GridViewSortEventArgs e)
+        //{
+        //    // Obtenemos los datos actuales del GridView
+        //    TurnoNegocio turnoNegocio = new TurnoNegocio();
+        //    DataTable dt = ConvertirListaATable(turnoNegocio.listar()); // Implementa este método para obtener tus datos
+
+        //    if (dt != null)
+        //    {
+        //        // Aplicamos la ordenación
+        //        dt.DefaultView.Sort = e.SortExpression + " " + ObtenerDireccionOrden(e.SortExpression);
+        //        dgvTurnos.DataSource = dt;
+        //        dgvTurnos.DataBind();
+        //    }
+        //}
+
+        //private DataTable ConvertirListaATable(List<Turno> turnos)
+        //{
+        //    DataTable dt = new DataTable();
+
+        //    // Definimos las columnas del DataTable
+        //    dt.Columns.Add("IDTurno", typeof(int)); // Ajusta los tipos de datos según corresponda
+        //    dt.Columns.Add("Medico.Nombre", typeof(string)); // Ejemplo: Medico.Nombre
+        //    dt.Columns.Add("Especialidad.Nombre", typeof(string)); // Ejemplo: Especialidad.Nombre
+        //    dt.Columns.Add("Paciente.Nombre", typeof(string)); // Ejemplo: Paciente.Nombre
+        //    dt.Columns.Add("Fecha", typeof(DateTime)); // Ajusta el tipo de dato de la fecha
+        //    dt.Columns.Add("HoraInicio", typeof(string)); // Ajusta el tipo de dato de la hora
+
+        //    // Llenamos el DataTable con los datos de la lista de Turno
+        //    foreach (var turno in turnos)
+        //    {
+        //        DataRow row = dt.NewRow();
+        //        row["IDTurno"] = turno.IdTurno;
+        //        row["Medico.Nombre"] = turno.medico.Nombre;
+        //        row["Especialidad.Nombre"] = turno.especialidad.Nombre;
+        //        row["Paciente.Nombre"] = turno.paciente.Nombre;
+        //        row["Fecha"] = turno.Fecha; // Ajusta según el formato de fecha que necesites
+        //        row["HoraInicio"] = turno.HoraInicio;
+        //        dt.Rows.Add(row);
+        //    }
+
+        //    return dt;
+        //}
+
+        //private string ObtenerDireccionOrden(string columna)
+        //{
+        //    // Establecer la dirección de la ordenación ascendente o descendente
+        //    string direccion = "DESC"; // ASC o DESC según tu lógica de ordenación
+        //    return direccion;
+        //}
 
     }
 }

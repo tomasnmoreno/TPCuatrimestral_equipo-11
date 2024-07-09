@@ -85,8 +85,7 @@
             <% }  %>
             <div class="row" style="overflow: scroll; flex: content; max-height: 500px; margin-bottom: 50px;">
                 <asp:GridView runat="server" ID="dgvTurnos" DataKeyNames="IDTurno" OnSelectedIndexChanged="dgvTurnos_SelectedIndexChanged"
-                    CssClass="table table-bordered" Style="margin-left: 0px; margin-top: 0px; box-shadow: 0px 0px 8px 0px blueviolet;" AutoGenerateColumns="false">
-                    <%--OnRowDataBound="dgvTurnos_RowDataBound"--%>
+                    CssClass="table table-bordered" Style="margin-left: 0px; margin-top: 0px; box-shadow: 0px 0px 8px 0px blueviolet;" AutoGenerateColumns="false" > <%--AllowSorting="true" OnSorting="dgvTurnos_Sorting"--%>
                     <Columns>
                         <%--EL GRID SE DEBE AUTOCOMPLETAR CADA VEZ QUE SE CAMBIA EL MEDICO--%>
                         <asp:BoundField HeaderText="Nro de Turno" DataField="IDTurno" />
@@ -95,7 +94,7 @@
                         <asp:BoundField HeaderText="Paciente" DataField="Paciente.Nombre" />
                         <asp:TemplateField HeaderText="Fecha">
                             <ItemTemplate>
-                                <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("Fecha", "{0:dd/MM/yyyy}") %>'></asp:Label>
+                                <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("Fecha", "{0:dddd, dd/MM/yyyy}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField HeaderText="Hora" DataField="HoraInicio" />
@@ -105,16 +104,6 @@
                     </Columns>
                 </asp:GridView>
             </div>
-            <%--<div class="row">
-                <div class="col-6">
-                </div>
-            </div>--%>
-            <%--<div class="row">
-                <div class="col-6" style="color: slateblue">
-                    <asp:Label Text="Su elección" runat="server" />
-                    <asp:TextBox runat="server" TextMode="MultiLine" ID="txtbEleccion" ReadOnly="true" Style="width: 1000px" />
-                </div>
-            </div>--%>
         </ContentTemplate>
     </asp:UpdatePanel>
 
