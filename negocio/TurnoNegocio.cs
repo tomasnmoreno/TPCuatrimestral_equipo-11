@@ -70,7 +70,7 @@ namespace negocio
             
             try
             {
-                datos.setQuery("select t.IDTurno, m.Nombre + ', ' + m.Apellido as Medico, e.Nombre as Especialidad, p.Nombre + ', ' + p.Apellido as Paciente, t.Fecha, t.Hora from Turnos t\r\ninner join MEDICOS m on m.IDUsuario = t.IDMedico\r\nleft join PACIENTES p on p.IDUsuario = t.IDPaciente\r\ninner join EspecialidadesXMedicos exm on exm.IDMedico = t.IDMedico\r\ninner join Especialidades e on e.Id = exm.IDEspecialidad where t.IDMedico = @IDMedico order by Fecha asc, Hora asc ");
+                datos.setQuery("select t.IDTurno, m.Nombre + ', ' + m.Apellido as Medico, e.Nombre as Especialidad, p.Nombre + ', ' + p.Apellido as Paciente, t.Fecha, t.Hora, et.Descripcion as Estado from Turnos t inner join MEDICOS m on m.IDUsuario = t.IDMedico\r\nleft join PACIENTES p on p.IDUsuario = t.IDPaciente\r\ninner join EspecialidadesXMedicos exm on exm.IDMedico = t.IDMedico\r\ninner join Especialidades e on e.Id = exm.IDEspecialidad inner join Estados_Turnos et on et.tipo = t.Estado  where t.IDMedico = @IDMedico order by Fecha asc, Hora asc ");
                 datos.setearParametro("@IDMedico", IDMedico);
                 datos.leer();
 
@@ -96,6 +96,8 @@ namespace negocio
                     {
                         aux.paciente.Nombre = "Sin Asignar";
                     }
+                    aux.EstadoT = new EstadoTurno();
+                    aux.EstadoT.Descripcion = (string)datos.Reader["Estado"];
 
                     aux.Fecha = (DateTime)datos.Reader["Fecha"];
                     aux.HoraInicio = (TimeSpan)datos.Reader["Hora"];

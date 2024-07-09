@@ -87,6 +87,7 @@
     <Content Include="LogIn.aspx" />
     <Content Include="Medicos.aspx" />
     <Content Include="MiSesion.aspx" />
+    <Content Include="ModificarEstado.aspx" />
     <Content Include="NuevaEspecialidad.aspx" />
     <Content Include="NuevoMedico.aspx" />
     <Content Include="NuevoPaciente.aspx" />
@@ -96,6 +97,7 @@
     <Content Include="Registrarse.aspx" />
     <Content Include="Turnos.aspx" />
     <Content Include="Web.config" />
+    <Content Include="MisTurnos.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CambiarContraseña.aspx.cs">
@@ -149,6 +151,13 @@
     </Compile>
     <Compile Include="MiSesion.aspx.designer.cs">
       <DependentUpon>MiSesion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModificarEstado.aspx.cs">
+      <DependentUpon>ModificarEstado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModificarEstado.aspx.designer.cs">
+      <DependentUpon>ModificarEstado.aspx</DependentUpon>
     </Compile>
     <Compile Include="NuevaEspecialidad.aspx.cs">
       <DependentUpon>NuevaEspecialidad.aspx</DependentUpon>
@@ -213,6 +222,13 @@
     </Compile>
     <Compile Include="Turnos.aspx.designer.cs">
       <DependentUpon>Turnos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MisTurnos.aspx.cs">
+      <DependentUpon>MisTurnos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MisTurnos.aspx.designer.cs">
+      <DependentUpon>MisTurnos.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -42,6 +42,14 @@
                                 </li>
                                 <%if (!esPaciente())
                                     { %>
+                                <%if (esMedico())
+                                    { %>
+                                <li class="nav__link">
+                                    <a href="MisTurnos.aspx">Mis Turnos</a>
+                                </li>
+                                <% } %>
+                                <%if (!esMedico())
+                                    { %>
                                 <li class="nav__link">
                                     <a href="Medicos.aspx">Médicos</a>
                                 </li>
@@ -51,6 +59,7 @@
                                 <li class="nav__link">
                                     <a href="Recepcionistas.aspx">Recepcionistas</a>
                                 </li>
+                                <% } %>
                                 <% } %>
                                 <% } %>
                                 <li class="nav__link">
@@ -130,11 +139,17 @@
                                     <strong class="text-primary">Inicio</strong>
                                 </a>
                             </p>
+                            <%if (!esPaciente())
+                                { %>
+                            <%if (!esMedico())
+                                { %>
                             <p>
                                 <a href="Medicos.aspx">
                                     <strong class="text-primary">Medicos</strong>
                                 </a>
                             </p>
+                            <%}%>
+                            <%}%>
                             <%}%>
                             <p>
                                 <a href="Especialidades.aspx">
@@ -143,6 +158,10 @@
                             </p>
                             <% if (Session["usuario"] != null)
                                 {   %>
+                            <%if (!esPaciente())
+                                { %>
+                            <%if (!esMedico())
+                                { %>
                             <p>
                                 <a href="Pacientes.aspx">
                                     <strong class="text-primary">Pacientes</strong>
@@ -154,8 +173,18 @@
                                     <strong class="text-primary">Recepcionistas</strong>
                                 </a>
                             </p>
-                            <%}
-%>
+                            <%}%>
+                            <%}%>
+
+                            <%if (esMedico())
+                                { %>
+                            <p>
+
+                                <a href="MisTurnos.aspx">
+                                    <strong class="text-primary">Mis Turnos</strong>
+                                </a>
+                            </p>
+                            <%}%>
                         </div>
                     </div>
                     <div class="col">
@@ -166,7 +195,8 @@
                             else
                             {  %>
                         <a href="LogIn.aspx" class="btn btn-light btn-lg" style="color: dodgerblue">Iniciar sesion!</a>
-                        <%} %>
+                        <%}%>
+                        <%}%>
                     </div>
                 </div>
             </div>

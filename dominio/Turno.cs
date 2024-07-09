@@ -22,5 +22,6 @@ namespace dominio
         public Medico medico { get; set; }
         public Paciente paciente { get; set; }
         public Especialidad especialidad  { get; set; }
+        public EstadoTurno EstadoT { get; set; }
     }
 }

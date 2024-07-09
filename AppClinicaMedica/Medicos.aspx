@@ -37,25 +37,25 @@
                     <div class="mb-3">
 
                         <asp:Label ID="lblNombre" Text="Nombre" runat="server" Font-Size="Large" Style="color: black;" />
-                        <asp:TextBox ID="txtNombre" CssClass="form-control" placeholder="Nombre" runat="server" />
+                        <asp:TextBox ID="txtNombre" CssClass="form-control" placeholder="Nombre"  runat="server" />
 
                         <asp:Label ID="lblApellido" Text="Apellido" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtApellido" CssClass="form-control" placeholder="Apellido" runat="server" />
+                        <asp:TextBox ID="txtApellido" CssClass="form-control" placeholder="Apellido"  runat="server" />
 
                         <asp:Label ID="lblMatricula" Text="Matricula" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtMatricula" CssClass="form-control" placeholder="Matricula" runat="server" />
+                        <asp:TextBox ID="txtMatricula" CssClass="form-control" placeholder="Matricula"  runat="server" />
 
                         <asp:Label ID="lblEmail" Text="Email" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="Email" runat="server" />
+                        <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="Email"  runat="server" />
 
                         <asp:Label ID="lblDni" Text="Dni" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtDni" CssClass="form-control" placeholder="Dni" runat="server" />
+                        <asp:TextBox ID="txtDni" CssClass="form-control" placeholder="Dni"  runat="server" />
 
                         <asp:Label ID="lblCelular" Text="Celular" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtCelular" CssClass="form-control" placeholder="Celular" runat="server" />
+                        <asp:TextBox ID="txtCelular" CssClass="form-control" placeholder="Celular"  runat="server" />
 
                         <asp:Label ID="lblDomicilio" Text="Domicilio" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtDomicilio" CssClass="form-control" placeholder="Domicilio" runat="server" />
+                        <asp:TextBox ID="txtDomicilio" CssClass="form-control" placeholder="Domicilio"  runat="server" />
                         <div class="row">
 
                             <div>
@@ -71,7 +71,7 @@
                     <div class="mb-3">
 
                         <asp:Label ID="lblCodPost" Text="Codigo postal" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtCodPost" CssClass="form-control" placeholder="Codigo Postal" runat="server" />
+                        <asp:TextBox ID="txtCodPost" CssClass="form-control" placeholder="Codigo Postal"  runat="server" />
 
                         <asp:Label ID="lblEspecialidades" Text="Especialidades" runat="server" Font-Size="Large" Style="color: black;" />
                         <div class="mb-1">
