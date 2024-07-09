@@ -11,6 +11,13 @@
 
     <h1 class="titPpal">Pacientes</h1>
     <a href="NuevoPaciente.aspx" class="btn my-boton" style="margin-left: 50px; margin-bottom: 10px">Agregar Paciente</a>
+    <div class="row">
+        <div class="col-2">
+            <asp:Label Text="Buscar" Style="color: black" runat="server" />
+            <asp:TextBox runat="server" ID="txtFiltroPacientes" AutoPostBack="true" OnTextChanged="txtFiltroPacientes_TextChanged" CssClass="form-control" />
+            <a href="Pacientes.aspx" class="btn btn-secondary">Limpiar filtro</a>
+        </div>
+    </div>
 
     <div class="row">
     <asp:GridView runat="server" ID="dgvPacientes" DataKeyNames="IDPaciente" OnSelectedIndexChanged="dgvPacientes_SelectedIndexChanged" CssClass="table table-bordered" Style="margin-right: 5px" AutoGenerateColumns="false">

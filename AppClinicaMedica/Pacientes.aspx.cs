@@ -1,4 +1,5 @@
-﻿using negocio;
+﻿using dominio;
+using negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,14 @@ namespace AppClinicaMedica
         {
             var id = dgvPacientes.SelectedDataKey.Value.ToString();
             Response.Redirect("NuevoPaciente.aspx?IDUsuario=" + id);
+        }
+
+        protected void txtFiltroPacientes_TextChanged(object sender, EventArgs e)
+        {
+            List<Paciente> lista = (List<Paciente>)Session["listaPacientes"];
+            List<Paciente> listaFiltrada = lista.FindAll(pac => pac.Apellido.ToUpper().Contains(txtFiltroPacientes.Text.ToUpper()));
+            dgvPacientes.DataSource = listaFiltrada;
+            dgvPacientes.DataBind();
         }
     }
 }
