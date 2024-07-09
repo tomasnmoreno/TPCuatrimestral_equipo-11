@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row nuevoPaciente">
         <div class="col-6">
-            <div class="col-6 ">
+            <div class=" mb-3">
                 <asp:Label ID="lblUsuario" Text="Usuario" Font-Size="Large" CssClass="" runat="server" Style="color: black;" />
                 <asp:TextBox runat="server" ID="txtUsuario" placeholder="Nombre de Usuario" CssClass="form-control" />
 
@@ -23,7 +23,11 @@
 
                 <asp:Label ID="lblEmail" Text="Email" Font-Size="Large" runat="server" Style="color: black;" />
                 <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="Email" runat="server" />
+            </div>
+        </div>
+        <div class="col-6">
 
+            <div class=" mb-3">
                 <asp:Label ID="lblDni" Text="Dni" Font-Size="Large" runat="server" Style="color: black;" />
                 <asp:TextBox ID="txtDni" CssClass="form-control" placeholder="Dni" runat="server" />
 
@@ -39,12 +43,12 @@
                 <asp:Label ID="lblNacimiento" Text="Fecha Nacimiento" Font-Size="Large" runat="server" Style="color: black;" />
                 <asp:TextBox runat="server" TextMode="Date" ID="txtNacimiento" CssClass="form-control" />
 
-
-                <div class="container agregarEspecialidad">
-                    <asp:Button Text="Aceptar" CssClass="btn btn-primary" ID="BtnAgregarMedico" OnClick="BtnAgregarMedico_Click1" runat="server" />
-                    <a href="Medicos.aspx" class="btn btn-danger" style="margin-left: 10px;">Cancelar</a>
-                </div>
             </div>
+
         </div>
+    </div>
+    <div class="container agregarEspecialidad">
+        <asp:Button Text="Aceptar" CssClass="btn btn-primary" ID="BtnAgregarMedico" OnClick="BtnAgregarMedico_Click1" runat="server" />
+        <a href="Medicos.aspx" class="btn btn-danger" style="margin-left: 10px;">Cancelar</a>
     </div>
 </asp:Content>

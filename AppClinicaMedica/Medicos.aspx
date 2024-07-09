@@ -9,18 +9,32 @@
     <asp:ScriptManager ID="scriptManager" runat="server" />
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
-            <div class="row">
-                <div class="col-8 table-responsive">
-                    <asp:GridView runat="server" ID="dgvMedicos" OnSelectedIndexChanged="dgvMedicos_SelectedIndexChanged" CssClass="table table-info table-bordered table-sm">
+            <div class="row" style="overflow: scroll; flex: content; max-height: 270px; margin-bottom: 50px;">
+                <div class="col-15 table-responsive ">
+                    <asp:GridView runat="server" ID="dgvMedicos" DataKeyNames="IDMedico" OnSelectedIndexChanged="dgvMedicos_SelectedIndexChanged" CssClass="table table-bordered" Style="margin-left: 0px; margin-top: 0px; box-shadow: 0px 0px 8px 0px green;" AutoGenerateColumns="false">
                         <Columns>
-
+                            <asp:BoundField HeaderText="Usuario" DataField="Usuario" />
+                            <asp:BoundField HeaderText="Id" DataField="IdMedico" />
+                            <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+                            <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
+                            <asp:BoundField HeaderText="Matricula" DataField="Matricula" />
+                            <asp:BoundField HeaderText="DNI" DataField="Dni" />
+                            <asp:BoundField HeaderText="Nacimiento" DataField="FechaDeNacimiento" />
+                            <asp:BoundField HeaderText="Mail" DataField="Email" />
+                            <asp:BoundField HeaderText="Celular" DataField="Celular" />
+                            <asp:BoundField HeaderText="Domicilio" DataField="Domicilio" />
+                            <asp:BoundField HeaderText="Cod Postal" DataField="CodPostal" />
                             <asp:CommandField ShowSelectButton="true" SelectText="Seleccionar" HeaderText="Acción" ControlStyle-CssClass="btn btn-sm btn-primary" />
+
                         </Columns>
                     </asp:GridView>
                     <asp:TextBox ID="txtId" CssClass="d-none" runat="server" />
                 </div>
-                <div class="col" style="margin-left: 50px">
-                    <div class="col-6 ">
+            </div>
+            <div class="row nuevoPaciente" style="margin-left: 50px">
+                <div class="col-6 ">
+
+                    <div class="mb-3">
 
                         <asp:Label ID="lblNombre" Text="Nombre" runat="server" Font-Size="Large" Style="color: black;" />
                         <asp:TextBox ID="txtNombre" CssClass="form-control" placeholder="Nombre" runat="server" />
@@ -42,6 +56,19 @@
 
                         <asp:Label ID="lblDomicilio" Text="Domicilio" Font-Size="Large" runat="server" Style="color: black;" />
                         <asp:TextBox ID="txtDomicilio" CssClass="form-control" placeholder="Domicilio" runat="server" />
+                        <div class="row">
+
+                            <div>
+                                <asp:Button Text="Limpiar" CssClass="btn btn-primary" ID="LimpiarCampos" OnClick="LimpiarCampos_Click" runat="server" />
+                                <asp:Button Text="Modificar" CssClass="btn btn-warning prueba" OnClick="btnModificar_Click" runat="server" />
+                                <asp:Button Text="Baja" ID="btnBajaMedico" OnClick="btnBajaMedicoClick" CssClass="btn btn-danger" runat="server" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <di class="col-6">
+                    <div class="mb-3">
 
                         <asp:Label ID="lblCodPost" Text="Codigo postal" Font-Size="Large" runat="server" Style="color: black;" />
                         <asp:TextBox ID="txtCodPost" CssClass="form-control" placeholder="Codigo Postal" runat="server" />
@@ -87,10 +114,9 @@
                             </button>
 
                             <% } %>
-
                         </div>
-                            <asp:Button ID="agregarHxM" class="btn btn-success" OnClick="btnAgregarHorarioaMedico" runat="server" Text="Agregar" />
-                            <asp:Button ID="eliminarHxM" class="btn btn-dark" OnClick="btnEliminarHorarioaMedico" runat="server" Text="Eliminar" />
+                        <asp:Button ID="agregarHxM" class="btn btn-success" OnClick="btnAgregarHorarioaMedico" runat="server" Text="Agregar" />
+                        <asp:Button ID="eliminarHxM" class="btn btn-dark" OnClick="btnEliminarHorarioaMedico" runat="server" Text="Eliminar" />
 
 
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -111,18 +137,18 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <asp:Button Text="Agregar" CssClass="btn btn-primary" ID="btnAgregarHorario" OnClick="btnAgregarHorario_Click" runat="server" AutoPostBack="false" />
+                                        <asp:Button Text="Agregar" CssClass="btn btn-primary" data-bs-dismiss="modal" ID="btnAgregarHorario" OnClick="btnAgregarHorario_Click" runat="server" AutoPostBack="false" />
                                     </div>
+
                                 </div>
                             </div>
-                        </div>
 
 
-                        <%--<button type="button" class="btn btn-success border rounded" data-toggle="modal" data-target="#miModal">
+                            <%--<button type="button" class="btn btn-success border rounded" data-toggle="modal" data-target="#miModal">
                             + 
                         </button>--%>
 
-                        <%-- <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+                            <%-- <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <!-- Contenido de la ventana emergente -->
@@ -141,20 +167,14 @@
                         </div>--%>
 
 
-                        <div>
-                            <asp:ListBox ID="listBoxHxM" CssClass="form-control h-100" runat="server"></asp:ListBox>
-                        </div>
-                        <div class="row">
-
                             <div>
-                                <asp:Button Text="Limpiar" CssClass="btn btn-primary" ID="LimpiarCampos" OnClick="LimpiarCampos_Click" runat="server" />
-                                <asp:Button Text="Modificar" CssClass="btn btn-warning prueba" OnClick="btnModificar_Click" runat="server" />
-                                <asp:Button Text="Baja" ID="btnBajaMedico" OnClick="btnBajaMedicoClick" CssClass="btn btn-danger" runat="server" />
+                                <asp:ListBox ID="listBoxHxM" CssClass="form-control h-100" runat="server"></asp:ListBox>
                             </div>
                         </div>
+
                     </div>
-                </div>
             </div>
+
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

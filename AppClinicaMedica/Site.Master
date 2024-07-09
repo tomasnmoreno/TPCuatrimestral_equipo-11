@@ -35,6 +35,8 @@
                         </a>
                         <div class="navbar__nav">
                             <ul class="nav__list">
+                                <%if (Session["usuario"] != null)
+                                    { %>
                                 <li class="nav__link">
                                     <a href="Turnos.aspx">Turnos</a>
                                 </li>
@@ -49,6 +51,7 @@
                                 <li class="nav__link">
                                     <a href="Recepcionistas.aspx">Recepcionistas</a>
                                 </li>
+                                <% } %>
                                 <% } %>
                                 <li class="nav__link">
                                     <a href="Especialidades.aspx">Especialidades</a>
@@ -120,6 +123,8 @@
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                             <h5 class="text-uppercase mb-4 front-weight-bold text-primary">Nuestra web</h5>
                             <hr class="mb-4" />
+                            <% if (Session["usuario"] != null)
+                                {   %>
                             <p>
                                 <a href="Home.aspx">
                                     <strong class="text-primary">Inicio</strong>
@@ -130,11 +135,14 @@
                                     <strong class="text-primary">Medicos</strong>
                                 </a>
                             </p>
+                            <%}%>
                             <p>
                                 <a href="Especialidades.aspx">
                                     <strong class="text-primary">Especialidades</strong>
                                 </a>
                             </p>
+                            <% if (Session["usuario"] != null)
+                                {   %>
                             <p>
                                 <a href="Pacientes.aspx">
                                     <strong class="text-primary">Pacientes</strong>
@@ -146,10 +154,19 @@
                                     <strong class="text-primary">Recepcionistas</strong>
                                 </a>
                             </p>
+                            <%}
+%>
                         </div>
                     </div>
                     <div class="col">
+                        <%if (Session["usuario"] != null)
+                            {  %>
                         <a href="Turnos.aspx" class="btn btn-light btn-lg" style="color: dodgerblue">Reserva una Cita hoy!</a>
+                        <%  }
+                            else
+                            {  %>
+                        <a href="LogIn.aspx" class="btn btn-light btn-lg" style="color: dodgerblue">Iniciar sesion!</a>
+                        <%} %>
                     </div>
                 </div>
             </div>

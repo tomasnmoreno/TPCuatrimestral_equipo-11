@@ -4,9 +4,12 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" style="padding: 20px">
     <h1 class="titPpal">Especialidades</h1>
+    <%if (Session["usuario"] != null)
+        {  %>
     <%if (!esPaciente())
         {  %>
     <a href="NuevaEspecialidad.aspx" class="btn my-boton" style="margin-left: 70px">Agregar Especialidad</a>
+    <%} %>
     <%} %>
     <div class="row">
         <div class="col-2">
@@ -26,6 +29,8 @@
                             <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: 200;"><%#Eval("DESCRIPCION") %></p>
                         </div>
                         <div class="col-md-4 mb-4">
+                            <%if (Session["usuario"] != null)
+                                { %>
                             <%if (!esPaciente())
                                 {  %>
                             <a href="NuevaEspecialidad.aspx?id=<%#Eval("IdEspecialidad") %>" class="btn btn-success" style="margin-left: 15px;">Modificar</a>
@@ -33,15 +38,19 @@
                             <%}
 
                             %>
+                            <%}
+
+                            %>
                         </div>
                         <%if (Session["usuario"] == null)
                             { %>
-                                <a href="LogIn.aspx" class="btn my-boton">Reserva un turno.</a>
+                        <a href="LogIn.aspx" class="btn my-boton">Reserva un turno.</a>
                         <% }
 
-                            %>
-                        <%else { %> 
-                            <a href="Turnos.aspx" class="btn my-boton">Reserva un turno.</a>
+                        %>
+                        <%else
+                            { %>
+                        <a href="Turnos.aspx" class="btn my-boton">Reserva un turno.</a>
                         <% } %>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ namespace AppClinicaMedica
                 List<Medico> lista = medicoNegocio.listar();
 
                 dgvMedicos.DataSource = lista;
-                Session.Add("listaMedicos", lista);
+
                 dgvMedicos.DataBind();
 
 
@@ -238,14 +238,14 @@ namespace AppClinicaMedica
         {
             GridViewRow row = dgvMedicos.SelectedRow;
 
-            txtMatricula.Text = row.Cells[2].Text;
-            txtNombre.Text = row.Cells[6].Text;
-            txtApellido.Text = row.Cells[7].Text;
-            txtEmail.Text = row.Cells[8].Text;
-            txtCelular.Text = row.Cells[11].Text;
+            txtNombre.Text = row.Cells[2].Text;
+            txtApellido.Text = row.Cells[3].Text;
+            txtMatricula.Text = row.Cells[4].Text;
             txtDni.Text = row.Cells[5].Text;
-            txtDomicilio.Text = row.Cells[10].Text;
-            txtCodPost.Text = row.Cells[12].Text;
+            txtEmail.Text = row.Cells[7].Text;
+            txtCelular.Text = row.Cells[8].Text;
+            txtDomicilio.Text = row.Cells[9].Text;
+            txtCodPost.Text = row.Cells[10].Text;
 
             int IdMedico = Convert.ToInt32(row.Cells[1].Text);
 
