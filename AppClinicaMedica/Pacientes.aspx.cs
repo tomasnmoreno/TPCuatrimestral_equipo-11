@@ -32,7 +32,7 @@ namespace AppClinicaMedica
         protected void txtFiltroPacientes_TextChanged(object sender, EventArgs e)
         {
             List<Paciente> lista = (List<Paciente>)Session["listaPacientes"];
-            List<Paciente> listaFiltrada = lista.FindAll(pac => pac.Apellido.ToUpper().Contains(txtFiltroPacientes.Text.ToUpper()));
+            List<Paciente> listaFiltrada = lista.FindAll(pac => pac.Apellido.ToUpper().Contains(txtFiltroPacientes.Text.ToUpper()) || pac.Nombre.ToUpper().Contains(txtFiltroPacientes.Text.ToUpper()));
             dgvPacientes.DataSource = listaFiltrada;
             dgvPacientes.DataBind();
         }

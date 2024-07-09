@@ -3,6 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" style="padding: 20px">
+
+    <script>
+        function confirmarBajaEspecialidad() {
+            return confirm("¿Desea dar de baja esta especialidad?");
+        }
+    </script>
+
     <h1 class="titPpal">Especialidades</h1>
     <%if (Session["usuario"] != null)
         {  %>
@@ -34,7 +41,7 @@
                             <%if (!esPaciente())
                                 {  %>
                             <a href="NuevaEspecialidad.aspx?id=<%#Eval("IdEspecialidad") %>" class="btn btn-success" style="margin-left: 15px;">Modificar</a>
-                            <asp:Button Text="Baja" ID="btnBajaEspecialidad" OnClick="btnBajaEspecialidad_Click" CssClass="btn btn-danger" runat="server" CommandArgument='<%#Eval("IdEspecialidad") %>' CommandName="IdEspecialidad" />
+                            <asp:Button Text="Baja" ID="btnBajaEspecialidad" OnClick="btnBajaEspecialidad_Click" OnClientClick="return confirmarBajaEspecialidad()" CssClass="btn btn-danger" runat="server" CommandArgument='<%#Eval("IdEspecialidad") %>' CommandName="IdEspecialidad" />
                             <%}
 
                             %>
