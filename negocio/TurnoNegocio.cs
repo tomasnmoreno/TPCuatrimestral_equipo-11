@@ -18,7 +18,7 @@ namespace negocio
 
             try
             {
-                datos.setQuery("select t.IDTurno, m.Nombre + ', ' + m.Apellido as Medico, e.Nombre as Especialidad, p.Nombre + ', ' + p.Apellido as Paciente, t.Fecha, t.Hora from Turnos t\r\ninner join MEDICOS m on m.IDUsuario = t.IDMedico\r\nleft join PACIENTES p on p.IDUsuario = t.IDPaciente\r\ninner join EspecialidadesXMedicos exm on exm.IDMedico = t.IDMedico\r\ninner join Especialidades e on e.Id = exm.IDEspecialidad");
+                datos.setQuery("select t.IDTurno, m.Nombre + ', ' + m.Apellido as Medico, e.Nombre as Especialidad, p.Nombre + ', ' + p.Apellido as Paciente, t.Fecha, t.Hora from Turnos t\r\ninner join MEDICOS m on m.IDUsuario = t.IDMedico\r\nleft join PACIENTES p on p.IDUsuario = t.IDPaciente\r\ninner join EspecialidadesXMedicos exm on exm.IDMedico = t.IDMedico\r\ninner join Especialidades e on e.Id = exm.IDEspecialidad order by Fecha asc, Hora asc");
                 datos.leer();
 
                 while (datos.Reader.Read())
@@ -70,7 +70,7 @@ namespace negocio
             
             try
             {
-                datos.setQuery("select t.IDTurno, m.Nombre + ', ' + m.Apellido as Medico, e.Nombre as Especialidad, p.Nombre + ', ' + p.Apellido as Paciente, t.Fecha, t.Hora from Turnos t\r\ninner join MEDICOS m on m.IDUsuario = t.IDMedico\r\nleft join PACIENTES p on p.IDUsuario = t.IDPaciente\r\ninner join EspecialidadesXMedicos exm on exm.IDMedico = t.IDMedico\r\ninner join Especialidades e on e.Id = exm.IDEspecialidad where t.IDMedico = @IDMedico");
+                datos.setQuery("select t.IDTurno, m.Nombre + ', ' + m.Apellido as Medico, e.Nombre as Especialidad, p.Nombre + ', ' + p.Apellido as Paciente, t.Fecha, t.Hora from Turnos t\r\ninner join MEDICOS m on m.IDUsuario = t.IDMedico\r\nleft join PACIENTES p on p.IDUsuario = t.IDPaciente\r\ninner join EspecialidadesXMedicos exm on exm.IDMedico = t.IDMedico\r\ninner join Especialidades e on e.Id = exm.IDEspecialidad where t.IDMedico = @IDMedico order by Fecha asc, Hora asc ");
                 datos.setearParametro("@IDMedico", IDMedico);
                 datos.leer();
 

@@ -46,9 +46,14 @@ a{
     font-size: 20px;
 }
 
-.table{
+.table {
     max-width: 100%;
     font-size: 15px;
+    text-align: center;
+    border-right: 2px solid #A7A6AA;
+    border-bottom: 2px solid #A7A6AA;
+    border-left: 2px solid white;
+    border-top: 2px solid white;
 }
 
 .container {

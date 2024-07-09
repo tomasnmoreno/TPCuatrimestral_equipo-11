@@ -26,12 +26,13 @@ namespace AppClinicaMedica
                 if (usuarioNegocio.Loguear(usuario))
                 {
                     Session.Add("usuario", usuario);
-                    Response.Redirect("Login.aspx", false);
+                    Response.Redirect("Home.aspx", false);
                 }
                 else
                 {
                     Session.Add("error", "Usuario o contraseña incorrectos.");
-                    Response.Redirect("Error.aspx");
+                    //Response.Redirect("Error.aspx", false);
+                    lblError.Text = Session["error"].ToString();
                 }
             }
             catch (Exception ex)
@@ -41,7 +42,7 @@ namespace AppClinicaMedica
             }
             finally
             {
-                Response.Redirect("Home.aspx");
+                //Response.Redirect("Home.aspx");
             }
         }
     }

@@ -16,7 +16,8 @@ namespace negocio
 
             try
             {
-                datos.setQuery("SELECT Idusuario, Matricula, Nombre, Apellido, U.NombreUsuario, U.Pass, Email, Nacimiento, Dni, Celular, Domicilio, CodPostal, U.Estado FROM MEDICOS, Usuarios U where MEDICOS.IDUsuario=U.ID AND U.Estado = 1");
+                //datos.setQuery("SELECT Idusuario, Matricula, Nombre, Apellido, U.NombreUsuario, U.Pass, Email, Nacimiento, Dni, Celular, Domicilio, CodPostal, U.Estado FROM MEDICOS, Usuarios U where MEDICOS.IDUsuario=U.ID AND U.Estado = 1");
+                datos.setQuery("SELECT m.Idusuario, m.Matricula, m.Nombre, m.Apellido, U.NombreUsuario, U.Pass, U.Email, m.Nacimiento, m.Dni, m.Celular, m.Domicilio, m.CodPostal, U.Estado, e.Id as Especialidad FROM MEDICOS m \r\ninner join Usuarios U on m.IDUsuario = m.IDUsuario \r\ninner join EspecialidadesXMedicos exm on exm.IDMedico = m.IDUsuario\r\ninner join Especialidades e on e.Id = exm.IDEspecialidad\r\nwhere m.IDUsuario=U.ID AND U.Estado = 1");
                 datos.leer();
 
                 while (datos.Reader.Read())
@@ -35,7 +36,7 @@ namespace negocio
                     aux.Domicilio = (string)datos.Reader["Domicilio"];
                     aux.CodPostal = (int)datos.Reader["CodPostal"];
                     aux.Estado = (bool)datos.Reader["Estado"];
-
+                    aux.IDEspecialidad = (int)datos.Reader["Especialidad"];
 
                     listaMedico.Add(aux);
                 }
