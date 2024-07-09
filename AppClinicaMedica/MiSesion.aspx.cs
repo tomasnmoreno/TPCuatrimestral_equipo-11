@@ -19,10 +19,9 @@ namespace AppClinicaMedica
             Session.Add("usuario", null);
             Response.Redirect("Home.aspx");
         }
-
         protected void btnCambioContraseña_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("CambiarContraseña.aspx");
         }
     }
 }

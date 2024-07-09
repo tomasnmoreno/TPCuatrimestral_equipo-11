@@ -56,14 +56,14 @@ Create Procedure SP_Nueva_Especialidad
 	Values(@nombre, @descripcion, @imagen)
 
 Go
---Create or Alter Procedure SP_Modificar_Especialidad
---	@nombre varchar(50),
---	@descripcion varchar(1000),
---	@imagen varchar(200),
---	@id int
---	as
---	Update Especialidades set Nombre = @nombre, Descripcion = @descripcion, Imagen = @imagen
---	Where Id = @id;
+Create or Alter Procedure SP_Modificar_Especialidad
+	@nombre varchar(50),
+	@descripcion varchar(1000),
+	@imagen varchar(200),
+	@id int
+	as
+	Update Especialidades set Nombre = @nombre, Descripcion = @descripcion, Imagen = @imagen
+	Where Id = @id;
 
 
 

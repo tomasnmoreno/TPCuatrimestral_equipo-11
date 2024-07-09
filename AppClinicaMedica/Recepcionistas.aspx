@@ -5,6 +5,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1 class="titPpal">Recepcionistas</h1>
     <a href="NuevoRecepcionista.aspx" class="btn my-boton" style="margin-left: 50px; margin-bottom: 10px">Agregar Recepcionista</a>
+    <div class="row">
+        <div class="col-2">
+            <asp:Label Text="Buscar" Style="color: black" runat="server" />
+            <asp:TextBox runat="server" ID="txtFiltroRecepcionistas" AutoPostBack="true" Ontextchanged="txtFiltroRecepcionistas_TextChanged" CssClass="form-control" />
+            <a href="Recepcionistas.aspx" class="btn btn-secondary">Limpiar filtro</a>
+        </div>
+    </div>
 
     <div class="row">
         <asp:GridView runat="server" ID="dgvRecepcionistas" DataKeyNames="IDRecepcionista" OnSelectedIndexChanged="dgvRecepcionistas_SelectedIndexChanged" 

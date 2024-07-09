@@ -26,6 +26,8 @@ namespace AppClinicaMedica
                 if (usuarioNegocio.Loguear(usuario))
                 {
                     Session.Add("usuario", usuario);
+                    Session.Add("IDUsuario", usuario.ID);
+                    Session.Add("Password", usuario.Pass);
                     Response.Redirect("Home.aspx", false);
                 }
                 else

@@ -29,5 +29,13 @@ namespace AppClinicaMedica
             var id = dgvRecepcionistas.SelectedDataKey.Value.ToString();
             Response.Redirect("NuevoRecepcionista.aspx?IDUsuario=" + id);
         }
+
+        protected void txtFiltroRecepcionistas_TextChanged(object sender, EventArgs e)
+        {
+            List<Recepcionista> lista = (List<Recepcionista>)Session["listaRecepcionistas"];
+            List<Recepcionista> listaFiltrada = lista.FindAll(rec => rec.Apellido.ToUpper().Contains(txtFiltroRecepcionistas.Text.ToUpper()) || rec.Nombre.ToUpper().Contains(txtFiltroRecepcionistas.Text.ToUpper()));
+            dgvRecepcionistas.DataSource = listaFiltrada;
+            dgvRecepcionistas.DataBind();
+        }
     }
 }
