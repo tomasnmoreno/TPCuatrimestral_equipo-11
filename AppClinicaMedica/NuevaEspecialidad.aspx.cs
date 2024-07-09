@@ -39,13 +39,6 @@ namespace AppClinicaMedica
             try
             {
                 List<Especialidad> listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
-                foreach (Especialidad esp in listaEspecialidades)
-                {
-                    if(txtEspecialidad.Text == esp.Nombre)
-                    {
-                        Session.Add("error", "Ya existe una especialidad con este nombre.");                      
-                    }
-                }
                 
                 EspecialidadNegocio negocio = new EspecialidadNegocio();
                 Especialidad especialidad = new Especialidad();
@@ -60,15 +53,24 @@ namespace AppClinicaMedica
                     especialidad.IdEspecialidad = int.Parse(id);
                     negocio.modificarEspecialidad(especialidad);
                 }
-                else
+                else if(id == "")
+                {
+                    foreach (Especialidad esp in listaEspecialidades)
+                    {
+                        if (txtEspecialidad.Text == esp.Nombre)
+                        {
+                            Response.Redirect("Error.aspx");
+                        }
+                    }
                     negocio.agregarEspecialidad(especialidad);
-
+                }
+                
                 Response.Redirect("Especialidades.aspx");
             }
             catch (Exception ex)
-            {
-                Response.Redirect("Error.aspx");
-                
+            { 
+                Session.Add("error", "Ya existe una especialidad con este nombre.");
+
             }
         }
     }

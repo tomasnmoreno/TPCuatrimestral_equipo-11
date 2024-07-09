@@ -44,13 +44,13 @@
                         </div>
                         <%if (Session["usuario"] == null)
                             { %>
-                        <a href="LogIn.aspx" class="btn my-boton">Reserva un turno.</a>
+                        <a href="LogIn.aspx" class="btn my-boton">Reservar un turno.</a>
                         <% }
 
                         %>
                         <%else
                             { %>
-                        <a href="Turnos.aspx" class="btn my-boton">Reserva un turno.</a>
+                        <a href="Turnos.aspx" class="btn my-boton">Reservar un turno.</a>
                         <% } %>
                     </div>
                 </div>
