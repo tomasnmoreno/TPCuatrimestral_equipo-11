@@ -31,17 +31,25 @@ namespace dominio
             //TipoUsuario = admin ? TipoUsuario.ADMIN : TipoUsuario;
             switch (tipo)
             {
-                case 1: TipoUsuario = TipoUsuario.ADMIN;
+                case 1:
+                    TipoUsuario = TipoUsuario.ADMIN;
                     break;
-                case 2: TipoUsuario = TipoUsuario.RECEP;
+                case 2:
+                    TipoUsuario = TipoUsuario.RECEP;
                     break;
-                case 3: TipoUsuario = TipoUsuario.MEDICO;
+                case 3:
+                    TipoUsuario = TipoUsuario.MEDICO;
                     break;
-                case 4: TipoUsuario = TipoUsuario.PACIENTE;
+                case 4:
+                    TipoUsuario = TipoUsuario.PACIENTE;
                     break;
-                default: 
+                default:
                     break;
             }
+
+        }
+        public Usuario()
+        {
         }
     }
 }

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AccesoDatos.cs" />
     <Compile Include="DiasSemanaNegocio.cs" />
+    <Compile Include="EmailService.cs" />
     <Compile Include="EspecialidadNegocio.cs" />
     <Compile Include="EspexMedNegocio.cs" />
     <Compile Include="HorarioNegocio.cs" />

@@ -47,5 +47,10 @@ namespace AppClinicaMedica
                 //Response.Redirect("Home.aspx");
             }
         }
+
+        protected void btnOlvideMiContraseña_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("OlvideMiContraseña.aspx");
+        }
     }
 }

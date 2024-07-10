@@ -11,17 +11,8 @@ namespace AppClinicaMedica
 {
 
 
-    public partial class LogIn
+    public partial class OlvideMiContraseña
     {
-
-        /// <summary>
-        /// Control form1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
         /// Control txtbUserName.
@@ -33,31 +24,22 @@ namespace AppClinicaMedica
         protected global::System.Web.UI.WebControls.TextBox txtbUserName;
 
         /// <summary>
-        /// Control txtbPassword.
+        /// Control txtbMail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtbPassword;
+        protected global::System.Web.UI.WebControls.TextBox txtbMail;
 
         /// <summary>
-        /// Control btnIngresar.
+        /// Control btnConfirmar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnIngresar;
-
-        /// <summary>
-        /// Control btnOlvideMiContraseña.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOlvideMiContraseña;
+        protected global::System.Web.UI.WebControls.Button btnConfirmar;
 
         /// <summary>
         /// Control lblError.

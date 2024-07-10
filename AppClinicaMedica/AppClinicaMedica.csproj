@@ -92,6 +92,7 @@
     <Content Include="NuevoMedico.aspx" />
     <Content Include="NuevoPaciente.aspx" />
     <Content Include="NuevoRecepcionista.aspx" />
+    <Content Include="OlvideMiContraseña.aspx" />
     <Content Include="Pacientes.aspx" />
     <Content Include="Recepcionistas.aspx" />
     <Content Include="Registrarse.aspx" />
@@ -186,6 +187,13 @@
     </Compile>
     <Compile Include="NuevoRecepcionista.aspx.designer.cs">
       <DependentUpon>NuevoRecepcionista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OlvideMiContraseña.aspx.cs">
+      <DependentUpon>OlvideMiContraseña.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OlvideMiContraseña.aspx.designer.cs">
+      <DependentUpon>OlvideMiContraseña.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pacientes.aspx.cs">
       <DependentUpon>Pacientes.aspx</DependentUpon>

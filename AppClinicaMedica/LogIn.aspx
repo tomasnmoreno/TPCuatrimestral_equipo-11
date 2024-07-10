@@ -18,13 +18,14 @@
             <div class="containerLogIn" style="margin-top: 100px; margin-bottom: 1000px">
                 <div class="rowLogIn">
                     <div>
-                        <asp:TextBox CssClass="paddingLogIn" Style="width: 400px; margin-bottom: 40px; font-size: 25px; border-radius: 5px; text-indent: 5px;" ID="txtbUserName" placeholder="Usuario" REQUIRED runat="server" />
+                        <asp:TextBox CssClass="paddingLogIn" Style="width: 400px; margin-bottom: 40px; font-size: 25px; border-radius: 5px; text-indent: 5px;" ID="txtbUserName" placeholder="Usuario" runat="server" />
                     </div>
                     <div>
-                        <asp:TextBox CssClass="paddingLogIn" type="password" Style="width: 400px; margin-bottom: 40px; font-size: 25px; border-radius: 5px; text-indent: 5px;" ID="txtbPassword" placeholder="Contraseña" REQUIRED runat="server" />
+                        <asp:TextBox CssClass="paddingLogIn" type="password" Style="width: 400px; margin-bottom: 40px; font-size: 25px; border-radius: 5px; text-indent: 5px;" ID="txtbPassword" placeholder="Contraseña" runat="server" />
                     </div>
                     <div>
                         <asp:Button CssClass="button button-primary button-ingresar paddingLogIn" ID="btnIngresar" OnClick="btnIngresar_Click" Text="Ingresar" runat="server" />
+                        <asp:Button CssClass="button button-primary button-ingresar paddingLogIn" ID="btnOlvideMiContraseña" OnClick="btnOlvideMiContraseña_Click" Text="Olvide mi contraseña" runat="server" />
                     </div>
                     <%if (Session["error"] != null)
                         {  %>
