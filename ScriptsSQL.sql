@@ -430,12 +430,11 @@ Create Table Turnos(
 	IDPaciente int foreign key references PACIENTES(IDUsuario),
 	IDMedico int not null foreign key references MEDICOS(IDUsuario),
 	Fecha date not null,
+	Observacion varchar(200) default '-',
 	Hora time not null, 
 	Estado tinyint not null foreign key references Estados_Turnos(Tipo) default 1,
 	Asignado bit not null default 0
 )
---delete from Turnos
-
 Go
 create procedure SP_InsertarTurno
 	@IDMedico int,

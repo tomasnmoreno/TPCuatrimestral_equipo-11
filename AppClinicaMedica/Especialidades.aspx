@@ -31,7 +31,7 @@
                 <div class="col-md-4 mb-4 d-flex align-items-stretch">
                     <div class="card mi-card" style="width: 100%;">
                         <div class="card-body">
-                            <img src="<%#Eval("IMAGEN") %>" class="card-img-top" style="object-fit: cover; object-position: center; width: 100%; height: 200px;" alt="...">
+                            <img src="<%#Eval("IMAGEN") %>" class="card-img-top" onerror="this.src='https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg'" style="object-fit:  cover; object-position: center; width: 100%; height: 200px;" alt="...">
                             <h2 class="card-title"><%#Eval("NOMBRE") %></h2>
                             <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: 200;"><%#Eval("DESCRIPCION") %></p>
                         </div>

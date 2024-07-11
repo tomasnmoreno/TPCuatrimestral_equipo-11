@@ -14,8 +14,8 @@ namespace dominio
         public DateTime Fecha { get; set; }
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
-        public int Estado { get; set; }
-        //public Estado EstadoTurno { get; set; }
+        public int Estado { get; set; } 
+        public string Observacion { get; set; }
         public bool Asignado { get; set; }
 
         // PARA dgvturnos //

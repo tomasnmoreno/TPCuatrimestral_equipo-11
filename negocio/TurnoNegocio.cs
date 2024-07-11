@@ -70,7 +70,7 @@ namespace negocio
             
             try
             {
-                datos.setQuery("select t.IDTurno, m.Nombre + ', ' + m.Apellido as Medico, e.Nombre as Especialidad, p.Nombre + ', ' + p.Apellido as Paciente, t.Fecha, t.Hora, et.Descripcion as Estado from Turnos t inner join MEDICOS m on m.IDUsuario = t.IDMedico\r\nleft join PACIENTES p on p.IDUsuario = t.IDPaciente\r\ninner join EspecialidadesXMedicos exm on exm.IDMedico = t.IDMedico\r\ninner join Especialidades e on e.Id = exm.IDEspecialidad inner join Estados_Turnos et on et.tipo = t.Estado  where t.IDMedico = @IDMedico order by Fecha asc, Hora asc ");
+                datos.setQuery("select t.IDTurno,t.Observacion, m.Nombre + ', ' + m.Apellido as Medico, e.Nombre as Especialidad, p.Nombre + ', ' + p.Apellido as Paciente, t.Fecha, t.Hora, et.Descripcion as Estado from Turnos t inner join MEDICOS m on m.IDUsuario = t.IDMedico\r\nleft join PACIENTES p on p.IDUsuario = t.IDPaciente\r\ninner join EspecialidadesXMedicos exm on exm.IDMedico = t.IDMedico\r\ninner join Especialidades e on e.Id = exm.IDEspecialidad inner join Estados_Turnos et on et.tipo = t.Estado  where t.IDMedico = @IDMedico order by Fecha asc, Hora asc ");
                 datos.setearParametro("@IDMedico", IDMedico);
                 datos.leer();
 
@@ -78,6 +78,7 @@ namespace negocio
                 {
                     Turno aux = new Turno();
                     aux.IdTurno = (Int64)datos.Reader["IDTurno"];
+                    aux.Observacion = (string)datos.Reader["Observacion"];
                     //aux.medico.Nombre = (string)datos.Reader["Medico"];
                     //aux.especialidad.Nombre = (string)datos.Reader["Especialidad"];
                     //aux.paciente.Nombre = (string)datos.Reader["Paciente"];

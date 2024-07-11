@@ -11,6 +11,7 @@
                 <asp:BoundField HeaderText="Especialidad" DataField="Especialidad.Nombre" />
                 <asp:BoundField HeaderText="Paciente" DataField="Paciente.Nombre" />
                 <asp:BoundField HeaderText="Estado" DataField="EstadoT.Descripcion" />
+                <asp:BoundField HeaderText="Observaciones" DataField="Observacion" />
                 <asp:TemplateField HeaderText="Fecha">
                     <ItemTemplate>
                         <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("Fecha", "{0:dddd, dd/MM/yyyy}") %>'></asp:Label>

@@ -44,7 +44,6 @@
     <Compile Include="DiasSemana.cs" />
     <Compile Include="Especialidad.cs" />
     <Compile Include="EspecialidadesxMedico.cs" />
-    <Compile Include="Estado.cs" />
     <Compile Include="EstadoTurno.cs" />
     <Compile Include="HorarioTrabajo.cs" />
     <Compile Include="HorarioxMedico.cs" />

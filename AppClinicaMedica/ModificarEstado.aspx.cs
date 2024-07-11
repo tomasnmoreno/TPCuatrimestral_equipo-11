@@ -21,9 +21,11 @@ namespace AppClinicaMedica
             AccesoDatos datos = new AccesoDatos();
             int idTurno = Convert.ToInt32(Session["IdTurno"]);
             int IdEstado = Convert.ToInt32(ddlEstados.SelectedItem.Value.ToString());
-            datos.setQuery("UPDATE TURNOS SET Estado = @IdEstado WHERE IDTurno = @IDTurno");
+            string observacion = txtObservaciones.Text;
+            datos.setQuery("UPDATE TURNOS SET Estado = @IdEstado, Observacion = @observacion WHERE IDTurno = @IDTurno");
             datos.setearParametro("@IDTurno", idTurno);
             datos.setearParametro("IdEstado", IdEstado);
+            datos.setearParametro("Observacion", observacion);
             datos.ejecutarAccion();
             Response.Redirect("MisTurnos.aspx");
         }
