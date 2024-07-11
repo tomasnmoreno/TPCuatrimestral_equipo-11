@@ -35,7 +35,7 @@ namespace AppClinicaMedica
         {
             try
             {
-                List<Medico> lista = medicoNegocio.listar();
+                List<Medico> lista = medicoNegocio.listarMed();
 
                 dgvMedicos.DataSource = lista;
 
@@ -109,7 +109,7 @@ namespace AppClinicaMedica
 
         protected void cargarDropDownListHxM(int idMedico)
         {
-            if(txtId.Text == "")
+            if (txtId.Text == "")
             {
                 DropDownListHxM.DataSource = horarioNegocio.listar();
                 DropDownListHxM.DataTextField = "HoraInicio";
@@ -346,10 +346,7 @@ namespace AppClinicaMedica
                 medicoNegocio.modificarMedico(medicoModificado);
 
 
-                //FUNCION QUE GENERA TURNOS AUTOMATICAMENTE
-                //List<string> listaIDHorario = new List<string>();
-                GenerarTurnosModificando(int.Parse(medicoModificado.IdMedico));
-                //FIN FUNCION
+
 
                 listBoxHxM.Items.Clear();
                 int idmed = int.Parse(txtId.Text.ToString());
@@ -557,6 +554,29 @@ namespace AppClinicaMedica
                     }
                 }
             }
+        }
+
+        protected void CrearTurnos_Click(object sender, EventArgs e)
+        {
+
+            int IdMedico = int.Parse(txtId.Text);
+
+            List<EspecialidadesxMedico> especialidades = especialidadesxMedico.listar().Where(exm => exm.IDMedico == IdMedico).ToList();
+
+            List<HorarioxMedico> horario = horariosxMed.listar().Where(hxm => hxm.IDMedico == IdMedico).ToList();
+
+            if (horario.Count > 0 && especialidades.Count > 0)
+            {
+                //FUNCION QUE GENERA TURNOS AUTOMATICAMENTE
+                //List<string> listaIDHorario = new List<string>();
+                GenerarTurnosModificando(IdMedico);
+                //FIN FUNCION
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Necesitas asignarle una especialidad y un horario al medico!')", true);
+            }
+
         }
     }
 }

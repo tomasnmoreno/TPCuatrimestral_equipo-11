@@ -23,9 +23,30 @@
     <form id="form1" runat="server">
         <header class="header">
             <div>
+                <%if (Session["usuario"] == null)
+                    { %>
                 <section class="header__info">
                     <p>En esta página web usted podra administrar sus agendas médicas. Registrese para comenzar...</p>
                 </section>
+                <% } %>
+                <%if (esMedico())
+                    { %>
+                <section class="header__info">
+                    <p>En esta página web usted podra administrar sus agendas médicas. Bienvenido, medico.</p>
+                </section>
+                <% } %>
+                <%if (esPaciente())
+                    { %>
+                <section class="header__info">
+                    <p>En esta página web usted podra administrar sus agendas médicas. Bienvenido, paciente.</p>
+                </section>
+                <% } %>
+                <%if (esRecepcionista())
+                    { %>
+                <section class="header__info">
+                    <p>En esta página web usted podra administrar sus agendas médicas. Bienvenido, recepcionista.</p>
+                </section>
+                <% } %>
                 <section class="container-navbar">
                     <nav class="navbar container">
                         <a href="Home.aspx" class="navbar__logo">
@@ -48,7 +69,7 @@
                                     <a href="MisTurnos.aspx">Mis Turnos</a>
                                 </li>
                                 <% } %>
-                                <%if (!esMedico())
+                                <%if (esAdmin())
                                     { %>
                                 <li class="nav__link">
                                     <a href="Medicos.aspx">Médicos</a>
@@ -83,22 +104,7 @@
                                 <img src="img\menu-icon.svg" alt="boton de busqueda" />
                             </button>
 
-                            <div class="navbar__mobile-menu">
-                                <ul class="nav__list-mobile">
-                                    <li class="nav__link-mobile">
-                                        <a href="Turnos.aspx">Turnos</a>
-                                    </li>
-                                    <li class="nav__link-mobile">
-                                        <a href="Medicos.aspx">Medicos</a>
-                                    </li>
-                                    <li class="nav__link-mobile">
-                                        <a href="Especialidades.aspx">Especialidades</a>
-                                    </li>
-                                    <li class="nav__link-mobile">
-                                        <a href="Pacientes.aspx">Pacientes</a>
-                                    </li>
-                                </ul>
-                            </div>
+
 
                         </div>
                     </nav>
@@ -139,29 +145,19 @@
                                     <strong class="text-primary">Inicio</strong>
                                 </a>
                             </p>
-                            <%if (!esPaciente())
-                                { %>
-                            <%if (!esMedico())
-                                { %>
-                            <p>
-                                <a href="Medicos.aspx">
-                                    <strong class="text-primary">Medicos</strong>
-                                </a>
-                            </p>
-                            <%}%>
-                            <%}%>
                             <%}%>
                             <p>
                                 <a href="Especialidades.aspx">
                                     <strong class="text-primary">Especialidades</strong>
                                 </a>
                             </p>
-                            <% if (Session["usuario"] != null)
-                                {   %>
-                            <%if (!esPaciente())
+                            <%if (esAdmin())
                                 { %>
-                            <%if (!esMedico())
-                                { %>
+                            <p>
+                                <a href="Medicos.aspx">
+                                    <strong class="text-primary">Medicos</strong>
+                                </a>
+                            </p>
                             <p>
                                 <a href="Pacientes.aspx">
                                     <strong class="text-primary">Pacientes</strong>
@@ -174,8 +170,6 @@
                                 </a>
                             </p>
                             <%}%>
-                            <%}%>
-
                             <%if (esMedico())
                                 { %>
                             <p>
@@ -195,7 +189,6 @@
                             else
                             {  %>
                         <a href="LogIn.aspx" class="btn btn-light btn-lg" style="color: dodgerblue">Iniciar sesion!</a>
-                        <%}%>
                         <%}%>
                     </div>
                 </div>

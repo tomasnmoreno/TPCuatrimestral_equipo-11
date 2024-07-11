@@ -541,7 +541,7 @@ namespace AppClinicaMedica
                     datos.ejecutarAccion();
                     Response.Redirect("Turnos.aspx");
                 }
-                if (esRecepcionista() || esAdmin())
+                //if (esRecepcionista() || esAdmin())
                 {
                     int IDPaciente = Convert.ToInt32(ddlPacientes.SelectedItem.Value);
                     int IDMedico = Convert.ToInt32(ddlMedicosFiltrados.SelectedItem.Value);

@@ -13,7 +13,7 @@
     <h1 class="titPpal">Especialidades</h1>
     <%if (Session["usuario"] != null)
         {  %>
-    <%if (!esPaciente())
+    <%if (esAdmin())
         {  %>
     <a href="NuevaEspecialidad.aspx" class="btn my-boton" style="margin-left: 70px">Agregar Especialidad</a>
     <%} %>
@@ -38,16 +38,12 @@
                         <div class="col-md-4 mb-4">
                             <%if (Session["usuario"] != null)
                                 { %>
-                            <%if (!esPaciente())
+                            <%if (esAdmin())
                                 {  %>
                             <a href="NuevaEspecialidad.aspx?id=<%#Eval("IdEspecialidad") %>" class="btn btn-success" style="margin-left: 15px;">Modificar</a>
                             <asp:Button Text="Baja" ID="btnBajaEspecialidad" OnClick="btnBajaEspecialidad_Click" OnClientClick="return confirmarBajaEspecialidad()" CssClass="btn btn-danger" runat="server" CommandArgument='<%#Eval("IdEspecialidad") %>' CommandName="IdEspecialidad" />
-                            <%}
-
-                            %>
-                            <%}
-
-                            %>
+                            <%}%>
+                            <%}%>
                         </div>
                         <%if (Session["usuario"] == null)
                             { %>

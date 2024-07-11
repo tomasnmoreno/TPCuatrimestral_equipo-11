@@ -16,8 +16,8 @@ namespace negocio
 
             try
             {
-                //datos.setQuery("SELECT Idusuario, Matricula, Nombre, Apellido, U.NombreUsuario, U.Pass, Email, Nacimiento, Dni, Celular, Domicilio, CodPostal, U.Estado FROM MEDICOS, Usuarios U where MEDICOS.IDUsuario=U.ID AND U.Estado = 1");
-                datos.setQuery("SELECT m.Idusuario, m.Matricula, m.Nombre, m.Apellido, U.NombreUsuario, U.Pass, U.Email, m.Nacimiento, m.Dni, m.Celular, m.Domicilio, m.CodPostal, U.Estado, e.Id as Especialidad FROM MEDICOS m \r\ninner join Usuarios U on m.IDUsuario = m.IDUsuario \r\ninner join EspecialidadesXMedicos exm on exm.IDMedico = m.IDUsuario\r\ninner join Especialidades e on e.Id = exm.IDEspecialidad\r\nwhere m.IDUsuario=U.ID AND U.Estado = 1");
+               // datos.setQuery("SELECT Idusuario, Matricula, Nombre, Apellido, U.NombreUsuario, U.Pass, Email, Nacimiento, Dni, Celular, Domicilio, CodPostal, U.Estado FROM MEDICOS inner join Usuarios U on MEDICOS.IDUsuario=U.ID AND U.Estado = 1");
+               datos.setQuery("SELECT m.Idusuario, m.Matricula, m.Nombre, m.Apellido, U.NombreUsuario, U.Pass, U.Email, m.Nacimiento, m.Dni, m.Celular, m.Domicilio, m.CodPostal, U.Estado, e.Id as Especialidad FROM MEDICOS m inner join Usuarios U on m.IDUsuario = m.IDUsuario inner join EspecialidadesXMedicos exm on exm.IDMedico = m.IDUsuario inner join Especialidades e on e.Id = exm.IDEspecialidad where m.IDUsuario=U.ID AND U.Estado = 1");
                 datos.leer();
 
                 while (datos.Reader.Read())
@@ -37,6 +37,50 @@ namespace negocio
                     aux.CodPostal = (int)datos.Reader["CodPostal"];
                     aux.Estado = (bool)datos.Reader["Estado"];
                     aux.IDEspecialidad = (int)datos.Reader["Especialidad"];
+
+                    listaMedico.Add(aux);
+                }
+                return listaMedico;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        public List<Medico> listarMed()
+        {
+            List<Medico> listaMedico = new List<Medico>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setQuery("SELECT Idusuario, Matricula, Nombre, Apellido, U.NombreUsuario, U.Pass, Email, Nacimiento, Dni, Celular, Domicilio, CodPostal, U.Estado FROM MEDICOS inner join Usuarios U on MEDICOS.IDUsuario=U.ID AND U.Estado = 1");
+                //datos.setQuery("SELECT m.Idusuario, m.Matricula, m.Nombre, m.Apellido, U.NombreUsuario, U.Pass, U.Email, m.Nacimiento, m.Dni, m.Celular, m.Domicilio, m.CodPostal, U.Estado, e.Id as Especialidad FROM MEDICOS m inner join Usuarios U on m.IDUsuario = m.IDUsuario inner join EspecialidadesXMedicos exm on exm.IDMedico = m.IDUsuario inner join Especialidades e on e.Id = exm.IDEspecialidad where m.IDUsuario=U.ID AND U.Estado = 1");
+                datos.leer();
+
+                while (datos.Reader.Read())
+                {
+                    Medico aux = new Medico();
+                    aux.IdMedico = datos.Reader["Idusuario"].ToString();
+                    aux.Matricula = (int)datos.Reader["Matricula"];
+                    aux.Nombre = (string)datos.Reader["Nombre"];
+                    aux.Apellido = (string)datos.Reader["Apellido"];
+                    aux.Email = (string)datos.Reader["Email"];
+                    aux.Usuario = (string)datos.Reader["NombreUsuario"];
+                    aux.Contraseña = (string)datos.Reader["Pass"];
+                    aux.FechaDeNacimiento = (DateTime)datos.Reader["Nacimiento"];
+                    aux.Dni = (Int64)datos.Reader["Dni"];
+                    aux.Celular = (Int64)datos.Reader["Celular"];
+                    aux.Domicilio = (string)datos.Reader["Domicilio"];
+                    aux.CodPostal = (int)datos.Reader["CodPostal"];
+                    aux.Estado = (bool)datos.Reader["Estado"];
 
                     listaMedico.Add(aux);
                 }

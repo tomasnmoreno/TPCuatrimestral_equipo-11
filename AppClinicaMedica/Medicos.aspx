@@ -62,6 +62,7 @@
                                 <asp:Button Text="Limpiar" CssClass="btn btn-primary" ID="LimpiarCampos" OnClick="LimpiarCampos_Click" runat="server" />
                                 <asp:Button Text="Modificar" CssClass="btn btn-warning prueba" OnClick="btnModificar_Click" runat="server" />
                                 <asp:Button Text="Baja" ID="btnBajaMedico" OnClick="btnBajaMedicoClick" CssClass="btn btn-danger" runat="server" />
+                                <asp:Button Text="Crear turnos disponibles" ID="CrearTurnos" OnClick="CrearTurnos_Click"  CssClass="btn btn-success" runat="server" />
                             </div>
                         </div>
                     </div>

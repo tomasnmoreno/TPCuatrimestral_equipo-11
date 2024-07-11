@@ -14,11 +14,39 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-    <h1 class="titPpal">Turnos</h1>
     <asp:ScriptManager ID="scriptManager" runat="server" />
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
+            <asp:Label Text="Turnos Encontrados" runat="server"
+                Style="color: mediumorchid; margin-top: 5px; margin-left: 42px; font-size: 35px" />
+            <%if (Session["error"] != null)
+                {  %>
+            <div style="color: red; font-size: 25px; margin-top: 25px; margin-bottom: 25px;">
+                <asp:Label runat="server" ID="lblError"></asp:Label>
+            </div>
+            <% }  %>
+            <div class="row" style="overflow: scroll; flex: content; max-height: 300px; margin-bottom: 50px;">
+                <asp:GridView runat="server" ID="dgvTurnos" DataKeyNames="IDTurno" OnSelectedIndexChanged="dgvTurnos_SelectedIndexChanged"
+                    CssClass="table table-bordered" Style="margin-left: 0px; margin-top: 0px; box-shadow: 0px 0px 8px 0px blueviolet;" AutoGenerateColumns="false" > <%--AllowSorting="true" OnSorting="dgvTurnos_Sorting"--%>
+                    <Columns>
+                        <%--EL GRID SE DEBE AUTOCOMPLETAR CADA VEZ QUE SE CAMBIA EL MEDICO--%>
+                        <asp:BoundField HeaderText="Nro de Turno" DataField="IDTurno" />
+                        <asp:BoundField HeaderText="Medico" DataField="Medico.Nombre" />
+                        <asp:BoundField HeaderText="Especialidad" DataField="Especialidad.Nombre" />
+                        <asp:BoundField HeaderText="Paciente" DataField="Paciente.Nombre" />
+                        <asp:TemplateField HeaderText="Fecha">
+                            <ItemTemplate>
+                                <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("Fecha", "{0:dddd, dd/MM/yyyy}") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField HeaderText="Hora" DataField="HoraInicio" />
+                        <asp:CommandField ShowSelectButton="true" SelectText="Elegir" HeaderText="Elegir Turno" ButtonType="Button" ControlStyle-CssClass="btn btn-primary" />
+                        <asp:CommandField ShowSelectButton="true" SelectText="Desasignar" HeaderText="Desasignar" ButtonType="Button" ControlStyle-CssClass="btn btn-danger" />
+                        <asp:CommandField ShowSelectButton="true" SelectText="Cancelar" HeaderText="Canelar Turno" ButtonType="Button" ControlStyle-CssClass="btn btn-danger" />
+                    </Columns>
+                </asp:GridView>
+            </div>
+            <hr />
             <div class="row">
                 <div class="col-6">
 
@@ -75,35 +103,7 @@
                 <a href="Turnos.aspx" class="btn btn-danger" style="margin-top: 40px; margin-left: 10px;">Cancelar</a>
             </div>
             <hr />
-            <asp:Label Text="Turnos Encontrados" runat="server"
-                Style="color: mediumorchid; margin-top: 5px; margin-left: 42px; font-size: 35px" />
-            <%if (Session["error"] != null)
-                {  %>
-            <div style="color: red; font-size: 25px; margin-top: 25px; margin-bottom: 25px;">
-                <asp:Label runat="server" ID="lblError"></asp:Label>
-            </div>
-            <% }  %>
-            <div class="row" style="overflow: scroll; flex: content; max-height: 500px; margin-bottom: 50px;">
-                <asp:GridView runat="server" ID="dgvTurnos" DataKeyNames="IDTurno" OnSelectedIndexChanged="dgvTurnos_SelectedIndexChanged"
-                    CssClass="table table-bordered" Style="margin-left: 0px; margin-top: 0px; box-shadow: 0px 0px 8px 0px blueviolet;" AutoGenerateColumns="false" > <%--AllowSorting="true" OnSorting="dgvTurnos_Sorting"--%>
-                    <Columns>
-                        <%--EL GRID SE DEBE AUTOCOMPLETAR CADA VEZ QUE SE CAMBIA EL MEDICO--%>
-                        <asp:BoundField HeaderText="Nro de Turno" DataField="IDTurno" />
-                        <asp:BoundField HeaderText="Medico" DataField="Medico.Nombre" />
-                        <asp:BoundField HeaderText="Especialidad" DataField="Especialidad.Nombre" />
-                        <asp:BoundField HeaderText="Paciente" DataField="Paciente.Nombre" />
-                        <asp:TemplateField HeaderText="Fecha">
-                            <ItemTemplate>
-                                <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("Fecha", "{0:dddd, dd/MM/yyyy}") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField HeaderText="Hora" DataField="HoraInicio" />
-                        <asp:CommandField ShowSelectButton="true" SelectText="Elegir" HeaderText="Elegir Turno" ButtonType="Button" ControlStyle-CssClass="btn btn-primary" />
-                        <asp:CommandField ShowSelectButton="true" SelectText="Desasignar" HeaderText="Desasignar" ButtonType="Button" ControlStyle-CssClass="btn btn-danger" />
-                        <asp:CommandField ShowSelectButton="true" SelectText="Cancelar" HeaderText="Canelar Turno" ButtonType="Button" ControlStyle-CssClass="btn btn-danger" />
-                    </Columns>
-                </asp:GridView>
-            </div>
+            
         </ContentTemplate>
     </asp:UpdatePanel>
 
