@@ -94,17 +94,18 @@
                             <%  } %>
 
                             <% if (Session["usuario"] != null)
-                                {   %>
+                                {
+                                    string nombre = Session["nombreUsuario"].ToString();
+                            %>
                             <a href="MiSesion.aspx" class="navbar_User">
                                 <img src="img/User.png" alt="Alternate Text" />
                             </a>
+                            <li class="lblUser"> <%=nombre%> </li>
                             <%  } %>
 
                             <button type="button" class="navbar__toggle-btn">
                                 <img src="img\menu-icon.svg" alt="boton de busqueda" />
                             </button>
-
-
 
                         </div>
                     </nav>

@@ -234,3 +234,8 @@ a{
 .lblError{
     font-size: 40px;
 }
+
+.lblUser{
+    color: darkblue;
+    font-size: 30px;
+}
