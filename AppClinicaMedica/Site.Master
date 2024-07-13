@@ -100,7 +100,8 @@
                             <a href="MiSesion.aspx" class="navbar_User">
                                 <img src="img/User.png" alt="Alternate Text" />
                             </a>
-                            <li class="lblUser"> <%=nombre%> </li>
+                            <a href="MiSesion.aspx" class="lblUser"><%=nombre.ToUpper()%></a>
+                            <asp:Button ID="btnDesloguearse" Text="Cerrar Sesión" CssClass="btn btn-danger" runat="server" OnClick="btnDesloguearse_Click" />
                             <%  } %>
 
                             <button type="button" class="navbar__toggle-btn">

@@ -14,6 +14,12 @@ namespace AppClinicaMedica
         {
 
         }
+
+        protected void btnDesloguearse_Click(object sender, EventArgs e)
+        {
+            Session.Add("usuario", null);
+            Response.Redirect("LogIn.aspx");
+        }
         protected bool esAdmin()
         {
             if ((Session["usuario"] != null && (((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.ADMIN)))
