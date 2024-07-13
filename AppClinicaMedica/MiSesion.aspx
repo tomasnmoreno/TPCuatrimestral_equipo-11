@@ -16,7 +16,7 @@
             <asp:TextBox runat="server" ID="txtPerfilDni" CssClass="form-control txtPerfil"/>
             <asp:Label Text="Fecha de Nacimiento" ID="lblPerfilNacimiento" runat="server" cssclass="lblPerfil"/>
             <asp:TextBox runat="server" ID="txtPerfilNacimiento" CssClass="form-control txtPerfil"/>
-            <asp:Button ID="btnCambioContraseña" Text="Modificar Contraseña" CssClass="btn btn-primary" runat="server" OnClick="btnCambioContraseña_Click" style="margin-top: 35px;"/>
+            <asp:Button ID="btnCambioContraseña" Text="Modificar Contraseña" CssClass="btn btn-primary" runat="server" OnClick="btnCambioContraseña_Click" style="margin-top: 35px; margin-bottom: 50px;"/>
         </div>
         <div class="col-4">
             <asp:Label Text="Domicilio" ID="lblPerfilDomicilio" runat="server" cssclass="lblPerfil"/>

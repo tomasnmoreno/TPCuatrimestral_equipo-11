@@ -216,6 +216,7 @@ a{
     color: aliceblue;
     background-color: mediumblue;
     border-radius: 12px;
+    padding: 10px;
 }
 
 .fuenteLogIn:hover {
@@ -244,8 +245,12 @@ a{
 .txtPerfil{
     width: 500px;
     margin: 20px 0px 20px 0px;
+    padding: 10px;
+    font-size: 20px;
 }
 
 .lblPerfil{
     color: black;
+    font-size: 25px;
+    font-weight: bold;
 }
