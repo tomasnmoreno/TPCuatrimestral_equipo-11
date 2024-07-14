@@ -496,3 +496,7 @@ exec SP_Nuevo_Recepcionista 'Jesus', 'Ludena', '1999-02-24', 427779999, 'jludena
 
 
 
+SELECT R.Nombre, R.Apellido, R.Dni, R.Nacimiento, R.Domicilio, U.Email, R.Celular, U.FechaAlta 
+FROM RECEPCIONISTAS R
+INNER JOIN Usuarios U ON R.IDUsuario = U.ID
+WHERE U.ID = @IDUsuario
