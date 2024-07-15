@@ -418,6 +418,11 @@ Create Table Turnos(
 	Asignado bit not null default 0
 )
 Go
+
+CREATE UNIQUE INDEX IX_FechaHora ON Turnos (Fecha, Hora);
+
+
+
 create procedure SP_InsertarTurno
 	@IDMedico int,
 	@Fecha date,
