@@ -28,12 +28,19 @@ namespace AppClinicaMedica
 
 
             string contraseña = usuarioNegocio.ListarU(mail, username);
-            
-            emailService.ArmarCorreo(mail, contraseña);
-            
-            emailService.EnviarMail();
 
+            if (contraseña != "")
+            {
+            emailService.ArmarCorreo(mail, contraseña);
+            emailService.EnviarMail();
             Response.Redirect("LogIn.aspx");
+            }
+            else
+            {
+                Session.Add("error", "el nombre de usuario o mail no coinciden con un usuario registrado.");
+                Response.Redirect("Error.aspx");
+            }
+            
         }
     }
 }

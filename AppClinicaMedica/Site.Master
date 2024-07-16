@@ -58,9 +58,12 @@
                             <ul class="nav__list">
                                 <%if (Session["usuario"] != null)
                                     { %>
+                                <%if (!esMedico())
+                                { %>
                                 <li class="nav__link">
                                     <a href="Turnos.aspx">Turnos</a>
                                 </li>
+                                <% } %>
                                 <%if (!esPaciente())
                                     { %>
                                 <%if (esMedico())

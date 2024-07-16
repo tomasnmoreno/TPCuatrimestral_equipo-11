@@ -59,10 +59,19 @@ namespace AppClinicaMedica
 
                     };
 
-                    medicoNegocio.agregarMedico(medicoNuevo);
-                                     
-                    Response.Redirect("Medicos.aspx");
+                    List<Medico> comparar = medicoNegocio.listar().Where(mn => mn.Usuario == medicoNuevo.Usuario || mn.Email==medicoNuevo.Email).ToList();
 
+                    if (comparar.Count() == 0)
+                    {
+                        medicoNegocio.agregarMedico(medicoNuevo);
+
+                        Response.Redirect("Medicos.aspx");
+                    }
+                    else
+                    {
+                        Session.Add("error", "Medico ya registrado.");
+                        Response.Redirect("Error.aspx");
+                    }
                 }
             }
             catch (Exception)

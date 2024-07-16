@@ -33,7 +33,7 @@ namespace negocio
             Mail.Subject = "Olvide mi contraseña.";
             Mail.IsBodyHtml = true;
             Mail.Priority = MailPriority.High;
-            Mail.Body = "<h1> Usted ha solicitado su contraseña </h1 <br> su contraseña es " + Contraseña + "</br>";
+            Mail.Body = "<h1> Usted ha solicitado su contraseña. </h1 <br> Su contraseña es " + Contraseña + "</br>";
 
 
         }
