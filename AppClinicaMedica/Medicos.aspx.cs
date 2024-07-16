@@ -29,7 +29,16 @@ namespace AppClinicaMedica
             {
                 ddlDiasCargar();
             }
+            Session.Add("listaMedicos", medicoNegocio.listar());
 
+        }
+
+        protected void txtFiltroMedicos_TextChanged(object sender, EventArgs e)
+        {
+            List<Medico> lista = (List<Medico>)Session["listaMedicos"];
+            List<Medico> listaFiltrada = lista.FindAll(med => med.Apellido.ToUpper().Contains(txtFiltroMedicos.Text.ToUpper()) || med.Nombre.ToUpper().Contains(txtFiltroMedicos.Text.ToUpper()));
+            dgvMedicos.DataSource = listaFiltrada;
+            dgvMedicos.DataBind();
         }
         protected void cargarListaMedicos()
         {

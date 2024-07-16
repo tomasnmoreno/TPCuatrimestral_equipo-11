@@ -494,11 +494,6 @@ namespace AppClinicaMedica
             {
                 ddlPacientes.Items.Insert(0, new ListItem("Seleccione una opción", ""));
             }
-            //if (!IsPostBack && (Session["usuario"] != null && ((dominio.Usuario)(Session["usuario"])).TipoUsuario == TipoUsuario.PACIENTE))
-            //if (!IsPostBack && (Session["usuario"] != null && (esPaciente())))
-            //{
-            //    ddlPacientes.Items.RemoveAt(0);
-            //}
 
         }
         protected void txtFecha_TextChanged(object sender, EventArgs e)

@@ -35,7 +35,8 @@
         </div>
         <div class="mb-3">
 
-            <asp:Button ID="btnModificar" Text="Modificar" OnClick="btnModificar_Click" CssClass="btn btn-danger" runat="server" />
+            <asp:Button ID="btnModificar" Text="Modificar" OnClick="btnModificar_Click" CssClass="btn btn-primary" runat="server" />
+            <a href="MisTurnos.aspx" class="btn btn-danger">Cancelar</a>
         </div>
 
     </div>

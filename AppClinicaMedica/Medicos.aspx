@@ -5,7 +5,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1 class="titPpal">Médicos </h1>
     <a href="NuevoMedico.aspx" class="btn my-boton" style="margin-left: 70px">Agregar Medico</a>
-
+    <div class="row">
+        <div class="col-2">
+            <asp:Label Text="Buscar" Style="color: black" runat="server" />
+            <asp:TextBox runat="server" ID="txtFiltroMedicos" AutoPostBack="true" OnTextChanged="txtFiltroMedicos_TextChanged" CssClass="form-control" />
+            <a href="Medicos.aspx" class="btn btn-secondary">Limpiar filtro</a>
+        </div>
+    </div>
     <asp:ScriptManager ID="scriptManager" runat="server" />
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
@@ -37,32 +43,32 @@
                     <div class="mb-3">
 
                         <asp:Label ID="lblNombre" Text="Nombre" runat="server" Font-Size="Large" Style="color: black;" />
-                        <asp:TextBox ID="txtNombre" CssClass="form-control" placeholder="Nombre"  runat="server" />
+                        <asp:TextBox ID="txtNombre" CssClass="form-control" placeholder="Nombre" runat="server" />
 
                         <asp:Label ID="lblApellido" Text="Apellido" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtApellido" CssClass="form-control" placeholder="Apellido"  runat="server" />
+                        <asp:TextBox ID="txtApellido" CssClass="form-control" placeholder="Apellido" runat="server" />
 
                         <asp:Label ID="lblMatricula" Text="Matricula" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtMatricula" CssClass="form-control" placeholder="Matricula"  runat="server" />
+                        <asp:TextBox ID="txtMatricula" CssClass="form-control" placeholder="Matricula" runat="server" />
 
                         <asp:Label ID="lblEmail" Text="Email" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="Email"  runat="server" />
+                        <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="Email" runat="server" />
 
                         <asp:Label ID="lblDni" Text="Dni" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtDni" CssClass="form-control" placeholder="Dni"  runat="server" />
+                        <asp:TextBox ID="txtDni" CssClass="form-control" placeholder="Dni" runat="server" />
 
                         <asp:Label ID="lblCelular" Text="Celular" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtCelular" CssClass="form-control" placeholder="Celular"  runat="server" />
+                        <asp:TextBox ID="txtCelular" CssClass="form-control" placeholder="Celular" runat="server" />
 
                         <asp:Label ID="lblDomicilio" Text="Domicilio" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtDomicilio" CssClass="form-control" placeholder="Domicilio"  runat="server" />
+                        <asp:TextBox ID="txtDomicilio" CssClass="form-control" placeholder="Domicilio" runat="server" />
                         <div class="row">
 
                             <div>
                                 <asp:Button Text="Limpiar" CssClass="btn btn-primary" ID="LimpiarCampos" OnClick="LimpiarCampos_Click" runat="server" />
                                 <asp:Button Text="Modificar" CssClass="btn btn-warning prueba" OnClick="btnModificar_Click" runat="server" />
                                 <asp:Button Text="Baja" ID="btnBajaMedico" OnClick="btnBajaMedicoClick" CssClass="btn btn-danger" runat="server" />
-                                <asp:Button Text="Crear turnos disponibles" ID="CrearTurnos" OnClick="CrearTurnos_Click"  CssClass="btn btn-success" runat="server" />
+                                <asp:Button Text="Crear turnos disponibles" ID="CrearTurnos" OnClick="CrearTurnos_Click" CssClass="btn btn-success" runat="server" />
                             </div>
                         </div>
                     </div>
@@ -72,7 +78,7 @@
                     <div class="mb-3">
 
                         <asp:Label ID="lblCodPost" Text="Codigo postal" Font-Size="Large" runat="server" Style="color: black;" />
-                        <asp:TextBox ID="txtCodPost" CssClass="form-control" placeholder="Codigo Postal"  runat="server" />
+                        <asp:TextBox ID="txtCodPost" CssClass="form-control" placeholder="Codigo Postal" runat="server" />
 
                         <asp:Label ID="lblEspecialidades" Text="Especialidades" runat="server" Font-Size="Large" Style="color: black;" />
                         <div class="mb-1">
