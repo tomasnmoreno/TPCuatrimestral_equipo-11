@@ -97,7 +97,7 @@ create or alter procedure SP_Nuevo_Medico
 
 		if @Dni not in (select Dni from MEDICOS where Dni = @Dni) begin
 			INSERT INTO Usuarios(NombreUsuario, Pass, Email, Tipo, Estado)
-			values	(@NombreUsuario, @Pass, @Email, 4, 1)
+			values	(@NombreUsuario, @Pass, @Email, 3, 1)
 
 			declare @IDusuario int 
 			select @IDusuario = ID from Usuarios where NombreUsuario = @NombreUsuario
@@ -498,10 +498,3 @@ exec SP_Nuevo_Paciente 'Tomas', 'Moreno', '1999-04-24', 41893710, 'tomasmoreno@g
 -- RECEPCIONISTAS
 GO
 exec SP_Nuevo_Recepcionista 'Jesus', 'Ludena', '1999-02-24', 427779999, 'jludena@gmail.com', 1522334455, 'Florencio Varela 2054', 1704, 'jludena', '1234';
-
-
-
-SELECT R.Nombre, R.Apellido, R.Dni, R.Nacimiento, R.Domicilio, U.Email, R.Celular, U.FechaAlta 
-FROM RECEPCIONISTAS R
-INNER JOIN Usuarios U ON R.IDUsuario = U.ID
-WHERE U.ID = @IDUsuario
